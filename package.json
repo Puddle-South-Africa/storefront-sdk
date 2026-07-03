@@ -2,6 +2,10 @@
   "name": "@jadenstock/puddle-storefront-api",
   "version": "0.1.0",
   "description": "The Puddle Storefront API provides endpoints for integrating the Puddle platform with external online stores, enabling seamless product management, order processing, and customer interactions.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Puddle-South-Africa/storefront-sdk.git"
+  },
   "type": "module",
   "sideEffects": false,
   "main": "./dist/cjs/index.js",
