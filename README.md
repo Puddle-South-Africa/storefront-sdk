@@ -1,6 +1,6 @@
-# Puddle Storefront API
+# @puddle/storefront
 
-Generated TypeScript SDK for Puddle Storefront API.
+TypeScript SDK for Puddle Storefront API.
 The Puddle Storefront API provides endpoints for integrating the Puddle platform with external online stores, enabling seamless product management, order processing, and customer interactions.
 
 <br />
@@ -24,7 +24,7 @@ The Puddle Storefront API provides endpoints for integrating the Puddle platform
 ## Installation
 
 ```sh
-npm install @jadenstock/puddle-storefront-api
+npm install @puddle/storefront
 ```
 
 <br />
@@ -32,14 +32,17 @@ npm install @jadenstock/puddle-storefront-api
 ## Usage
 
 ```ts
-import PuddleStorefrontAPI from "@jadenstock/puddle-storefront-api";
+import PuddleStorefront from "@puddle/storefront";
 
-const client = new PuddleStorefrontAPI();
-
-const list = await client.accounts.list({
-  authorization: "authorization",
+const client = new PuddleStorefront({
+  storefrontPublicKey: "pk_storefront_...",
 });
-console.log(list);
+
+const products = await client.products.listTrending();
+console.log(products);
+
+const account = await client.accounts.list();
+console.log(account);
 ```
 
 The examples in the following sections assume a `client` configured as shown above.
@@ -50,7 +53,7 @@ See the [API reference](./api.md) for every available operation.
 
 ## Authentication
 
-Pass credentials to the generated client constructor. Environment variables are read automatically when supported by the target runtime.
+Pass the storefront public key once when you create the client. Environment variables are read automatically when supported by the target runtime.
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -67,12 +70,10 @@ Declared schemes:
 Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
 
 ```ts
-import { APIError } from "@jadenstock/puddle-storefront-api";
+import { APIError } from "@puddle/storefront";
 
 try {
-  const list = await client.accounts.list({
-    authorization: "authorization",
-  });
+  const list = await client.accounts.list();
 } catch (err) {
   if (err instanceof APIError) {
     console.log(err.status, err.name, err.headers);
@@ -90,9 +91,10 @@ Documented error statuses: `400`, `401`, `403`, `404`, `500`.
 Configure the generated client by setting any of these options when you create it.
 
 ```ts
-import PuddleStorefrontAPI from "@jadenstock/puddle-storefront-api";
+import PuddleStorefront from "@puddle/storefront";
 
-const client = new PuddleStorefrontAPI({
+const client = new PuddleStorefront({
+  storefrontPublicKey: "pk_storefront_...",
   timeout: 60000,
   maxRetries: 2,
   logLevel: "debug",
@@ -102,14 +104,14 @@ const client = new PuddleStorefrontAPI({
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
 | `storefrontPublicKey` | `string \| AuthTokenProvider` | `process.env["STOREFRONT_PUBLIC_KEY"]` | Use the storefront public key as the bearer token in the Authorization header. |
-| `baseURL` | `string \| null` | `process.env["JADENSTOCK_BASE_URL"]` | Override the default API base URL. Pass `null` when selecting a configured environment. |
+| `baseURL` | `string \| null` | `process.env["PUDDLE_STOREFRONT_BASE_URL"]` | Override the default API base URL. Pass `null` when selecting a configured environment. |
 | `timeout` | `number` | `60000` | Maximum time in milliseconds to wait for a response before aborting a request. |
 | `maxRetries` | `number` | `2` | Number of retries for temporary failures. |
 | `defaultHeaders` | `HeadersInit` | - | Headers sent with every request. |
 | `defaultQuery` | `Record<string, string \| undefined>` | - | Query parameters sent with every request. |
 | `fetchOptions` | `RequestInit` | - | Additional fetch options sent with every request. |
 | `fetch` | `Fetch` | - | Custom fetch implementation. |
-| `logLevel` | `"off" \| "error" \| "warn" \| "info" \| "debug" \| null` | `process.env["JADENSTOCK_LOG"]` | Controls request and retry debug logging. |
+| `logLevel` | `"off" \| "error" \| "warn" \| "info" \| "debug" \| null` | `process.env["PUDDLE_STOREFRONT_LOG"]` | Controls request and retry debug logging. |
 | `logger` | `Logger \| null` | `console` | Custom logger implementation. |
 
 <br />

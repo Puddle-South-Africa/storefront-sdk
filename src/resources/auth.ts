@@ -16,14 +16,13 @@ export class Auth extends APIResource {
    * @example
    * ```ts
    * const accountsRequestOtp = await client.auth.accountsRequestOtp({
-   *   authorization: "authorization",
    *   email: "",
    * });
    * ```
    */
   accountsRequestOtp(params: AuthAccountsRequestOtpParams, options?: RequestOptions): APIPromise<AuthAccountsRequestOtpResponse> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.post("/auth/request-otp", { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/auth/request-otp", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -36,15 +35,14 @@ export class Auth extends APIResource {
    * @example
    * ```ts
    * const accountsVerifyOtp = await client.auth.accountsVerifyOtp({
-   *   authorization: "authorization",
    *   email: "",
    *   otp: "",
    * });
    * ```
    */
   accountsVerifyOtp(params: AuthAccountsVerifyOtpParams, options?: RequestOptions): APIPromise<AuthAccountsVerifyOtpResponse> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.post("/auth/verify-otp", { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/auth/verify-otp", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -80,11 +78,6 @@ export class Auth extends APIResource {
 
 export interface AuthAccountsRequestOtpParams {
   /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
-  /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
    */
@@ -102,11 +95,6 @@ export interface AuthAccountsRequestOtpResponse {
 }
 
 export interface AuthAccountsVerifyOtpParams {
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1

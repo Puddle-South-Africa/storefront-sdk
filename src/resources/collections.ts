@@ -32,14 +32,12 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const retrieve = await client.collections.retrieve("collectionId", {
-   *   authorization: "authorization",
-   * });
+   * const retrieve = await client.collections.retrieve("collectionId");
    * ```
    */
-  retrieve(collectionID: string, params: CollectionRetrieveParams, options?: RequestOptions): APIPromise<CollectionRetrieveResponse> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/collections/${collectionID}`, { ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  retrieve(collectionID: string, params?: CollectionRetrieveParams, options?: RequestOptions): APIPromise<CollectionRetrieveResponse> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.get(__scalarPath`/collections/${collectionID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -52,14 +50,12 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const string_ = await client.collections.listProducts("collectionId", {
-   *   authorization: "authorization",
-   * });
+   * const string_ = await client.collections.listProducts("collectionId");
    * ```
    */
-  listProducts(collectionID: string, params: CollectionListProductsParams, options?: RequestOptions): APIPromise<string> {
-    const { sort, authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/collections/${collectionID}/products`, { query: { sort: sort }, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  listProducts(collectionID: string, params?: CollectionListProductsParams, options?: RequestOptions): APIPromise<string> {
+    const { sort, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.get(__scalarPath`/collections/${collectionID}/products`, { query: { sort: sort }, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 
@@ -92,11 +88,6 @@ export namespace CollectionListResponse {
 }
 
 export interface CollectionRetrieveParams {
-  /**
-   * Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
@@ -133,11 +124,6 @@ export interface CollectionListProductsParams {
    * Query param
    */
   sort?: "PRICE_ASC" | "PRICE_DESC" | "NAME_ASC" | "NAME_DESC" | "NEWEST" | "OLDEST";
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1

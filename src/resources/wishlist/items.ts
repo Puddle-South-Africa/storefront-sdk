@@ -17,14 +17,13 @@ export class Items2 extends APIResource {
    * @example
    * ```ts
    * const string_ = await client.wishlist.items.wishlistAdd({
-   *   authorization: "authorization",
    *   productId: "",
    * });
    * ```
    */
   wishlistAdd(params: ItemWishlistAddParams, options?: RequestOptions): APIPromise<string> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.post("/wishlist/items", { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/wishlist/items", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -52,23 +51,16 @@ export class Items2 extends APIResource {
    *
    * @example
    * ```ts
-   * const string_ = await client.wishlist.items.wishlistRemove("wishlistProductId", {
-   *   authorization: "authorization",
-   * });
+   * const string_ = await client.wishlist.items.wishlistRemove("wishlistProductId");
    * ```
    */
-  wishlistRemove(wishlistProductID: string, params: ItemWishlistRemoveParams, options?: RequestOptions): APIPromise<string> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.delete(__scalarPath`/wishlist/items/${wishlistProductID}`, { ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  wishlistRemove(wishlistProductID: string, params?: ItemWishlistRemoveParams, options?: RequestOptions): APIPromise<string> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.delete(__scalarPath`/wishlist/items/${wishlistProductID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 
 export interface ItemWishlistAddParams {
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
@@ -89,11 +81,6 @@ export interface ItemWishlistAddParams {
 }
 
 export interface ItemWishlistRemoveParams {
-  /**
-   * Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1

@@ -18,14 +18,12 @@ export class Cart extends APIResource {
    *
    * @example
    * ```ts
-   * const checkout = await client.cart.checkout({
-   *   authorization: "authorization",
-   * });
+   * const checkout = await client.cart.checkout();
    * ```
    */
-  checkout(params: CartCheckoutParams, options?: RequestOptions): APIPromise<CartCheckoutResponse> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.post("/cart/checkout", { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  checkout(params?: CartCheckoutParams, options?: RequestOptions): APIPromise<CartCheckoutResponse> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/cart/checkout", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -75,11 +73,6 @@ export class Cart extends APIResource {
 }
 
 export interface CartCheckoutParams {
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1

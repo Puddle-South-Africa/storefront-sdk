@@ -17,15 +17,14 @@ export class Items extends APIResource {
    * @example
    * ```ts
    * const string_ = await client.cart.items.cartAdd({
-   *   authorization: "authorization",
    *   productId: "",
    *   quantity: 0,
    * });
    * ```
    */
   cartAdd(params: ItemCartAddParams, options?: RequestOptions): APIPromise<string> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.post("/cart/items", { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/cart/items", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -38,14 +37,12 @@ export class Items extends APIResource {
    *
    * @example
    * ```ts
-   * const string_ = await client.cart.items.cartRemove("cartProductId", {
-   *   authorization: "authorization",
-   * });
+   * const string_ = await client.cart.items.cartRemove("cartProductId");
    * ```
    */
-  cartRemove(cartProductID: string, params: ItemCartRemoveParams, options?: RequestOptions): APIPromise<string> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.delete(__scalarPath`/cart/items/${cartProductID}`, { ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  cartRemove(cartProductID: string, params?: ItemCartRemoveParams, options?: RequestOptions): APIPromise<string> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.delete(__scalarPath`/cart/items/${cartProductID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -59,23 +56,17 @@ export class Items extends APIResource {
    * @example
    * ```ts
    * const string_ = await client.cart.items.cartUpdate("cartProductId", {
-   *   authorization: "authorization",
    *   quantity: 0,
    * });
    * ```
    */
   cartUpdate(cartProductID: string, params: ItemCartUpdateParams, options?: RequestOptions): APIPromise<string> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.put(__scalarPath`/cart/items/${cartProductID}`, { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.put(__scalarPath`/cart/items/${cartProductID}`, { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 
 export interface ItemCartAddParams {
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
@@ -107,11 +98,6 @@ export interface ItemCartAddParams {
 
 export interface ItemCartRemoveParams {
   /**
-   * Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
-  /**
    * Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
    */
@@ -119,11 +105,6 @@ export interface ItemCartRemoveParams {
 }
 
 export interface ItemCartUpdateParams {
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1

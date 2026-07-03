@@ -1,7 +1,18 @@
 {
-  "name": "@jadenstock/puddle-storefront-api",
+  "name": "@puddle/storefront",
   "version": "0.1.0",
-  "description": "The Puddle Storefront API provides endpoints for integrating the Puddle platform with external online stores, enabling seamless product management, order processing, and customer interactions.",
+  "description": "TypeScript SDK for the Puddle Storefront API.",
+  "keywords": [
+    "puddle",
+    "storefront",
+    "ecommerce",
+    "typescript",
+    "sdk"
+  ],
+  "homepage": "https://github.com/Puddle-South-Africa/storefront-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/Puddle-South-Africa/storefront-sdk/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Puddle-South-Africa/storefront-sdk.git"
@@ -44,8 +55,13 @@
   },
   "files": [
     "dist",
-    "api.md"
+    "api.md",
+    "README.md",
+    "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node scripts/finalize-build.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",

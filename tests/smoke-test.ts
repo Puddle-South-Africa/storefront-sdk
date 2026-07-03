@@ -11,12 +11,14 @@
 //     printing a table. The generator uses this to collect per-operation results.
 import { writeFileSync } from 'node:fs'
 
-// The default export is the client class. The client reads auth and the base URL from the
-// environment, so it needs no constructor options to point at a server.
-import PuddleStorefrontAPI from "@jadenstock/puddle-storefront-api"
+// The default export is the client class. The client reads the base URL from the
+// environment and accepts the storefront public key once at construction time.
+import PuddleStorefrontAPI from "@puddle/storefront"
 
 // One shared client runs every case.
-const client = new PuddleStorefrontAPI()
+const client = new PuddleStorefrontAPI({
+  storefrontPublicKey: process.env.STOREFRONT_PUBLIC_KEY ?? "pk_storefront_smoke_test",
+})
 
 // The result of running one case, collected for the JSON report or the printed table.
 type SmokeResult = {
@@ -38,7 +40,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/account",
     run: async () => {
       const list = await client.accounts.list({
-        authorization: "authorization",
       });
     },
   },
@@ -49,7 +50,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/account",
     run: async () => {
       const string_ = await client.accounts.update({
-        authorization: "authorization",
         firstName: "",
         lastName: "",
       });
@@ -71,7 +71,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/account/marketing",
     run: async () => {
       const marketingUpdate = await client.accounts.marketingUpdate({
-        authorization: "authorization",
         consent: false,
       });
     },
@@ -92,7 +91,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/account/orders/{orderId}",
     run: async () => {
       const string_ = await client.accounts.ordersGet("orderId", {
-        authorization: "authorization",
       });
     },
   },
@@ -103,7 +101,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/auth/request-otp",
     run: async () => {
       const accountsRequestOtp = await client.auth.accountsRequestOtp({
-        authorization: "authorization",
         email: "",
       });
     },
@@ -115,7 +112,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/auth/verify-otp",
     run: async () => {
       const accountsVerifyOtp = await client.auth.accountsVerifyOtp({
-        authorization: "authorization",
         email: "",
         otp: "",
       });
@@ -146,7 +142,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/cart/checkout",
     run: async () => {
       const checkout = await client.cart.checkout({
-        authorization: "authorization",
       });
     },
   },
@@ -184,7 +179,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/cart/items",
     run: async () => {
       const string_ = await client.cart.items.cartAdd({
-        authorization: "authorization",
         productId: "",
         quantity: 0,
       });
@@ -197,7 +191,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/cart/items/{cartProductId}",
     run: async () => {
       const string_ = await client.cart.items.cartRemove("cartProductId", {
-        authorization: "authorization",
       });
     },
   },
@@ -208,7 +201,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/cart/items/{cartProductId}",
     run: async () => {
       const string_ = await client.cart.items.cartUpdate("cartProductId", {
-        authorization: "authorization",
         quantity: 0,
       });
     },
@@ -229,7 +221,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/collections/{collectionId}",
     run: async () => {
       const retrieve = await client.collections.retrieve("collectionId", {
-        authorization: "authorization",
       });
     },
   },
@@ -240,7 +231,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/collections/{collectionId}/products",
     run: async () => {
       const string_ = await client.collections.listProducts("collectionId", {
-        authorization: "authorization",
       });
     },
   },
@@ -260,7 +250,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/products/{productId}",
     run: async () => {
       const retrieve = await client.products.retrieve("productId", {
-        authorization: "authorization",
       });
     },
   },
@@ -272,7 +261,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     run: async () => {
       const string_ = await client.products.listInfinite({
         type: "ALL",
-        authorization: "authorization",
       });
     },
   },
@@ -310,7 +298,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/wishlist/items",
     run: async () => {
       const string_ = await client.wishlist.items.wishlistAdd({
-        authorization: "authorization",
         productId: "",
       });
     },
@@ -331,7 +318,6 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     path: "/wishlist/items/{wishlistProductId}",
     run: async () => {
       const string_ = await client.wishlist.items.wishlistRemove("wishlistProductId", {
-        authorization: "authorization",
       });
     },
   },

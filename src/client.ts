@@ -42,7 +42,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env["JADENSTOCK_BASE_URL"].
+   * Defaults to process.env["PUDDLE_STOREFRONT_BASE_URL"].
    */
   baseURL?: string | null | undefined;
 
@@ -97,7 +97,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env["JADENSTOCK_LOG"] or 'warn' if it isn't set.
+   * Defaults to process.env["PUDDLE_STOREFRONT_LOG"] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -134,7 +134,7 @@ export class PuddleStorefrontAPI {
    * API Client for interfacing with the PuddleStorefrontApi API.
    *
    * @param {string | AuthTokenProvider | undefined} [opts.storefrontPublicKey=process.env["STOREFRONT_PUBLIC_KEY"] ?? undefined]
-   * @param {string} [opts.baseURL=process.env["JADENSTOCK_BASE_URL"] ?? https://api.puddle.co.za/storefront/v1] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env["PUDDLE_STOREFRONT_BASE_URL"] ?? https://api.puddle.co.za/storefront/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -143,7 +143,7 @@ export class PuddleStorefrontAPI {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv("JADENSTOCK_BASE_URL"),
+    baseURL = readEnv("PUDDLE_STOREFRONT_BASE_URL"),
     storefrontPublicKey = readEnv("STOREFRONT_PUBLIC_KEY"),
     ...opts
   }: ClientOptions = {}) {
@@ -162,14 +162,14 @@ export class PuddleStorefrontAPI {
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv("JADENSTOCK_LOG"), "process.env[\"JADENSTOCK_LOG\"]", this) ??
+      parseLogLevel(readEnv("PUDDLE_STOREFRONT_LOG"), "process.env[\"PUDDLE_STOREFRONT_LOG\"]", this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
 
-    const customHeadersEnv = readEnv("JADENSTOCK_CUSTOM_HEADERS");
+    const customHeadersEnv = readEnv("PUDDLE_STOREFRONT_CUSTOM_HEADERS");
     if (customHeadersEnv) {
       const parsed: Record<string, string> = {};
       for (const line of customHeadersEnv.split('\n')) {
@@ -880,4 +880,3 @@ const cookieHeaderHas = (value: string | null, name: string): boolean => {
   const target = encodeURIComponent(name) + "=";
   return value.split(";").some((cookie) => cookie.trim().startsWith(target));
 };
-

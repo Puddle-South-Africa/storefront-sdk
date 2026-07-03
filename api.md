@@ -46,9 +46,11 @@ Complete reference of every operation, grouped by resource. See [the README](./R
 ## Setup
 
 ```ts
-import PuddleStorefrontAPI from "@jadenstock/puddle-storefront-api";
+import PuddleStorefrontAPI from "@puddle/storefront";
 
-const client = new PuddleStorefrontAPI();
+const client = new PuddleStorefrontAPI({
+  storefrontPublicKey: "pk_storefront_...",
+});
 ```
 
 ## `Accounts`
@@ -63,9 +65,7 @@ Retrieves the currently authenticated customer session profile. Requires `Author
 | Response | [`AccountListResponse`](./src/resources/accounts.ts) |
 
 ```ts
-const list = await client.accounts.list({
-  authorization: "authorization",
-});
+const list = await client.accounts.list();
 ```
 
 ### Update customer profile
@@ -78,7 +78,6 @@ Updates the profile details for the authenticated customer. Requires `Authorizat
 
 ```ts
 const string_ = await client.accounts.update({
-  authorization: "authorization",
   firstName: "",
   lastName: "",
 });
@@ -107,7 +106,6 @@ Updates the marketing consent status for the authenticated customer. Requires `A
 
 ```ts
 const marketingUpdate = await client.accounts.marketingUpdate({
-  authorization: "authorization",
   consent: false,
 });
 ```
@@ -129,9 +127,7 @@ Retrieves details of a specific order for the authenticated customer. Requires `
 | Request | [`AccountOrdersGetParams`](./src/resources/accounts.ts) |
 
 ```ts
-const string_ = await client.accounts.ordersGet("orderId", {
-  authorization: "authorization",
-});
+const string_ = await client.accounts.ordersGet("orderId");
 ```
 
 ## `Auth`
@@ -147,7 +143,6 @@ Requests a one-time password (OTP) for customer authentication. Requires `Author
 
 ```ts
 const accountsRequestOtp = await client.auth.accountsRequestOtp({
-  authorization: "authorization",
   email: "",
 });
 ```
@@ -163,7 +158,6 @@ Verifies the one-time password (OTP) to authenticate the customer. Requires `Aut
 
 ```ts
 const accountsVerifyOtp = await client.auth.accountsVerifyOtp({
-  authorization: "authorization",
   email: "",
   otp: "",
 });
@@ -205,9 +199,7 @@ Initialises checkout for the current cart and returns the checkout session detai
 | Response | [`CartCheckoutResponse`](./src/resources/cart/cart.ts) |
 
 ```ts
-const checkout = await client.cart.checkout({
-  authorization: "authorization",
-});
+const checkout = await client.cart.checkout();
 ```
 
 ### Get cart count
@@ -246,7 +238,6 @@ Adds a product or product variant to the current cart. Requires `Authorization: 
 
 ```ts
 const string_ = await client.cart.items.cartAdd({
-  authorization: "authorization",
   productId: "",
   quantity: 0,
 });
@@ -261,9 +252,7 @@ Removes a cart item from the current cart. Requires `Authorization: Bearer <stor
 | Request | [`ItemCartRemoveParams`](./src/resources/cart/items.ts) |
 
 ```ts
-const string_ = await client.cart.items.cartRemove("cartProductId", {
-  authorization: "authorization",
-});
+const string_ = await client.cart.items.cartRemove("cartProductId");
 ```
 
 #### Update cart item quantity
@@ -276,7 +265,6 @@ Updates the quantity of an existing cart item. Requires `Authorization: Bearer <
 
 ```ts
 const string_ = await client.cart.items.cartUpdate("cartProductId", {
-  authorization: "authorization",
   quantity: 0,
 });
 ```
@@ -305,9 +293,7 @@ Retrieves a single collection by its ID. Requires `Authorization: Bearer <storef
 | Response | [`CollectionRetrieveResponse`](./src/resources/collections.ts) |
 
 ```ts
-const retrieve = await client.collections.retrieve("collectionId", {
-  authorization: "authorization",
-});
+const retrieve = await client.collections.retrieve("collectionId");
 ```
 
 ### Get collection products
@@ -319,9 +305,7 @@ Retrieves products that belong to a specific collection. Requires `Authorization
 | Request | [`CollectionListProductsParams`](./src/resources/collections.ts) |
 
 ```ts
-const string_ = await client.collections.listProducts("collectionId", {
-  authorization: "authorization",
-});
+const string_ = await client.collections.listProducts("collectionId");
 ```
 
 ## `Products`
@@ -348,9 +332,7 @@ Retrieves a single product by its ID. Requires `Authorization: Bearer <storefron
 | Response | [`ProductRetrieveResponse`](./src/resources/products.ts) |
 
 ```ts
-const retrieve = await client.products.retrieve("productId", {
-  authorization: "authorization",
-});
+const retrieve = await client.products.retrieve("productId");
 ```
 
 ### Get infinite products
@@ -364,7 +346,6 @@ Retrieves a paginated list of products for a category, collection, or all. Requi
 ```ts
 const string_ = await client.products.listInfinite({
   type: "ALL",
-  authorization: "authorization",
 });
 ```
 
@@ -416,7 +397,6 @@ Adds a product or product variant to the current wishlist. Requires `Authorizati
 
 ```ts
 const string_ = await client.wishlist.items.wishlistAdd({
-  authorization: "authorization",
   productId: "",
 });
 ```
@@ -438,7 +418,5 @@ Removes a wishlist item from the current wishlist. Requires `Authorization: Bear
 | Request | [`ItemWishlistRemoveParams`](./src/resources/wishlist/items.ts) |
 
 ```ts
-const string_ = await client.wishlist.items.wishlistRemove("wishlistProductId", {
-  authorization: "authorization",
-});
+const string_ = await client.wishlist.items.wishlistRemove("wishlistProductId");
 ```

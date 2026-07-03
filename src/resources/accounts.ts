@@ -16,14 +16,12 @@ export class Accounts extends APIResource {
    *
    * @example
    * ```ts
-   * const list = await client.accounts.list({
-   *   authorization: "authorization",
-   * });
+   * const list = await client.accounts.list();
    * ```
    */
-  list(params: AccountListParams, options?: RequestOptions): APIPromise<AccountListResponse> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get("/account", { ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  list(params?: AccountListParams, options?: RequestOptions): APIPromise<AccountListResponse> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.get("/account", { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -36,15 +34,14 @@ export class Accounts extends APIResource {
    * @example
    * ```ts
    * const string_ = await client.accounts.update({
-   *   authorization: "authorization",
    *   firstName: "",
    *   lastName: "",
    * });
    * ```
    */
   update(params: AccountUpdateParams, options?: RequestOptions): APIPromise<string> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.put("/account", { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.put("/account", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -72,14 +69,13 @@ export class Accounts extends APIResource {
    * @example
    * ```ts
    * const marketingUpdate = await client.accounts.marketingUpdate({
-   *   authorization: "authorization",
    *   consent: false,
    * });
    * ```
    */
   marketingUpdate(params: AccountMarketingUpdateParams, options?: RequestOptions): APIPromise<AccountMarketingUpdateResponse> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
-    return this._client.put("/account/marketing", { body: body, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.put("/account/marketing", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -107,23 +103,16 @@ export class Accounts extends APIResource {
    *
    * @example
    * ```ts
-   * const string_ = await client.accounts.ordersGet("orderId", {
-   *   authorization: "authorization",
-   * });
+   * const string_ = await client.accounts.ordersGet("orderId");
    * ```
    */
-  ordersGet(orderID: string, params: AccountOrdersGetParams, options?: RequestOptions): APIPromise<string> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/account/orders/${orderID}`, { ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  ordersGet(orderID: string, params?: AccountOrdersGetParams, options?: RequestOptions): APIPromise<string> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.get(__scalarPath`/account/orders/${orderID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 
 export interface AccountListParams {
-  /**
-   * Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
@@ -144,11 +133,6 @@ export interface AccountListResponse {
 }
 
 export interface AccountUpdateParams {
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
@@ -179,11 +163,6 @@ export interface AccountMarketingGetResponse {
 
 export interface AccountMarketingUpdateParams {
   /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
-  /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
    */
@@ -199,11 +178,6 @@ export interface AccountMarketingUpdateResponse {
 }
 
 export interface AccountOrdersGetParams {
-  /**
-   * Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1

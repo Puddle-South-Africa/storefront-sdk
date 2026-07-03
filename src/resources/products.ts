@@ -32,14 +32,12 @@ export class Products extends APIResource {
    *
    * @example
    * ```ts
-   * const retrieve = await client.products.retrieve("productId", {
-   *   authorization: "authorization",
-   * });
+   * const retrieve = await client.products.retrieve("productId");
    * ```
    */
-  retrieve(productID: string, params: ProductRetrieveParams, options?: RequestOptions): APIPromise<ProductRetrieveResponse> {
-    const { authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/products/${productID}`, { ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  retrieve(productID: string, params?: ProductRetrieveParams, options?: RequestOptions): APIPromise<ProductRetrieveResponse> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.get(__scalarPath`/products/${productID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -53,13 +51,12 @@ export class Products extends APIResource {
    * ```ts
    * const string_ = await client.products.listInfinite({
    *   type: "ALL",
-   *   authorization: "authorization",
    * });
    * ```
    */
-  listInfinite(params: ProductListInfiniteParams, options?: RequestOptions): APIPromise<string> {
-    const { type, id, authorization, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get("/products/infinite", { query: { type: type, id: id }, ...options, headers: buildHeaders([{ "authorization": authorization, ...(xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}) }, options?.headers]) });
+  listInfinite(params?: ProductListInfiniteParams, options?: RequestOptions): APIPromise<string> {
+    const { type, id, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
+    return this._client.get("/products/infinite", { query: { type: type, id: id }, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -92,11 +89,6 @@ export namespace ProductSearchResponse {
 }
 
 export interface ProductRetrieveParams {
-  /**
-   * Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
@@ -132,11 +124,6 @@ export interface ProductListInfiniteParams {
    * @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$
    */
   id?: string;
-  /**
-   * Header param: Bearer <storefront-public-key>
-   * @minLength 1
-   */
-  authorization: string;
   /**
    * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
