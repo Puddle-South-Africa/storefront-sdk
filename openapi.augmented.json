@@ -1,0 +1,3711 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Puddle Storefront API",
+    "description": "The Puddle Storefront API provides endpoints for integrating the Puddle platform with external online stores, enabling seamless product management, order processing, and customer interactions.",
+    "version": "1.0.0",
+    "x-scalar-sdk-installation": [
+      {
+        "lang": "TypeScript",
+        "description": "```sh\nnpm install @jadenstock/puddle-storefront-api\n```"
+      }
+    ]
+  },
+  "servers": [
+    {
+      "url": "https://api.puddle.co.za/storefront/v1"
+    }
+  ],
+  "paths": {
+    "/account": {
+      "get": {
+        "operationId": "accounts-get",
+        "summary": "Get current customer",
+        "description": "Retrieves the currently authenticated customer session profile. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "accounts"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                        },
+                        "firstName": {
+                          "type": "string"
+                        },
+                        "lastName": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "firstName",
+                        "lastName"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst list = await client.accounts.list({\n  authorization: \"authorization\",\n});\nconsole.log(list);"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "accounts-update",
+        "summary": "Update customer profile",
+        "description": "Updates the profile details for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
+        "tags": [
+          "accounts"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 50
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 50
+                  },
+                  "phone": {
+                    "type": "string",
+                    "pattern": "^\\+?[0-9\\s\\-()]{10,20}$"
+                  }
+                },
+                "required": [
+                  "firstName",
+                  "lastName"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.accounts.update({\n  authorization: \"authorization\",\n  firstName: \"\",\n  lastName: \"\",\n});\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/account/marketing": {
+      "get": {
+        "operationId": "accounts-marketing-get",
+        "summary": "Get marketing consent",
+        "description": "Retrieves the marketing consent status for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
+        "tags": [
+          "accounts",
+          "marketing"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "consent": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "consent"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst marketingGet = await client.accounts.marketingGet();\nconsole.log(marketingGet);"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "accounts-marketing-update",
+        "summary": "Update marketing consent",
+        "description": "Updates the marketing consent status for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
+        "tags": [
+          "accounts",
+          "marketing"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "consent": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "consent"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst marketingUpdate = await client.accounts.marketingUpdate({\n  authorization: \"authorization\",\n  consent: false,\n});\nconsole.log(marketingUpdate);"
+          }
+        ]
+      }
+    },
+    "/account/orders": {
+      "get": {
+        "operationId": "accounts-orders-list",
+        "summary": "List customer orders",
+        "description": "Retrieves a list of orders for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
+        "tags": [
+          "accounts",
+          "orders"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.accounts.ordersList();\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/account/orders/{orderId}": {
+      "get": {
+        "operationId": "accounts-orders-get",
+        "summary": "Get order",
+        "description": "Retrieves details of a specific order for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
+        "tags": [
+          "accounts",
+          "orders"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "orderId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.accounts.ordersGet(\"orderId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/auth/request-otp": {
+      "post": {
+        "operationId": "accounts-auth-requestOtp",
+        "summary": "Request OTP",
+        "description": "Requests a one-time password (OTP) for customer authentication. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "auth"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsRequestOtp = await client.auth.accountsRequestOtp({\n  authorization: \"authorization\",\n  email: \"\",\n});\nconsole.log(accountsRequestOtp);"
+          }
+        ]
+      }
+    },
+    "/auth/verify-otp": {
+      "post": {
+        "operationId": "accounts-auth-verifyOtp",
+        "summary": "Verify OTP",
+        "description": "Verifies the one-time password (OTP) to authenticate the customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "auth"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                  },
+                  "otp": {
+                    "type": "string",
+                    "minLength": 6,
+                    "maxLength": 6
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "phone": {
+                    "type": "string",
+                    "minLength": 5,
+                    "maxLength": 30
+                  }
+                },
+                "required": [
+                  "email",
+                  "otp"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "session": {}
+                  },
+                  "required": [
+                    "success",
+                    "session"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsVerifyOtp = await client.auth.accountsVerifyOtp({\n  authorization: \"authorization\",\n  email: \"\",\n  otp: \"\",\n});\nconsole.log(accountsVerifyOtp);"
+          }
+        ]
+      }
+    },
+    "/auth/session": {
+      "get": {
+        "operationId": "accounts-auth-getSession",
+        "summary": "Get session",
+        "description": "Retrieves the current customer session details. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "auth"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "session": {}
+                  },
+                  "required": [
+                    "session"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsGetSession = await client.auth.accountsGetSession();\nconsole.log(accountsGetSession);"
+          }
+        ]
+      }
+    },
+    "/auth/sign-out": {
+      "post": {
+        "operationId": "accounts-auth-signOut",
+        "summary": "Sign out",
+        "description": "Signs out the currently authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "auth"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsSignOut = await client.auth.accountsSignOut();\nconsole.log(accountsSignOut);"
+          }
+        ]
+      }
+    },
+    "/cart/checkout": {
+      "post": {
+        "operationId": "cart-checkout",
+        "summary": "Initialise checkout",
+        "description": "Initialises checkout for the current cart and returns the checkout session details. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "cart",
+          "checkout"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "couponCode": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "giftCardCodes": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "deliveryMethod": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "deliveryMethodId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "deliveryMethodCode": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "checkoutUrl": {
+                      "type": "string"
+                    },
+                    "checkoutSessionId": {
+                      "type": "string"
+                    },
+                    "expiresAt": {
+                      "anyOf": [
+                        {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "checkoutUrl",
+                    "checkoutSessionId"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst checkout = await client.cart.checkout({\n  authorization: \"authorization\",\n});\nconsole.log(checkout);"
+          }
+        ]
+      }
+    },
+    "/cart/count": {
+      "get": {
+        "operationId": "cart-count",
+        "summary": "Get cart count",
+        "description": "Retrieves the current number of items in the cart. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "cart"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst number_ = await client.cart.count();\nconsole.log(number_);"
+          }
+        ]
+      }
+    },
+    "/cart/migrate": {
+      "post": {
+        "operationId": "cart-migrate",
+        "summary": "Migrate cart",
+        "description": "Migrates a guest cart into the authenticated customer cart when both are present. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "cart"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.migrate();\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/cart": {
+      "get": {
+        "operationId": "cart-get",
+        "summary": "Get cart",
+        "description": "Retrieves the current cart contents. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "cart"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.list();\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/cart/items": {
+      "post": {
+        "operationId": "cart-add",
+        "summary": "Add cart item",
+        "description": "Adds a product or product variant to the current cart. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "cart"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                  },
+                  "productVariantId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "customText": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "productId",
+                  "quantity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.items.cartAdd({\n  authorization: \"authorization\",\n  productId: \"\",\n  quantity: 0,\n});\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/cart/items/{cartProductId}": {
+      "delete": {
+        "operationId": "cart-remove",
+        "summary": "Remove cart item",
+        "description": "Removes a cart item from the current cart. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "cart"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "cartProductId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.items.cartRemove(\"cartProductId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
+          }
+        ]
+      },
+      "put": {
+        "operationId": "cart-update",
+        "summary": "Update cart item quantity",
+        "description": "Updates the quantity of an existing cart item. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "cart"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "cartProductId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "quantity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.items.cartUpdate(\"cartProductId\", {\n  authorization: \"authorization\",\n  quantity: 0,\n});\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/collections": {
+      "get": {
+        "operationId": "collections-getCollections",
+        "summary": "Get all collections",
+        "description": "Retrieves a list of all collections for the storefront. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "collections"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "storeId": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "slug": {
+                        "type": "string"
+                      },
+                      "seoTitle": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "seoDescription": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "ruleSet": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "field": {
+                                  "type": "string"
+                                },
+                                "operator": {
+                                  "type": "string"
+                                },
+                                "value": {}
+                              },
+                              "required": [
+                                "field",
+                                "operator",
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "imageId": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "imageUrl": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "imageUrlSet": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "hidden": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "slug",
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst list = await client.collections.list();\nconsole.log(list);"
+          }
+        ]
+      }
+    },
+    "/collections/{collectionId}": {
+      "get": {
+        "operationId": "collections-getCollection",
+        "summary": "Get collection",
+        "description": "Retrieves a single collection by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "collections"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "collectionId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "storeId": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "seoTitle": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "seoDescription": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "ruleSet": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "field": {
+                                    "type": "string"
+                                  },
+                                  "operator": {
+                                    "type": "string"
+                                  },
+                                  "value": {}
+                                },
+                                "required": [
+                                  "field",
+                                  "operator",
+                                  "value"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "imageId": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "imageUrl": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "imageUrlSet": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hidden": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "slug",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst retrieve = await client.collections.retrieve(\"collectionId\", {\n  authorization: \"authorization\",\n});\nconsole.log(retrieve);"
+          }
+        ]
+      }
+    },
+    "/collections/{collectionId}/products": {
+      "get": {
+        "operationId": "collections-getCollectionProducts",
+        "summary": "Get collection products",
+        "description": "Retrieves products that belong to a specific collection. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "collections",
+          "products"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "collectionId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PRICE_ASC",
+                "PRICE_DESC",
+                "NAME_ASC",
+                "NAME_DESC",
+                "NEWEST",
+                "OLDEST"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.collections.listProducts(\"collectionId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/products/search": {
+      "get": {
+        "operationId": "products-getSearchProducts",
+        "summary": "Get search products",
+        "description": "Retrieves a list of products suitable for search. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "products"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "storeId": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "primaryImageId": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "primaryImageUrl": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "primaryImageSrcSet": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst search = await client.products.search();\nconsole.log(search);"
+          }
+        ]
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "operationId": "products-getProduct",
+        "summary": "Get product",
+        "description": "Retrieves a single product by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "products"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "productId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "options": {
+                          "anyOf": [
+                            {},
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "primaryImageId": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "primaryImageUrl": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "primaryImageSrcSet": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "stockCount": {
+                          "type": "number"
+                        },
+                        "trackInventory": {
+                          "type": "boolean"
+                        },
+                        "customTextFields": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {}
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "type",
+                        "price",
+                        "stockCount",
+                        "trackInventory"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst retrieve = await client.products.retrieve(\"productId\", {\n  authorization: \"authorization\",\n});\nconsole.log(retrieve);"
+          }
+        ]
+      }
+    },
+    "/products/infinite": {
+      "get": {
+        "operationId": "products-getInfiniteProducts",
+        "summary": "Get infinite products",
+        "description": "Retrieves a paginated list of products for a category, collection, or all. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "products"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "default": "ALL",
+              "type": "string",
+              "enum": [
+                "COLLECTION",
+                "ALL"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.products.listInfinite({\n  type: \"ALL\",\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/products/trending": {
+      "get": {
+        "operationId": "products-getTrendingProducts",
+        "summary": "Get trending products",
+        "description": "Retrieves a list of trending products. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "products"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "storeId": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "primaryImageId": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "primaryImageUrl": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "primaryImageSrcSet": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst listTrending = await client.products.listTrending();\nconsole.log(listTrending);"
+          }
+        ]
+      }
+    },
+    "/content/banner-text": {
+      "get": {
+        "operationId": "content-bannerText",
+        "summary": "Get banner text",
+        "description": "Retrieves the active banner text for the storefront if enabled. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "content"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.content.bannerText();\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/wishlist": {
+      "get": {
+        "operationId": "wishlist-get",
+        "summary": "Get wishlist",
+        "description": "Retrieves the current wishlist contents. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "wishlist"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.list();\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/wishlist/items": {
+      "post": {
+        "operationId": "wishlist-add",
+        "summary": "Add wishlist item",
+        "description": "Adds a product or product variant to the current wishlist. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "wishlist"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                  },
+                  "productVariantId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                  }
+                },
+                "required": [
+                  "productId"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.items.wishlistAdd({\n  authorization: \"authorization\",\n  productId: \"\",\n});\nconsole.log(string_);"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "wishlist-clear",
+        "summary": "Clear wishlist",
+        "description": "Removes all wishlist items from the current wishlist. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "wishlist"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.items.wishlistClear();\nconsole.log(string_);"
+          }
+        ]
+      }
+    },
+    "/wishlist/items/{wishlistProductId}": {
+      "delete": {
+        "operationId": "wishlist-remove",
+        "summary": "Remove wishlist item",
+        "description": "Removes a wishlist item from the current wishlist. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "wishlist"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "wishlistProductId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        },
+        "x-scalar-examples": [
+          {
+            "lang": "TypeScript",
+            "label": "TypeScript",
+            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.items.wishlistRemove(\"wishlistProductId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "error.BAD_REQUEST": {
+        "title": "Invalid input data error (400)",
+        "description": "The error information",
+        "example": {
+          "code": "BAD_REQUEST",
+          "message": "Invalid input data",
+          "issues": []
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "The error message",
+            "example": "Invalid input data",
+            "type": "string"
+          },
+          "code": {
+            "description": "The error code",
+            "example": "BAD_REQUEST",
+            "type": "string"
+          },
+          "issues": {
+            "description": "An array of issues that were responsible for the error",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "message",
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "error.UNAUTHORIZED": {
+        "title": "Authorization not provided error (401)",
+        "description": "The error information",
+        "example": {
+          "code": "UNAUTHORIZED",
+          "message": "Authorization not provided",
+          "issues": []
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "The error message",
+            "example": "Authorization not provided",
+            "type": "string"
+          },
+          "code": {
+            "description": "The error code",
+            "example": "UNAUTHORIZED",
+            "type": "string"
+          },
+          "issues": {
+            "description": "An array of issues that were responsible for the error",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "message",
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "error.FORBIDDEN": {
+        "title": "Insufficient access error (403)",
+        "description": "The error information",
+        "example": {
+          "code": "FORBIDDEN",
+          "message": "Insufficient access",
+          "issues": []
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "The error message",
+            "example": "Insufficient access",
+            "type": "string"
+          },
+          "code": {
+            "description": "The error code",
+            "example": "FORBIDDEN",
+            "type": "string"
+          },
+          "issues": {
+            "description": "An array of issues that were responsible for the error",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "message",
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "error.NOT_FOUND": {
+        "title": "Not found error (404)",
+        "description": "The error information",
+        "example": {
+          "code": "NOT_FOUND",
+          "message": "Not found",
+          "issues": []
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "The error message",
+            "example": "Not found",
+            "type": "string"
+          },
+          "code": {
+            "description": "The error code",
+            "example": "NOT_FOUND",
+            "type": "string"
+          },
+          "issues": {
+            "description": "An array of issues that were responsible for the error",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "message",
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "error.INTERNAL_SERVER_ERROR": {
+        "title": "Internal server error error (500)",
+        "description": "The error information",
+        "example": {
+          "code": "INTERNAL_SERVER_ERROR",
+          "message": "Internal server error",
+          "issues": []
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "The error message",
+            "example": "Internal server error",
+            "type": "string"
+          },
+          "code": {
+            "description": "The error code",
+            "example": "INTERNAL_SERVER_ERROR",
+            "type": "string"
+          },
+          "issues": {
+            "description": "An array of issues that were responsible for the error",
+            "example": [],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "message",
+          "code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "storefrontPublicKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Use the storefront public key as the bearer token in the Authorization header."
+      }
+    }
+  }
+}
