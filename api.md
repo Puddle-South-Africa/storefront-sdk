@@ -35,6 +35,8 @@ Complete reference of every operation, grouped by resource. See [the README](./R
   - [Get infinite products](#get-infinite-products)
   - [Get trending products](#get-trending-products)
 - [`Content`](#content)
+  - [Get content blocks](#get-content-blocks)
+  - [Get content block](#get-content-block)
   - [Get banner text](#get-banner-text)
 - [`Wishlist`](#wishlist)
   - [Get wishlist](#get-wishlist)
@@ -362,6 +364,31 @@ const listTrending = await client.products.listTrending();
 ```
 
 ## `Content`
+
+### Get content blocks
+
+Retrieves all configured storefront content blocks for the current store. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
+
+| Direction | Type |
+| --- | --- |
+| Response | [`ContentBlocksResponse`](./src/resources/content.ts) |
+
+```ts
+const blocks = await client.content.blocks();
+```
+
+### Get content block
+
+Retrieves a single storefront content block by its id. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
+
+| Direction | Type |
+| --- | --- |
+| Request | [`ContentBlockParams`](./src/resources/content.ts) |
+| Response | [`ContentBlockResponse`](./src/resources/content.ts) |
+
+```ts
+const block = await client.content.block("blockId");
+```
 
 ### Get banner text
 

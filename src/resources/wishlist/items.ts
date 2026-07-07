@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import { APIResource } from "../../resource";
 import { APIPromise } from "../../api-promise";
 import type { RequestOptions } from "../../internal/request-options";
 import { buildHeaders } from "../../internal/headers";
-import { path as __scalarPath } from "../../internal/utils/path";
+import { path as __path } from "../../internal/utils/path";
 
 export class Items2 extends APIResource {
   /**
@@ -56,7 +56,7 @@ export class Items2 extends APIResource {
    */
   wishlistRemove(wishlistProductID: string, params?: ItemWishlistRemoveParams, options?: RequestOptions): APIPromise<string> {
     const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.delete(__scalarPath`/wishlist/items/${wishlistProductID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+    return this._client.delete(__path`/wishlist/items/${wishlistProductID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 

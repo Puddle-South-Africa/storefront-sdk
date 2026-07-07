@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import type { BodyInit } from './builtin-types';
 import type { HTTPMethod, MergedRequestInit } from './types';

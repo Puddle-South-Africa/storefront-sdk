@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import { APIPromise, type APIResponseProps } from './api-promise';
 import * as Errors from './error';
@@ -25,7 +25,7 @@ import { Auth, type AuthAccountsRequestOtpResponse, type AuthAccountsVerifyOtpRe
 import { Cart, type CartCheckoutResponse, type CartCheckoutParams } from "./resources/cart/cart";
 import { Collections, type CollectionListResponse, type CollectionRetrieveResponse, type CollectionRetrieveParams, type CollectionListProductsParams } from "./resources/collections";
 import { Products, type ProductSearchResponse, type ProductRetrieveResponse, type ProductListTrendingResponse, type ProductRetrieveParams, type ProductListInfiniteParams } from "./resources/products";
-import { Content, type ContentBannerTextResponse } from "./resources/content";
+import { Content, type ContentBlocksResponse, type ContentBlockResponse, type ContentBlockParams, type ContentBannerTextResponse } from "./resources/content";
 import { Wishlist } from "./resources/wishlist/wishlist";
 
 export type AuthTokenProvider = () => string | Promise<string>;
@@ -222,7 +222,7 @@ export class PuddleStorefrontAPI {
   }
 
   protected defaultIdempotencyKey(): string {
-    return `scalar-node-retry-${uuid4()}`;
+    return `puddle-node-retry-${uuid4()}`;
   }
 
   protected makeStatusError(
@@ -641,8 +641,8 @@ export class PuddleStorefrontAPI {
       {
         Accept: 'application/json',
         'User-Agent': this.getUserAgent(),
-        'X-Scalar-Retry-Count': String(retryCount),
-        ...(options.timeout ? { 'X-Scalar-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
+        'X-Puddle-SDK-Retry-Count': String(retryCount),
+        ...(options.timeout ? { 'X-Puddle-SDK-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
       await this.authHeaders(options),

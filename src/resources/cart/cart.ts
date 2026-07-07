@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import { APIResource } from "../../resource";
 import { APIPromise } from "../../api-promise";

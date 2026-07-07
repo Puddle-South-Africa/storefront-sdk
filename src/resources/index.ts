@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 export { Accounts } from "./accounts";
 export type { AccountListParams, AccountListResponse, AccountUpdateParams, AccountMarketingGetResponse, AccountMarketingUpdateParams, AccountMarketingUpdateResponse, AccountOrdersGetParams } from "./accounts";
@@ -16,7 +16,7 @@ export { Products } from "./products";
 export type { ProductSearchResponse, ProductRetrieveParams, ProductRetrieveResponse, ProductListInfiniteParams, ProductListTrendingResponse } from "./products";
 export { Products as ProductResource } from "./products";
 export { Content } from "./content";
-export type { ContentBannerTextResponse } from "./content";
+export type { ContentBlocksResponse, ContentBlockResponse, ContentBlockParams, ContentBannerTextResponse, ContentBlock } from "./content";
 export { Content as ContentResource } from "./content";
 export { Wishlist } from "./wishlist/wishlist";
 export { Wishlist as WishlistResource } from "./wishlist/wishlist";

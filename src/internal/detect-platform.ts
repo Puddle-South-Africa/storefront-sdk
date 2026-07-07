@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import { VERSION } from '../version';
 
@@ -50,68 +50,68 @@ type PlatformName =
   | 'Unknown';
 type Browser = 'ie' | 'edge' | 'chrome' | 'firefox' | 'safari';
 type PlatformProperties = {
-  'X-Scalar-Lang': 'js';
-  'X-Scalar-Package-Version': string;
-  'X-Scalar-OS': PlatformName;
-  'X-Scalar-Arch': Arch;
-  'X-Scalar-Runtime': 'node' | 'deno' | 'edge' | `browser:${Browser}` | 'unknown';
-  'X-Scalar-Runtime-Version': string;
+  'X-Puddle-SDK-Lang': 'js';
+  'X-Puddle-SDK-Package-Version': string;
+  'X-Puddle-SDK-OS': PlatformName;
+  'X-Puddle-SDK-Arch': Arch;
+  'X-Puddle-SDK-Runtime': 'node' | 'deno' | 'edge' | `browser:${Browser}` | 'unknown';
+  'X-Puddle-SDK-Runtime-Version': string;
 };
 const getPlatformProperties = (): PlatformProperties => {
   const detectedPlatform = getDetectedPlatform();
   if (detectedPlatform === 'deno') {
     return {
-      'X-Scalar-Lang': 'js',
-      'X-Scalar-Package-Version': VERSION,
-      'X-Scalar-OS': normalizePlatform(Deno.build.os),
-      'X-Scalar-Arch': normalizeArch(Deno.build.arch),
-      'X-Scalar-Runtime': 'deno',
-      'X-Scalar-Runtime-Version':
+      'X-Puddle-SDK-Lang': 'js',
+      'X-Puddle-SDK-Package-Version': VERSION,
+      'X-Puddle-SDK-OS': normalizePlatform(Deno.build.os),
+      'X-Puddle-SDK-Arch': normalizeArch(Deno.build.arch),
+      'X-Puddle-SDK-Runtime': 'deno',
+      'X-Puddle-SDK-Runtime-Version':
         typeof Deno.version === 'string' ? Deno.version : Deno.version?.deno ?? 'unknown',
     };
   }
   if (typeof EdgeRuntime !== 'undefined') {
     return {
-      'X-Scalar-Lang': 'js',
-      'X-Scalar-Package-Version': VERSION,
-      'X-Scalar-OS': 'Unknown',
-      'X-Scalar-Arch': `other:${EdgeRuntime}`,
-      'X-Scalar-Runtime': 'edge',
-      'X-Scalar-Runtime-Version': (globalThis as any).process.version,
+      'X-Puddle-SDK-Lang': 'js',
+      'X-Puddle-SDK-Package-Version': VERSION,
+      'X-Puddle-SDK-OS': 'Unknown',
+      'X-Puddle-SDK-Arch': `other:${EdgeRuntime}`,
+      'X-Puddle-SDK-Runtime': 'edge',
+      'X-Puddle-SDK-Runtime-Version': (globalThis as any).process.version,
     };
   }
   // Check if Node.js
   if (detectedPlatform === 'node') {
     return {
-      'X-Scalar-Lang': 'js',
-      'X-Scalar-Package-Version': VERSION,
-      'X-Scalar-OS': normalizePlatform((globalThis as any).process.platform ?? 'unknown'),
-      'X-Scalar-Arch': normalizeArch((globalThis as any).process.arch ?? 'unknown'),
-      'X-Scalar-Runtime': 'node',
-      'X-Scalar-Runtime-Version': (globalThis as any).process.version ?? 'unknown',
+      'X-Puddle-SDK-Lang': 'js',
+      'X-Puddle-SDK-Package-Version': VERSION,
+      'X-Puddle-SDK-OS': normalizePlatform((globalThis as any).process.platform ?? 'unknown'),
+      'X-Puddle-SDK-Arch': normalizeArch((globalThis as any).process.arch ?? 'unknown'),
+      'X-Puddle-SDK-Runtime': 'node',
+      'X-Puddle-SDK-Runtime-Version': (globalThis as any).process.version ?? 'unknown',
     };
   }
 
   const browserInfo = getBrowserInfo();
   if (browserInfo) {
     return {
-      'X-Scalar-Lang': 'js',
-      'X-Scalar-Package-Version': VERSION,
-      'X-Scalar-OS': 'Unknown',
-      'X-Scalar-Arch': 'unknown',
-      'X-Scalar-Runtime': `browser:${browserInfo.browser}`,
-      'X-Scalar-Runtime-Version': browserInfo.version,
+      'X-Puddle-SDK-Lang': 'js',
+      'X-Puddle-SDK-Package-Version': VERSION,
+      'X-Puddle-SDK-OS': 'Unknown',
+      'X-Puddle-SDK-Arch': 'unknown',
+      'X-Puddle-SDK-Runtime': `browser:${browserInfo.browser}`,
+      'X-Puddle-SDK-Runtime-Version': browserInfo.version,
     };
   }
 
   // TODO add support for Cloudflare workers, etc.
   return {
-    'X-Scalar-Lang': 'js',
-    'X-Scalar-Package-Version': VERSION,
-    'X-Scalar-OS': 'Unknown',
-    'X-Scalar-Arch': 'unknown',
-    'X-Scalar-Runtime': 'unknown',
-    'X-Scalar-Runtime-Version': 'unknown',
+    'X-Puddle-SDK-Lang': 'js',
+    'X-Puddle-SDK-Package-Version': VERSION,
+    'X-Puddle-SDK-OS': 'Unknown',
+    'X-Puddle-SDK-Arch': 'unknown',
+    'X-Puddle-SDK-Runtime': 'unknown',
+    'X-Puddle-SDK-Runtime-Version': 'unknown',
   };
 };
 

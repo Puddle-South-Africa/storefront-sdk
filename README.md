@@ -18,6 +18,7 @@ The Puddle Storefront API provides endpoints for integrating the Puddle platform
 - [Helpers](#helpers)
 - [Logging](#logging)
 - [Requirements](#requirements)
+- [Contributions](#contributions)
 
 <br />
 
@@ -156,12 +157,7 @@ Generated clients support request timeouts and retry temporary failures such as 
 
 - Node.js 20+, a modern browser, or any runtime with `fetch` support
 
-Powered by Scalar.
-
-
 ## Contributions
 
-This SDK is generated programmatically. Manual edits to generated files will be
-overwritten on the next build.
-
-### SDK created by [Scalar](https://www.scalar.com/?utm_source=puddle-storefront-api-typescript&utm_campaign=sdk)
+This SDK is generated from the repository OpenAPI spec. Manual edits to generated
+files may be overwritten when the SDK is regenerated.

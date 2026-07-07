@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import { APIResource } from "../resource";
 import { APIPromise } from "../api-promise";
 import type { RequestOptions } from "../internal/request-options";
 import { buildHeaders } from "../internal/headers";
-import { path as __scalarPath } from "../internal/utils/path";
+import { path as __path } from "../internal/utils/path";
 
 export class Collections extends APIResource {
   /**
@@ -37,7 +37,7 @@ export class Collections extends APIResource {
    */
   retrieve(collectionID: string, params?: CollectionRetrieveParams, options?: RequestOptions): APIPromise<CollectionRetrieveResponse> {
     const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/collections/${collectionID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+    return this._client.get(__path`/collections/${collectionID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -55,7 +55,7 @@ export class Collections extends APIResource {
    */
   listProducts(collectionID: string, params?: CollectionListProductsParams, options?: RequestOptions): APIPromise<string> {
     const { sort, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/collections/${collectionID}/products`, { query: { sort: sort }, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+    return this._client.get(__path`/collections/${collectionID}/products`, { query: { sort: sort }, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 

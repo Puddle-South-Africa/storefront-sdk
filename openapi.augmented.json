@@ -3,13 +3,7 @@
   "info": {
     "title": "Puddle Storefront API",
     "description": "The Puddle Storefront API provides endpoints for integrating the Puddle platform with external online stores, enabling seamless product management, order processing, and customer interactions.",
-    "version": "1.0.0",
-    "x-scalar-sdk-installation": [
-      {
-        "lang": "TypeScript",
-        "description": "```sh\nnpm install @jadenstock/puddle-storefront-api\n```"
-      }
-    ]
+    "version": "1.0.0"
   },
   "servers": [
     {
@@ -154,14 +148,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst list = await client.accounts.list({\n  authorization: \"authorization\",\n});\nconsole.log(list);"
-          }
-        ]
+        }
       },
       "put": {
         "operationId": "accounts-update",
@@ -288,14 +275,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.accounts.update({\n  authorization: \"authorization\",\n  firstName: \"\",\n  lastName: \"\",\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/account/marketing": {
@@ -362,14 +342,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst marketingGet = await client.accounts.marketingGet();\nconsole.log(marketingGet);"
-          }
-        ]
+        }
       },
       "put": {
         "operationId": "accounts-marketing-update",
@@ -496,14 +469,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst marketingUpdate = await client.accounts.marketingUpdate({\n  authorization: \"authorization\",\n  consent: false,\n});\nconsole.log(marketingUpdate);"
-          }
-        ]
+        }
       }
     },
     "/account/orders": {
@@ -559,14 +525,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.accounts.ordersList();\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/account/orders/{orderId}": {
@@ -675,14 +634,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.accounts.ordersGet(\"orderId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/auth/request-otp": {
@@ -802,14 +754,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsRequestOtp = await client.auth.accountsRequestOtp({\n  authorization: \"authorization\",\n  email: \"\",\n});\nconsole.log(accountsRequestOtp);"
-          }
-        ]
+        }
       }
     },
     "/auth/verify-otp": {
@@ -952,14 +897,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsVerifyOtp = await client.auth.accountsVerifyOtp({\n  authorization: \"authorization\",\n  email: \"\",\n  otp: \"\",\n});\nconsole.log(accountsVerifyOtp);"
-          }
-        ]
+        }
       }
     },
     "/auth/session": {
@@ -1023,14 +961,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsGetSession = await client.auth.accountsGetSession();\nconsole.log(accountsGetSession);"
-          }
-        ]
+        }
       }
     },
     "/auth/sign-out": {
@@ -1096,14 +1027,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst accountsSignOut = await client.auth.accountsSignOut();\nconsole.log(accountsSignOut);"
-          }
-        ]
+        }
       }
     },
     "/cart/checkout": {
@@ -1296,14 +1220,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst checkout = await client.cart.checkout({\n  authorization: \"authorization\",\n});\nconsole.log(checkout);"
-          }
-        ]
+        }
       }
     },
     "/cart/count": {
@@ -1360,14 +1277,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst number_ = await client.cart.count();\nconsole.log(number_);"
-          }
-        ]
+        }
       }
     },
     "/cart/migrate": {
@@ -1422,14 +1332,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.migrate();\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/cart": {
@@ -1484,14 +1387,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.list();\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/cart/items": {
@@ -1620,14 +1516,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.items.cartAdd({\n  authorization: \"authorization\",\n  productId: \"\",\n  quantity: 0,\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/cart/items/{cartProductId}": {
@@ -1735,14 +1624,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.items.cartRemove(\"cartProductId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       },
       "put": {
         "operationId": "cart-update",
@@ -1869,14 +1751,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.cart.items.cartUpdate(\"cartProductId\", {\n  authorization: \"authorization\",\n  quantity: 0,\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/collections": {
@@ -2029,7 +1904,7 @@
                       "slug",
                       "type"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": {}
                   }
                 }
               }
@@ -2065,14 +1940,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst list = await client.collections.list();\nconsole.log(list);"
-          }
-        ]
+        }
       }
     },
     "/collections/{collectionId}": {
@@ -2258,7 +2126,7 @@
                         "slug",
                         "type"
                       ],
-                      "additionalProperties": false
+                      "additionalProperties": {}
                     },
                     {
                       "type": "null"
@@ -2318,14 +2186,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst retrieve = await client.collections.retrieve(\"collectionId\", {\n  authorization: \"authorization\",\n});\nconsole.log(retrieve);"
-          }
-        ]
+        }
       }
     },
     "/collections/{collectionId}/products": {
@@ -2449,14 +2310,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.collections.listProducts(\"collectionId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/products/search": {
@@ -2533,7 +2387,7 @@
                       "id",
                       "name"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": {}
                   }
                 }
               }
@@ -2569,14 +2423,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst search = await client.products.search();\nconsole.log(search);"
-          }
-        ]
+        }
       }
     },
     "/products/{productId}": {
@@ -2731,7 +2578,7 @@
                         "stockCount",
                         "trackInventory"
                       ],
-                      "additionalProperties": false
+                      "additionalProperties": {}
                     },
                     {
                       "type": "null"
@@ -2791,14 +2638,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst retrieve = await client.products.retrieve(\"productId\", {\n  authorization: \"authorization\",\n});\nconsole.log(retrieve);"
-          }
-        ]
+        }
       }
     },
     "/products/infinite": {
@@ -2917,14 +2757,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.products.listInfinite({\n  type: \"ALL\",\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/products/trending": {
@@ -3001,6 +2834,235 @@
                       "id",
                       "name"
                     ],
+                    "additionalProperties": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/content/blocks": {
+      "get": {
+        "operationId": "content-blocks",
+        "summary": "Get content blocks",
+        "description": "Retrieves all configured storefront content blocks for the current store. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "content"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "label": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "description": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "single",
+                          "list"
+                        ]
+                      },
+                      "fieldSchema": {
+                        "default": [],
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "label": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "description": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "text",
+                                "textarea",
+                                "number",
+                                "select",
+                                "boolean",
+                                "image"
+                              ]
+                            },
+                            "required": {
+                              "default": false,
+                              "type": "boolean"
+                            },
+                            "options": {
+                              "default": [],
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "label": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "label",
+                                  "value"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "label",
+                            "type",
+                            "required",
+                            "options"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "items": {
+                        "default": [],
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "entryKey": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "entryKey"
+                          ],
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "imageId": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "imageUrl": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "imageId",
+                                  "imageUrl"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "label",
+                      "mode",
+                      "fieldSchema",
+                      "items"
+                    ],
                     "additionalProperties": false
                   }
                 }
@@ -3037,14 +3099,292 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
+        }
+      }
+    },
+    "/content/blocks/{blockId}": {
+      "get": {
+        "operationId": "content-block",
+        "summary": "Get content block",
+        "description": "Retrieves a single storefront content block by its id. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "content"
+        ],
+        "security": [
           {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst listTrending = await client.products.listTrending();\nconsole.log(listTrending);"
+            "storefrontPublicKey": []
           }
-        ]
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          },
+          {
+            "in": "path",
+            "name": "blockId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "label": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "description": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "mode": {
+                          "type": "string",
+                          "enum": [
+                            "single",
+                            "list"
+                          ]
+                        },
+                        "fieldSchema": {
+                          "default": [],
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "label": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "description": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "text",
+                                  "textarea",
+                                  "number",
+                                  "select",
+                                  "boolean",
+                                  "image"
+                                ]
+                              },
+                              "required": {
+                                "default": false,
+                                "type": "boolean"
+                              },
+                              "options": {
+                                "default": [],
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "label": {
+                                      "type": "string",
+                                      "minLength": 1
+                                    },
+                                    "value": {
+                                      "type": "string",
+                                      "minLength": 1
+                                    }
+                                  },
+                                  "required": [
+                                    "label",
+                                    "value"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "label",
+                              "type",
+                              "required",
+                              "options"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "items": {
+                          "default": [],
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "entryKey": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "entryKey"
+                            ],
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "imageId": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "imageUrl": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "imageId",
+                                    "imageUrl"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "label",
+                        "mode",
+                        "fieldSchema",
+                        "items"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/content/banner-text": {
@@ -3108,14 +3448,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.content.bannerText();\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/wishlist": {
@@ -3170,14 +3503,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.list();\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/wishlist/items": {
@@ -3291,14 +3617,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.items.wishlistAdd({\n  authorization: \"authorization\",\n  productId: \"\",\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       },
       "delete": {
         "operationId": "wishlist-clear",
@@ -3351,14 +3670,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.items.wishlistClear();\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     },
     "/wishlist/items/{wishlistProductId}": {
@@ -3466,14 +3778,7 @@
               }
             }
           }
-        },
-        "x-scalar-examples": [
-          {
-            "lang": "TypeScript",
-            "label": "TypeScript",
-            "source": "import PuddleStorefrontAPI from \"@jadenstock/puddle-storefront-api\";\n\nconst client = new PuddleStorefrontAPI();\n\nconst string_ = await client.wishlist.items.wishlistRemove(\"wishlistProductId\", {\n  authorization: \"authorization\",\n});\nconsole.log(string_);"
-          }
-        ]
+        }
       }
     }
   },

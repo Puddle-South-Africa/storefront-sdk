@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import { APIResource } from "../resource";
 import { APIPromise } from "../api-promise";
 import type { RequestOptions } from "../internal/request-options";
 import { buildHeaders } from "../internal/headers";
-import { path as __scalarPath } from "../internal/utils/path";
+import { path as __path } from "../internal/utils/path";
 
 export class Products extends APIResource {
   /**
@@ -37,7 +37,7 @@ export class Products extends APIResource {
    */
   retrieve(productID: string, params?: ProductRetrieveParams, options?: RequestOptions): APIPromise<ProductRetrieveResponse> {
     const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/products/${productID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+    return this._client.get(__path`/products/${productID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**

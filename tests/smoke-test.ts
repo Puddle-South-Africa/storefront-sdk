@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 // Smoke test: calls every generated operation once to confirm the SDK can reach each endpoint.
 // Run it from this repo with `bun tests/smoke-test.ts`. Each case below calls one SDK method

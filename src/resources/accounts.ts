@@ -1,10 +1,10 @@
-// File generated from our OpenAPI spec by Scalar. See README.md for details.
+// File generated from our OpenAPI spec. See README.md for details.
 
 import { APIResource } from "../resource";
 import { APIPromise } from "../api-promise";
 import type { RequestOptions } from "../internal/request-options";
 import { buildHeaders } from "../internal/headers";
-import { path as __scalarPath } from "../internal/utils/path";
+import { path as __path } from "../internal/utils/path";
 
 export class Accounts extends APIResource {
   /**
@@ -108,7 +108,7 @@ export class Accounts extends APIResource {
    */
   ordersGet(orderID: string, params?: AccountOrdersGetParams, options?: RequestOptions): APIPromise<string> {
     const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__scalarPath`/account/orders/${orderID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+    return this._client.get(__path`/account/orders/${orderID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 
