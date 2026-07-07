@@ -284,8 +284,7 @@
         "summary": "Get marketing consent",
         "description": "Retrieves the marketing consent status for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
         "tags": [
-          "accounts",
-          "marketing"
+          "accounts"
         ],
         "security": [
           {
@@ -349,8 +348,7 @@
         "summary": "Update marketing consent",
         "description": "Updates the marketing consent status for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
         "tags": [
-          "accounts",
-          "marketing"
+          "accounts"
         ],
         "security": [
           {
@@ -478,8 +476,7 @@
         "summary": "List customer orders",
         "description": "Retrieves a list of orders for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
         "tags": [
-          "accounts",
-          "orders"
+          "accounts"
         ],
         "security": [
           {
@@ -534,8 +531,7 @@
         "summary": "Get order",
         "description": "Retrieves details of a specific order for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.",
         "tags": [
-          "accounts",
-          "orders"
+          "accounts"
         ],
         "security": [
           {
@@ -1036,8 +1032,7 @@
         "summary": "Initialise checkout",
         "description": "Initialises checkout for the current cart and returns the checkout session details. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
         "tags": [
-          "cart",
-          "checkout"
+          "cart"
         ],
         "security": [
           {
@@ -1451,10 +1446,12 @@
                   "customText": {
                     "type": "object",
                     "propertyNames": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 50
                     },
                     "additionalProperties": {
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 500
                     }
                   }
                 },
@@ -1943,11 +1940,11 @@
         }
       }
     },
-    "/collections/{collectionId}": {
-      "get": {
+    "/collection": {
+      "post": {
         "operationId": "collections-getCollection",
         "summary": "Get collection",
-        "description": "Retrieves a single collection by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "description": "Retrieves a single collection by the slug provided in the request body. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
         "tags": [
           "collections"
         ],
@@ -1977,18 +1974,28 @@
               "minLength": 1
             },
             "description": "Required for server-side callers when Origin/Referer is unavailable."
-          },
-          {
-            "in": "path",
-            "name": "collectionId",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-            },
-            "required": true
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "slug": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "slug"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2166,16 +2173,6 @@
               }
             }
           },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.NOT_FOUND"
-                }
-              }
-            }
-          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -2189,14 +2186,13 @@
         }
       }
     },
-    "/collections/{collectionId}/products": {
-      "get": {
+    "/collection/products": {
+      "post": {
         "operationId": "collections-getCollectionProducts",
         "summary": "Get collection products",
-        "description": "Retrieves products that belong to a specific collection. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "description": "Retrieves products that belong to the collection identified by the slug in the request body. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
         "tags": [
-          "collections",
-          "products"
+          "collections"
         ],
         "security": [
           {
@@ -2224,33 +2220,39 @@
               "minLength": 1
             },
             "description": "Required for server-side callers when Origin/Referer is unavailable."
-          },
-          {
-            "in": "path",
-            "name": "collectionId",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-            },
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "sort",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "PRICE_ASC",
-                "PRICE_DESC",
-                "NAME_ASC",
-                "NAME_DESC",
-                "NEWEST",
-                "OLDEST"
-              ]
-            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "slug": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sort": {
+                    "type": "string",
+                    "enum": [
+                      "PRICE_ASC",
+                      "PRICE_DESC",
+                      "NAME_ASC",
+                      "NAME_DESC",
+                      "NEWEST",
+                      "OLDEST"
+                    ]
+                  }
+                },
+                "required": [
+                  "slug"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2286,16 +2288,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/error.FORBIDDEN"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.NOT_FOUND"
                 }
               }
             }
@@ -2342,6 +2334,9 @@
                       "name": {
                         "type": "string"
                       },
+                      "slug": {
+                        "type": "string"
+                      },
                       "storeId": {
                         "anyOf": [
                           {
@@ -2385,7 +2380,8 @@
                     },
                     "required": [
                       "id",
-                      "name"
+                      "name",
+                      "slug"
                     ],
                     "additionalProperties": {}
                   }
@@ -2409,221 +2405,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/error.FORBIDDEN"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/products/{productId}": {
-      "get": {
-        "operationId": "products-getProduct",
-        "summary": "Get product",
-        "description": "Retrieves a single product by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
-        "tags": [
-          "products"
-        ],
-        "security": [
-          {
-            "storefrontPublicKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "schema": {
-              "description": "Bearer <storefront-public-key>",
-              "type": "string",
-              "minLength": 1
-            },
-            "required": true,
-            "description": "Bearer <storefront-public-key>"
-          },
-          {
-            "in": "header",
-            "name": "x-puddle-storefront-host",
-            "schema": {
-              "description": "Required for server-side callers when Origin/Referer is unavailable.",
-              "type": "string",
-              "minLength": 1
-            },
-            "description": "Required for server-side callers when Origin/Referer is unavailable."
-          },
-          {
-            "in": "path",
-            "name": "productId",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "status": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "options": {
-                          "anyOf": [
-                            {},
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "type": {
-                          "type": "string"
-                        },
-                        "primaryImageId": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "primaryImageUrl": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "primaryImageSrcSet": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "price": {
-                          "type": "number"
-                        },
-                        "stockCount": {
-                          "type": "number"
-                        },
-                        "trackInventory": {
-                          "type": "boolean"
-                        },
-                        "customTextFields": {
-                          "anyOf": [
-                            {
-                              "type": "array",
-                              "items": {}
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "type",
-                        "price",
-                        "stockCount",
-                        "trackInventory"
-                      ],
-                      "additionalProperties": {}
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.BAD_REQUEST"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Authorization not provided",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Insufficient access",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.FORBIDDEN"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.NOT_FOUND"
                 }
               }
             }
@@ -2789,6 +2570,9 @@
                       "name": {
                         "type": "string"
                       },
+                      "slug": {
+                        "type": "string"
+                      },
                       "storeId": {
                         "anyOf": [
                           {
@@ -2832,10 +2616,230 @@
                     },
                     "required": [
                       "id",
-                      "name"
+                      "name",
+                      "slug"
                     ],
                     "additionalProperties": {}
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "operationId": "products-getProduct",
+        "summary": "Get product",
+        "description": "Retrieves a single product by the slug provided in the request body. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.",
+        "tags": [
+          "products"
+        ],
+        "security": [
+          {
+            "storefrontPublicKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "description": "Bearer <storefront-public-key>",
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true,
+            "description": "Bearer <storefront-public-key>"
+          },
+          {
+            "in": "header",
+            "name": "x-puddle-storefront-host",
+            "schema": {
+              "description": "Required for server-side callers when Origin/Referer is unavailable.",
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Required for server-side callers when Origin/Referer is unavailable."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "slug": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "slug"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "options": {
+                          "anyOf": [
+                            {},
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "primaryImageId": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "primaryImageUrl": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "primaryImageSrcSet": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "stockCount": {
+                          "type": "number"
+                        },
+                        "trackInventory": {
+                          "type": "boolean"
+                        },
+                        "customTextFields": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {}
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "slug",
+                        "type",
+                        "price",
+                        "stockCount",
+                        "trackInventory"
+                      ],
+                      "additionalProperties": {}
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
                 }
               }
             }

@@ -4,7 +4,6 @@ import { APIResource } from "../resource";
 import { APIPromise } from "../api-promise";
 import type { RequestOptions } from "../internal/request-options";
 import { buildHeaders } from "../internal/headers";
-import { path as __path } from "../internal/utils/path";
 
 export class Collections extends APIResource {
   /**
@@ -23,39 +22,41 @@ export class Collections extends APIResource {
   }
 
   /**
-   * Retrieves a single collection by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
+   * Retrieves a single collection by its slug. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
    *
-   * @param {string} collectionID
    * @param {CollectionRetrieveParams} params - The parameters to send with the request.
    * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
    * @returns {APIPromise<CollectionRetrieveResponse>} Successful response
    *
    * @example
    * ```ts
-   * const retrieve = await client.collections.retrieve("collectionId");
+   * const retrieve = await client.collections.retrieve({
+   *   slug: "example-collection",
+   * });
    * ```
    */
-  retrieve(collectionID: string, params?: CollectionRetrieveParams, options?: RequestOptions): APIPromise<CollectionRetrieveResponse> {
-    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__path`/collections/${collectionID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+  retrieve(params: CollectionRetrieveParams, options?: RequestOptions): APIPromise<CollectionRetrieveResponse> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/collection", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
    * Retrieves products that belong to a specific collection. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
    *
-   * @param {string} collectionID
    * @param {CollectionListProductsParams} params - The parameters to send with the request.
    * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
    * @returns {APIPromise<string>} Successful response
    *
    * @example
    * ```ts
-   * const string_ = await client.collections.listProducts("collectionId");
+   * const string_ = await client.collections.listProducts({
+   *   slug: "example-collection",
+   * });
    * ```
    */
-  listProducts(collectionID: string, params?: CollectionListProductsParams, options?: RequestOptions): APIPromise<string> {
-    const { sort, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__path`/collections/${collectionID}/products`, { query: { sort: sort }, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+  listProducts(params: CollectionListProductsParams, options?: RequestOptions): APIPromise<string> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/collection/products", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 }
 
@@ -89,7 +90,12 @@ export namespace CollectionListResponse {
 
 export interface CollectionRetrieveParams {
   /**
-   * Required for server-side callers when Origin/Referer is unavailable.
+   * Body param
+   * @minLength 1
+   */
+  slug: string;
+  /**
+   * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
    */
   "x-puddle-storefront-host"?: string;
@@ -121,7 +127,12 @@ export namespace CollectionRetrieveResponse {
 
 export interface CollectionListProductsParams {
   /**
-   * Query param
+   * Body param
+   * @minLength 1
+   */
+  slug: string;
+  /**
+   * Body param
    */
   sort?: "PRICE_ASC" | "PRICE_DESC" | "NAME_ASC" | "NAME_DESC" | "NEWEST" | "OLDEST";
   /**

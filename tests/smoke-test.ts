@@ -217,20 +217,22 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
 
   {
     operation: "retrieve",
-    method: "GET",
-    path: "/collections/{collectionId}",
+    method: "POST",
+    path: "/collection",
     run: async () => {
-      const retrieve = await client.collections.retrieve("collectionId", {
+      const retrieve = await client.collections.retrieve({
+        slug: "collection-slug",
       });
     },
   },
 
   {
     operation: "listProducts",
-    method: "GET",
-    path: "/collections/{collectionId}/products",
+    method: "POST",
+    path: "/collection/products",
     run: async () => {
-      const string_ = await client.collections.listProducts("collectionId", {
+      const string_ = await client.collections.listProducts({
+        slug: "collection-slug",
       });
     },
   },
@@ -246,10 +248,11 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
 
   {
     operation: "retrieve",
-    method: "GET",
-    path: "/products/{productId}",
+    method: "POST",
+    path: "/product",
     run: async () => {
-      const retrieve = await client.products.retrieve("productId", {
+      const retrieve = await client.products.retrieve({
+        slug: "product-slug",
       });
     },
   },

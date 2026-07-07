@@ -23,21 +23,22 @@ export class Products extends APIResource {
   }
 
   /**
-   * Retrieves a single product by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
+   * Retrieves a single product by its slug. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
    *
-   * @param {string} productID
    * @param {ProductRetrieveParams} params - The parameters to send with the request.
    * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
    * @returns {APIPromise<ProductRetrieveResponse>} Successful response
    *
    * @example
    * ```ts
-   * const retrieve = await client.products.retrieve("productId");
+   * const retrieve = await client.products.retrieve({
+   *   slug: "example-product",
+   * });
    * ```
    */
-  retrieve(productID: string, params?: ProductRetrieveParams, options?: RequestOptions): APIPromise<ProductRetrieveResponse> {
-    const { "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
-    return this._client.get(__path`/products/${productID}`, { ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
+  retrieve(params: ProductRetrieveParams, options?: RequestOptions): APIPromise<ProductRetrieveResponse> {
+    const { "x-puddle-storefront-host": xPuddleStorefrontHost, ...body } = params ?? {};
+    return this._client.post("/product", { body: body, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
 
   /**
@@ -81,6 +82,7 @@ export namespace ProductSearchResponse {
   export interface ProductSearchResponseItem {
     id: string;
     name: string;
+    slug: string;
     storeId?: string | null;
     primaryImageId?: string | null;
     primaryImageUrl?: string | null;
@@ -90,7 +92,12 @@ export namespace ProductSearchResponse {
 
 export interface ProductRetrieveParams {
   /**
-   * Required for server-side callers when Origin/Referer is unavailable.
+   * Body param
+   * @minLength 1
+   */
+  slug: string;
+  /**
+   * Header param: Required for server-side callers when Origin/Referer is unavailable.
    * @minLength 1
    */
   "x-puddle-storefront-host"?: string;
@@ -99,6 +106,7 @@ export interface ProductRetrieveParams {
 export interface ProductRetrieveResponse {
   id: string;
   name: string;
+  slug: string;
   type: string;
   price: number;
   stockCount: number;
@@ -137,6 +145,7 @@ export namespace ProductListTrendingResponse {
   export interface ProductListTrendingResponseItem {
     id: string;
     name: string;
+    slug: string;
     storeId?: string | null;
     primaryImageId?: string | null;
     primaryImageUrl?: string | null;

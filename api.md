@@ -287,7 +287,7 @@ const list = await client.collections.list();
 
 ### Get collection
 
-Retrieves a single collection by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
+Retrieves a single collection by its slug. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
 
 | Direction | Type |
 | --- | --- |
@@ -295,7 +295,9 @@ Retrieves a single collection by its ID. Requires `Authorization: Bearer <storef
 | Response | [`CollectionRetrieveResponse`](./src/resources/collections.ts) |
 
 ```ts
-const retrieve = await client.collections.retrieve("collectionId");
+const retrieve = await client.collections.retrieve({
+  slug: "example-collection",
+});
 ```
 
 ### Get collection products
@@ -307,7 +309,9 @@ Retrieves products that belong to a specific collection. Requires `Authorization
 | Request | [`CollectionListProductsParams`](./src/resources/collections.ts) |
 
 ```ts
-const string_ = await client.collections.listProducts("collectionId");
+const string_ = await client.collections.listProducts({
+  slug: "example-collection",
+});
 ```
 
 ## `Products`
@@ -326,7 +330,7 @@ const search = await client.products.search();
 
 ### Get product
 
-Retrieves a single product by its ID. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
+Retrieves a single product by its slug. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
 
 | Direction | Type |
 | --- | --- |
@@ -334,7 +338,9 @@ Retrieves a single product by its ID. Requires `Authorization: Bearer <storefron
 | Response | [`ProductRetrieveResponse`](./src/resources/products.ts) |
 
 ```ts
-const retrieve = await client.products.retrieve("productId");
+const retrieve = await client.products.retrieve({
+  slug: "example-product",
+});
 ```
 
 ### Get infinite products
