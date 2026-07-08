@@ -72,7 +72,7 @@ export class Auth extends APIResource {
    * ```
    */
   accountsSignOut(options?: RequestOptions): APIPromise<AuthAccountsSignOutResponse> {
-    return this._client.post("/auth/sign-out", options);
+    return this._client.post("/auth/sign-out", { body: {}, ...options });
   }
 }
 

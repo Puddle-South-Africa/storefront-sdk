@@ -279,6 +279,7 @@ Retrieves a list of all collections for the storefront. Requires `Authorization:
 
 | Direction | Type |
 | --- | --- |
+| Request | [`CollectionListParams`](./src/resources/collections.ts) |
 | Response | [`CollectionListResponse`](./src/resources/collections.ts) |
 
 ```ts
