@@ -24,7 +24,7 @@ import { Accounts, type AccountListResponse, type AccountMarketingGetResponse, t
 import { Auth, type AuthAccountsRequestOtpResponse, type AuthAccountsVerifyOtpResponse, type AuthAccountsGetSessionResponse, type AuthAccountsSignOutResponse, type AuthAccountsRequestOtpParams, type AuthAccountsVerifyOtpParams } from "./resources/auth";
 import { Cart, type CartCheckoutResponse, type CartCheckoutParams } from "./resources/cart/cart";
 import { Collections, type CollectionListResponse, type CollectionRetrieveResponse, type CollectionRetrieveParams, type CollectionListProductsParams } from "./resources/collections";
-import { Products, type ProductSearchResponse, type ProductRetrieveResponse, type ProductListTrendingResponse, type ProductRetrieveParams, type ProductListInfiniteParams } from "./resources/products";
+import { Products, type ProductSearchResponse, type ProductRetrieveResponse, type ProductListInfiniteResponse, type ProductListTrendingResponse, type ProductRetrieveParams, type ProductListInfiniteParams } from "./resources/products";
 import { Content, type ContentBlocksResponse, type ContentBlockResponse, type ContentBlockParams, type ContentBannerTextResponse } from "./resources/content";
 import { Wishlist } from "./resources/wishlist/wishlist";
 
@@ -844,6 +844,7 @@ export declare namespace PuddleStorefrontAPI {
     Products as Products,
     type ProductSearchResponse as ProductSearchResponse,
     type ProductRetrieveResponse as ProductRetrieveResponse,
+    type ProductListInfiniteResponse as ProductListInfiniteResponse,
     type ProductListTrendingResponse as ProductListTrendingResponse,
     type ProductRetrieveParams as ProductRetrieveParams,
     type ProductListInfiniteParams as ProductListInfiniteParams,

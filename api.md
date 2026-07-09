@@ -351,9 +351,10 @@ Retrieves a paginated list of products for a category, collection, or all. Requi
 | Direction | Type |
 | --- | --- |
 | Request | [`ProductListInfiniteParams`](./src/resources/products.ts) |
+| Response | [`ProductListInfiniteResponse`](./src/resources/products.ts) |
 
 ```ts
-const string_ = await client.products.listInfinite({
+const listInfinite = await client.products.listInfinite({
   type: "ALL",
 });
 ```

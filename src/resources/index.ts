@@ -13,7 +13,7 @@ export { Collections } from "./collections";
 export type { CollectionListResponse, CollectionRetrieveParams, CollectionRetrieveResponse, CollectionListProductsParams } from "./collections";
 export { Collections as CollectionResource } from "./collections";
 export { Products } from "./products";
-export type { ProductSearchResponse, ProductRetrieveParams, ProductRetrieveResponse, ProductListInfiniteParams, ProductListTrendingResponse } from "./products";
+export type { ProductSearchResponse, ProductRetrieveParams, ProductRetrieveResponse, ProductListInfiniteResponse, ProductListInfiniteParams, ProductListTrendingResponse } from "./products";
 export { Products as ProductResource } from "./products";
 export { Content } from "./content";
 export type { ContentBlocksResponse, ContentBlockResponse, ContentBlockParams, ContentBannerTextResponse, ContentBlock } from "./content";

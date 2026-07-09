@@ -46,16 +46,16 @@ export class Products extends APIResource {
    *
    * @param {ProductListInfiniteParams} params - The parameters to send with the request.
    * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
-   * @returns {APIPromise<string>} Successful response
+   * @returns {APIPromise<ProductListInfiniteResponse>} Successful response
    *
    * @example
    * ```ts
-   * const string_ = await client.products.listInfinite({
+   * const listInfinite = await client.products.listInfinite({
    *   type: "ALL",
    * });
    * ```
    */
-  listInfinite(params?: ProductListInfiniteParams, options?: RequestOptions): APIPromise<string> {
+  listInfinite(params?: ProductListInfiniteParams, options?: RequestOptions): APIPromise<ProductListInfiniteResponse> {
     const { type, id, "x-puddle-storefront-host": xPuddleStorefrontHost } = params ?? {};
     return this._client.get("/products/infinite", { query: { type: type, id: id }, ...options, headers: buildHeaders([xPuddleStorefrontHost !== undefined ? { "x-puddle-storefront-host": xPuddleStorefrontHost } : {}, options?.headers]) });
   }
@@ -120,6 +120,36 @@ export interface ProductRetrieveResponse {
   customTextFields?: Array<string> | null;
 }
 
+export type ProductListInfiniteResponse = Array<ProductListInfiniteResponse.ProductListInfiniteResponseItem>;
+
+export namespace ProductListInfiniteResponse {
+  export interface ProductListInfiniteResponseItem {
+    id: string;
+    name: string;
+    slug: string;
+    price: number;
+    productType: string;
+    trackInventory: boolean;
+    createdAt: string | null;
+    updatedAt: string | null;
+    stockStatus: "IN_STOCK" | "LOW_STOCK" | "VERY_LOW_STOCK" | "OUT_OF_STOCK" | "NOT_TRACKED";
+    sales: Array<ProductListInfiniteResponseItem.Sale> | null;
+    storeId?: string | null;
+    primaryImageId?: string | null;
+    primaryImageUrl?: string | null;
+    primaryImageSrcSet?: string | null;
+    hasVariablePrices?: boolean;
+  }
+
+  export namespace ProductListInfiniteResponseItem {
+    export interface Sale {
+      discount: number;
+      starts: string;
+      ends: string;
+    }
+  }
+}
+
 export interface ProductListInfiniteParams {
   /**
    * Query param
@@ -156,6 +186,7 @@ export declare namespace Products {
   export {
     type ProductSearchResponse as ProductSearchResponse,
     type ProductRetrieveResponse as ProductRetrieveResponse,
+    type ProductListInfiniteResponse as ProductListInfiniteResponse,
     type ProductListTrendingResponse as ProductListTrendingResponse,
     type ProductRetrieveParams as ProductRetrieveParams,
     type ProductListInfiniteParams as ProductListInfiniteParams,

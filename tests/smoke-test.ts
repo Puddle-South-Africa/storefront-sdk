@@ -262,7 +262,7 @@ const cases: { operation: string; method: string; path: string; run: () => Promi
     method: "GET",
     path: "/products/infinite",
     run: async () => {
-      const string_ = await client.products.listInfinite({
+      const listInfinite = await client.products.listInfinite({
         type: "ALL",
       });
     },
