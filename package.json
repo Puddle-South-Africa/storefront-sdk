@@ -1,6 +1,6 @@
 {
   "name": "@puddle/storefront",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "TypeScript SDK for the Puddle Storefront API.",
   "keywords": [
     "puddle",
@@ -29,33 +29,9 @@
       "require": "./dist/cjs/index.js",
       "default": "./dist/esm/index.js"
     },
-    "./resources/*": {
-      "types": "./dist/esm/resources/*.d.ts",
-      "import": "./dist/esm/resources/*.js",
-      "require": "./dist/cjs/resources/*.js",
-      "default": "./dist/esm/resources/*.js"
-    },
-    "./*.mjs": {
-      "types": "./dist/esm/*.d.ts",
-      "import": "./dist/esm/*.js",
-      "default": "./dist/esm/*.js"
-    },
-    "./*.js": {
-      "types": "./dist/esm/*.d.ts",
-      "require": "./dist/cjs/*.js",
-      "default": "./dist/cjs/*.js"
-    },
-    "./*": {
-      "types": "./dist/esm/*.d.ts",
-      "import": "./dist/esm/*.js",
-      "require": "./dist/cjs/*.js",
-      "default": "./dist/esm/*.js"
-    },
     "./package.json": "./package.json"
   },
   "files": [
-    "dist",
-    "api.md",
     "README.md",
     "LICENSE"
   ],
@@ -63,13 +39,16 @@
     "access": "public"
   },
   "scripts": {
+    "generate": "openapi-ts",
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node scripts/finalize-build.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {},
   "devDependencies": {
-    "typescript": "^6.0.0"
+    "@hey-api/client-fetch": "^0.13.1",
+    "@hey-api/openapi-ts": "^0.99.0",
+    "@tanstack/react-query": "^5.101.2",
+    "typescript": "^6.0.3"
   },
   "license": "Apache-2.0"
 }
