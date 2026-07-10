@@ -1,26 +1,40 @@
-import { defineConfig } from '@hey-api/openapi-ts';
+import { OperationPath, defineConfig } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: 'https://api.puddle.co.za/storefront/v1/openapi.json',
+  input: "./openapi.json",
   output: {
-    path: 'src',
+    path: "src/generated",
   },
   plugins: [
-    '@hey-api/client-fetch',
-    '@hey-api/typescript',
+    "@hey-api/client-fetch",
+    "@hey-api/typescript",
     {
-      name:'@hey-api/sdk',
+      name: "@hey-api/sdk",
+      validator: true,
+      auth: false,
       examples: {
-        moduleName: '@puddle/storefront',
-        setupName: 'client',
+        importSetup: ({ $, node }) =>
+          $.new(
+            node.name,
+            $.object().pretty().prop("apiKey", $.literal("YOUR_API_KEY")),
+          ),
+        moduleName: "@puddle/storefront",
+        setupName: "storefront",
       },
-      paramsStructure: "flat",
       operations: {
         strategy: "single",
-        containerName: 'PuddleStorefrontAPI',
+        containerName: "PuddleStorefrontApi",
+        nesting(operation) {
+          const parts = operation.operationId?.split("-").filter(Boolean);
+
+          if (parts?.length) {
+            return parts;
+          }
+
+          return ["default", operation.method.toLowerCase()];
+        },
       },
-    
     },
-    '@tanstack/react-query'
+    { name: "zod" },
   ],
 });

@@ -1,26 +1,8 @@
 # @puddle/storefront
 
-TypeScript SDK for Puddle Storefront API.
-The Puddle Storefront API provides endpoints for integrating the Puddle platform with external online stores, enabling seamless product management, order processing, and customer interactions.
+> 🇿🇦 Puddle is upgrading the South African headless e-commerce landscape! The waitlist is available at [puddle.co.za](https://puddle.co.za).
 
-<br />
-
-## Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Reference](./api.md)
-- [Authentication](#authentication)
-- [Errors](#errors)
-- [Client Options](#client-options)
-- [Request Options](#request-options)
-- [Retries and Timeouts](#retries-and-timeouts)
-- [Helpers](#helpers)
-- [Logging](#logging)
-- [Requirements](#requirements)
-- [Contributions](#contributions)
-
-<br />
+The official TypeScript SDK for the Puddle Storefront API. Built with full type safety and modern web standards.
 
 ## Installation
 
@@ -28,136 +10,109 @@ The Puddle Storefront API provides endpoints for integrating the Puddle platform
 npm install @puddle/storefront
 ```
 
-<br />
+## Initialization
 
-## Usage
+You can initialize the Storefront API client by providing your `storefrontPublicKey`. This key will automatically be passed as a Bearer token in the `Authorization` header for all requests.
 
 ```ts
-import PuddleStorefront from "@puddle/storefront";
+import { PuddleStorefrontApi } from "@puddle/storefront";
 
-const client = new PuddleStorefront({
-  storefrontPublicKey: "pk_storefront_...",
+const storefront = new PuddleStorefrontApi({
+  storefrontPublicKey: "pk_storefront_test_...",
 });
-
-const products = await client.products.listTrending();
-console.log(products);
-
-const account = await client.accounts.list();
-console.log(account);
 ```
 
-The examples in the following sections assume a `client` configured as shown above.
-
-See the [API reference](./api.md) for every available operation.
-
-<br />
-
-## Authentication
-
-Pass the storefront public key once when you create the client. Environment variables are read automatically when supported by the target runtime.
-
-| Option | Type | Default | Description |
-| --- | --- | --- | --- |
-| `storefrontPublicKey` | `string \| provider` | - | Use the storefront public key as the bearer token in the Authorization header. Defaults to STOREFRONT_PUBLIC_KEY. |
-
-Declared schemes:
-
-- `storefrontPublicKey` bearer token
-
-<br />
-
-## Errors
-
-Non-success responses throw generated API errors. Error objects expose status, headers, response body, and request metadata where the target runtime supports it.
+You can also pass additional default headers or configuration for the fetch client:
 
 ```ts
-import { APIError } from "@puddle/storefront";
+const storefront = new PuddleStorefrontApi({
+  storefrontPublicKey: "pk_storefront_test_...",
+  headers: {
+    "x-puddle-storefront-host": "shop.example.com",
+  },
+});
+```
 
+## Usage Examples
+
+The SDK is grouped by top-level resources like `accounts`, `cart`, `collections`, `products`, `content`, and `wishlist`.
+
+Here are some common examples of how to use it:
+
+### Get the current customer
+
+```ts
+const { data: customer } = await storefront.accounts.get({
+  throwOnError: true,
+});
+
+console.log(customer);
+```
+
+### Update the current customer
+
+```ts
+const { data } = await storefront.accounts.update({
+  body: {
+    firstName: "Jane",
+    lastName: "Doe",
+    phone: "+27123456789",
+  },
+  throwOnError: true,
+});
+```
+
+### List trending products
+
+```ts
+const { data: products } = await storefront.products.getTrendingProducts({
+  throwOnError: true,
+});
+```
+
+### Get the current cart
+
+```ts
+const { data: cart } = await storefront.cart.get({
+  throwOnError: true,
+});
+```
+
+### Add an item to the cart
+
+```ts
+const { data: updatedCart } = await storefront.cart.add({
+  body: {
+    productId: "product_123",
+    productVariantId: "variant_123",
+    quantity: 1,
+  },
+  throwOnError: true,
+});
+```
+
+### Request an OTP
+
+```ts
+await storefront.accounts.authRequestOtp({
+  body: {
+    email: "jane@example.com",
+  },
+  throwOnError: true,
+});
+```
+
+## Error Handling
+
+By default, the SDK returns a response object containing `data` and `error`. We highly recommend using the `throwOnError: true` option to automatically throw exceptions for non-2xx HTTP responses, which makes integration much simpler in modern frameworks.
+
+```ts
 try {
-  const list = await client.accounts.list();
-} catch (err) {
-  if (err instanceof APIError) {
-    console.log(err.status, err.name, err.headers);
-  }
-  throw err;
+  const { data } = await storefront.cart.add({
+    body: { productId: "invalid_123", quantity: 1 },
+    throwOnError: true,
+  });
+} catch (error) {
+  console.error("Failed to add to cart:", error);
 }
 ```
-
-Documented error statuses: `400`, `401`, `403`, `404`, `500`.
-
-<br />
-
-## Client Options
-
-Configure the generated client by setting any of these options when you create it.
-
-```ts
-import PuddleStorefront from "@puddle/storefront";
-
-const client = new PuddleStorefront({
-  storefrontPublicKey: "pk_storefront_...",
-  timeout: 60000,
-  maxRetries: 2,
-  logLevel: "debug",
-});
-```
-
-| Option | Type | Default | Description |
-| --- | --- | --- | --- |
-| `storefrontPublicKey` | `string \| AuthTokenProvider` | `process.env["STOREFRONT_PUBLIC_KEY"]` | Use the storefront public key as the bearer token in the Authorization header. |
-| `baseURL` | `string \| null` | `process.env["PUDDLE_STOREFRONT_BASE_URL"]` | Override the default API base URL. Pass `null` when selecting a configured environment. |
-| `timeout` | `number` | `60000` | Maximum time in milliseconds to wait for a response before aborting a request. |
-| `maxRetries` | `number` | `2` | Number of retries for temporary failures. |
-| `defaultHeaders` | `HeadersInit` | - | Headers sent with every request. |
-| `defaultQuery` | `Record<string, string \| undefined>` | - | Query parameters sent with every request. |
-| `fetchOptions` | `RequestInit` | - | Additional fetch options sent with every request. |
-| `fetch` | `Fetch` | - | Custom fetch implementation. |
-| `logLevel` | `"off" \| "error" \| "warn" \| "info" \| "debug" \| null` | `process.env["PUDDLE_STOREFRONT_LOG"]` | Controls request and retry debug logging. |
-| `logger` | `Logger \| null` | `console` | Custom logger implementation. |
-
-<br />
-
-## Request Options
-
-| Option | Type | Default | Description |
-| --- | --- | --- | --- |
-| `headers` | `HeadersInit` | - | Per-request headers. |
-| `query` | `Record<string, unknown>` | - | Per-request query parameters. |
-| `body` | `unknown` | - | Override the generated request body. |
-| `timeout` | `number` | - | Per-request timeout in milliseconds. |
-| `maxRetries` | `number` | - | Per-request retry count. |
-| `signal` | `AbortSignal` | - | Abort an in-flight request. |
-| `fetchOptions` | `RequestInit` | - | Per-request fetch options. |
-| `idempotencyKey` | `string` | - | Idempotency key for retry-safe operations. |
-
-<br />
-
-## Retries and Timeouts
-
-Generated clients support request timeouts and retry temporary failures such as network errors, 408, 409, 429, and 5xx responses. Retry delays honor `Retry-After` headers when present. Tune the retry and timeout client options shown above, or override them per request.
-
-<br />
-
-## Helpers
-
-- Use `.withResponse()` on any request to inspect both parsed data and the raw `Response` object.
-- Every operation returns an `APIPromise`, so you can `await` it directly or chain `.withResponse()`.
-
-<br />
-
-## Logging
-
-- Set `logLevel: "debug"` to log request URLs, options, response status, response headers, and retry attempts.
-- Pass a custom `logger` to route logs into your own observability pipeline.
-- Set `logLevel: null` to disable environment-driven logging.
-
-<br />
-
-## Requirements
-
-- Node.js 20+, a modern browser, or any runtime with `fetch` support
-
-## Contributions
-
-This SDK is generated from the repository OpenAPI spec. Manual edits to generated
-files may be overwritten when the SDK is regenerated.

@@ -179,13 +179,9 @@ export type Schema0 = {
     children: Array<Schema0>;
 };
 
-export type AccountsGetData = {
+export type GetAccountData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -196,7 +192,7 @@ export type AccountsGetData = {
     url: '/account';
 };
 
-export type AccountsGetErrors = {
+export type GetAccountErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -227,9 +223,9 @@ export type AccountsGetErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsGetError = AccountsGetErrors[keyof AccountsGetErrors];
+export type GetAccountError = GetAccountErrors[keyof GetAccountErrors];
 
-export type AccountsGetResponses = {
+export type GetAccountResponses = {
     /**
      * Successful response
      */
@@ -242,19 +238,15 @@ export type AccountsGetResponses = {
     } | null;
 };
 
-export type AccountsGetResponse = AccountsGetResponses[keyof AccountsGetResponses];
+export type GetAccountResponse = GetAccountResponses[keyof GetAccountResponses];
 
-export type AccountsUpdateData = {
+export type PutAccountData = {
     body: {
         firstName: string;
         lastName: string;
         phone?: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -265,7 +257,7 @@ export type AccountsUpdateData = {
     url: '/account';
 };
 
-export type AccountsUpdateErrors = {
+export type PutAccountErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -296,23 +288,23 @@ export type AccountsUpdateErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsUpdateError = AccountsUpdateErrors[keyof AccountsUpdateErrors];
+export type PutAccountError = PutAccountErrors[keyof PutAccountErrors];
 
-export type AccountsUpdateResponses = {
+export type PutAccountResponses = {
     /**
      * Successful response
      */
     200: unknown;
 };
 
-export type AccountsMarketingGetData = {
+export type GetAccountMarketingData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/account/marketing';
 };
 
-export type AccountsMarketingGetErrors = {
+export type GetAccountMarketingErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -343,9 +335,9 @@ export type AccountsMarketingGetErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsMarketingGetError = AccountsMarketingGetErrors[keyof AccountsMarketingGetErrors];
+export type GetAccountMarketingError = GetAccountMarketingErrors[keyof GetAccountMarketingErrors];
 
-export type AccountsMarketingGetResponses = {
+export type GetAccountMarketingResponses = {
     /**
      * Successful response
      */
@@ -354,17 +346,13 @@ export type AccountsMarketingGetResponses = {
     };
 };
 
-export type AccountsMarketingGetResponse = AccountsMarketingGetResponses[keyof AccountsMarketingGetResponses];
+export type GetAccountMarketingResponse = GetAccountMarketingResponses[keyof GetAccountMarketingResponses];
 
-export type AccountsMarketingUpdateData = {
+export type PutAccountMarketingData = {
     body: {
         consent: boolean;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -375,7 +363,7 @@ export type AccountsMarketingUpdateData = {
     url: '/account/marketing';
 };
 
-export type AccountsMarketingUpdateErrors = {
+export type PutAccountMarketingErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -406,9 +394,9 @@ export type AccountsMarketingUpdateErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsMarketingUpdateError = AccountsMarketingUpdateErrors[keyof AccountsMarketingUpdateErrors];
+export type PutAccountMarketingError = PutAccountMarketingErrors[keyof PutAccountMarketingErrors];
 
-export type AccountsMarketingUpdateResponses = {
+export type PutAccountMarketingResponses = {
     /**
      * Successful response
      */
@@ -417,16 +405,16 @@ export type AccountsMarketingUpdateResponses = {
     };
 };
 
-export type AccountsMarketingUpdateResponse = AccountsMarketingUpdateResponses[keyof AccountsMarketingUpdateResponses];
+export type PutAccountMarketingResponse = PutAccountMarketingResponses[keyof PutAccountMarketingResponses];
 
-export type AccountsOrdersListData = {
+export type GetAccountOrdersData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/account/orders';
 };
 
-export type AccountsOrdersListErrors = {
+export type GetAccountOrdersErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -457,9 +445,9 @@ export type AccountsOrdersListErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsOrdersListError = AccountsOrdersListErrors[keyof AccountsOrdersListErrors];
+export type GetAccountOrdersError = GetAccountOrdersErrors[keyof GetAccountOrdersErrors];
 
-export type AccountsOrdersListResponses = {
+export type GetAccountOrdersResponses = {
     /**
      * Successful response
      */
@@ -518,15 +506,11 @@ export type AccountsOrdersListResponses = {
     }>;
 };
 
-export type AccountsOrdersListResponse = AccountsOrdersListResponses[keyof AccountsOrdersListResponses];
+export type GetAccountOrdersResponse = GetAccountOrdersResponses[keyof GetAccountOrdersResponses];
 
-export type AccountsOrdersGetData = {
+export type GetAccountOrdersByOrderIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -539,7 +523,7 @@ export type AccountsOrdersGetData = {
     url: '/account/orders/{orderId}';
 };
 
-export type AccountsOrdersGetErrors = {
+export type GetAccountOrdersByOrderIdErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -570,9 +554,9 @@ export type AccountsOrdersGetErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsOrdersGetError = AccountsOrdersGetErrors[keyof AccountsOrdersGetErrors];
+export type GetAccountOrdersByOrderIdError = GetAccountOrdersByOrderIdErrors[keyof GetAccountOrdersByOrderIdErrors];
 
-export type AccountsOrdersGetResponses = {
+export type GetAccountOrdersByOrderIdResponses = {
     /**
      * Successful response
      */
@@ -715,17 +699,13 @@ export type AccountsOrdersGetResponses = {
     };
 };
 
-export type AccountsOrdersGetResponse = AccountsOrdersGetResponses[keyof AccountsOrdersGetResponses];
+export type GetAccountOrdersByOrderIdResponse = GetAccountOrdersByOrderIdResponses[keyof GetAccountOrdersByOrderIdResponses];
 
-export type AccountsAuthRequestOtpData = {
+export type PostAuthRequestOtpData = {
     body: {
         email: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -736,7 +716,7 @@ export type AccountsAuthRequestOtpData = {
     url: '/auth/request-otp';
 };
 
-export type AccountsAuthRequestOtpErrors = {
+export type PostAuthRequestOtpErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -767,9 +747,9 @@ export type AccountsAuthRequestOtpErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsAuthRequestOtpError = AccountsAuthRequestOtpErrors[keyof AccountsAuthRequestOtpErrors];
+export type PostAuthRequestOtpError = PostAuthRequestOtpErrors[keyof PostAuthRequestOtpErrors];
 
-export type AccountsAuthRequestOtpResponses = {
+export type PostAuthRequestOtpResponses = {
     /**
      * Successful response
      */
@@ -778,9 +758,9 @@ export type AccountsAuthRequestOtpResponses = {
     };
 };
 
-export type AccountsAuthRequestOtpResponse = AccountsAuthRequestOtpResponses[keyof AccountsAuthRequestOtpResponses];
+export type PostAuthRequestOtpResponse = PostAuthRequestOtpResponses[keyof PostAuthRequestOtpResponses];
 
-export type AccountsAuthVerifyOtpData = {
+export type PostAuthVerifyOtpData = {
     body: {
         email: string;
         otp: string;
@@ -788,11 +768,7 @@ export type AccountsAuthVerifyOtpData = {
         lastName?: string;
         phone?: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -803,7 +779,7 @@ export type AccountsAuthVerifyOtpData = {
     url: '/auth/verify-otp';
 };
 
-export type AccountsAuthVerifyOtpErrors = {
+export type PostAuthVerifyOtpErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -834,9 +810,9 @@ export type AccountsAuthVerifyOtpErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsAuthVerifyOtpError = AccountsAuthVerifyOtpErrors[keyof AccountsAuthVerifyOtpErrors];
+export type PostAuthVerifyOtpError = PostAuthVerifyOtpErrors[keyof PostAuthVerifyOtpErrors];
 
-export type AccountsAuthVerifyOtpResponses = {
+export type PostAuthVerifyOtpResponses = {
     /**
      * Successful response
      */
@@ -861,16 +837,16 @@ export type AccountsAuthVerifyOtpResponses = {
     };
 };
 
-export type AccountsAuthVerifyOtpResponse = AccountsAuthVerifyOtpResponses[keyof AccountsAuthVerifyOtpResponses];
+export type PostAuthVerifyOtpResponse = PostAuthVerifyOtpResponses[keyof PostAuthVerifyOtpResponses];
 
-export type AccountsAuthGetSessionData = {
+export type GetAuthSessionData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/auth/session';
 };
 
-export type AccountsAuthGetSessionErrors = {
+export type GetAuthSessionErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -901,9 +877,9 @@ export type AccountsAuthGetSessionErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsAuthGetSessionError = AccountsAuthGetSessionErrors[keyof AccountsAuthGetSessionErrors];
+export type GetAuthSessionError = GetAuthSessionErrors[keyof GetAuthSessionErrors];
 
-export type AccountsAuthGetSessionResponses = {
+export type GetAuthSessionResponses = {
     /**
      * Successful response
      */
@@ -927,16 +903,16 @@ export type AccountsAuthGetSessionResponses = {
     };
 };
 
-export type AccountsAuthGetSessionResponse = AccountsAuthGetSessionResponses[keyof AccountsAuthGetSessionResponses];
+export type GetAuthSessionResponse = GetAuthSessionResponses[keyof GetAuthSessionResponses];
 
-export type AccountsAuthSignOutData = {
+export type PostAuthSignOutData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/auth/sign-out';
 };
 
-export type AccountsAuthSignOutErrors = {
+export type PostAuthSignOutErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -967,9 +943,9 @@ export type AccountsAuthSignOutErrors = {
     500: ErrorInternalServerError;
 };
 
-export type AccountsAuthSignOutError = AccountsAuthSignOutErrors[keyof AccountsAuthSignOutErrors];
+export type PostAuthSignOutError = PostAuthSignOutErrors[keyof PostAuthSignOutErrors];
 
-export type AccountsAuthSignOutResponses = {
+export type PostAuthSignOutResponses = {
     /**
      * Successful response
      */
@@ -978,9 +954,9 @@ export type AccountsAuthSignOutResponses = {
     };
 };
 
-export type AccountsAuthSignOutResponse = AccountsAuthSignOutResponses[keyof AccountsAuthSignOutResponses];
+export type PostAuthSignOutResponse = PostAuthSignOutResponses[keyof PostAuthSignOutResponses];
 
-export type CartCheckoutData = {
+export type PostCartCheckoutData = {
     body: {
         couponCode?: string | null;
         giftCardCodes?: Array<string> | null;
@@ -988,11 +964,7 @@ export type CartCheckoutData = {
         deliveryMethodId?: string | null;
         deliveryMethodCode?: string | null;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1003,7 +975,7 @@ export type CartCheckoutData = {
     url: '/cart/checkout';
 };
 
-export type CartCheckoutErrors = {
+export type PostCartCheckoutErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1034,9 +1006,9 @@ export type CartCheckoutErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CartCheckoutError = CartCheckoutErrors[keyof CartCheckoutErrors];
+export type PostCartCheckoutError = PostCartCheckoutErrors[keyof PostCartCheckoutErrors];
 
-export type CartCheckoutResponses = {
+export type PostCartCheckoutResponses = {
     /**
      * Successful response
      */
@@ -1047,16 +1019,16 @@ export type CartCheckoutResponses = {
     };
 };
 
-export type CartCheckoutResponse = CartCheckoutResponses[keyof CartCheckoutResponses];
+export type PostCartCheckoutResponse = PostCartCheckoutResponses[keyof PostCartCheckoutResponses];
 
-export type CartCountData = {
+export type GetCartCountData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/cart/count';
 };
 
-export type CartCountErrors = {
+export type GetCartCountErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1087,25 +1059,25 @@ export type CartCountErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CartCountError = CartCountErrors[keyof CartCountErrors];
+export type GetCartCountError = GetCartCountErrors[keyof GetCartCountErrors];
 
-export type CartCountResponses = {
+export type GetCartCountResponses = {
     /**
      * Successful response
      */
     200: number;
 };
 
-export type CartCountResponse = CartCountResponses[keyof CartCountResponses];
+export type GetCartCountResponse = GetCartCountResponses[keyof GetCartCountResponses];
 
-export type CartMigrateData = {
+export type PostCartMigrateData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/cart/migrate';
 };
 
-export type CartMigrateErrors = {
+export type PostCartMigrateErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1136,23 +1108,23 @@ export type CartMigrateErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CartMigrateError = CartMigrateErrors[keyof CartMigrateErrors];
+export type PostCartMigrateError = PostCartMigrateErrors[keyof PostCartMigrateErrors];
 
-export type CartMigrateResponses = {
+export type PostCartMigrateResponses = {
     /**
      * Successful response
      */
     200: unknown;
 };
 
-export type CartGetData = {
+export type GetCartData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/cart';
 };
 
-export type CartGetErrors = {
+export type GetCartErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1183,9 +1155,9 @@ export type CartGetErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CartGetError = CartGetErrors[keyof CartGetErrors];
+export type GetCartError = GetCartErrors[keyof GetCartErrors];
 
-export type CartGetResponses = {
+export type GetCartResponses = {
     /**
      * Successful response
      */
@@ -1250,9 +1222,9 @@ export type CartGetResponses = {
     };
 };
 
-export type CartGetResponse = CartGetResponses[keyof CartGetResponses];
+export type GetCartResponse = GetCartResponses[keyof GetCartResponses];
 
-export type CartAddData = {
+export type PostCartItemsData = {
     body: {
         productId: string;
         productVariantId?: string;
@@ -1261,11 +1233,7 @@ export type CartAddData = {
             [key: string]: string;
         };
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1276,7 +1244,7 @@ export type CartAddData = {
     url: '/cart/items';
 };
 
-export type CartAddErrors = {
+export type PostCartItemsErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1307,9 +1275,9 @@ export type CartAddErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CartAddError = CartAddErrors[keyof CartAddErrors];
+export type PostCartItemsError = PostCartItemsErrors[keyof PostCartItemsErrors];
 
-export type CartAddResponses = {
+export type PostCartItemsResponses = {
     /**
      * Successful response
      */
@@ -1374,15 +1342,11 @@ export type CartAddResponses = {
     };
 };
 
-export type CartAddResponse = CartAddResponses[keyof CartAddResponses];
+export type PostCartItemsResponse = PostCartItemsResponses[keyof PostCartItemsResponses];
 
-export type CartRemoveData = {
+export type DeleteCartItemsByCartProductIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1395,7 +1359,7 @@ export type CartRemoveData = {
     url: '/cart/items/{cartProductId}';
 };
 
-export type CartRemoveErrors = {
+export type DeleteCartItemsByCartProductIdErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1426,9 +1390,9 @@ export type CartRemoveErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CartRemoveError = CartRemoveErrors[keyof CartRemoveErrors];
+export type DeleteCartItemsByCartProductIdError = DeleteCartItemsByCartProductIdErrors[keyof DeleteCartItemsByCartProductIdErrors];
 
-export type CartRemoveResponses = {
+export type DeleteCartItemsByCartProductIdResponses = {
     /**
      * Successful response
      */
@@ -1493,17 +1457,13 @@ export type CartRemoveResponses = {
     };
 };
 
-export type CartRemoveResponse = CartRemoveResponses[keyof CartRemoveResponses];
+export type DeleteCartItemsByCartProductIdResponse = DeleteCartItemsByCartProductIdResponses[keyof DeleteCartItemsByCartProductIdResponses];
 
-export type CartUpdateData = {
+export type PutCartItemsByCartProductIdData = {
     body: {
         quantity: number;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1516,7 +1476,7 @@ export type CartUpdateData = {
     url: '/cart/items/{cartProductId}';
 };
 
-export type CartUpdateErrors = {
+export type PutCartItemsByCartProductIdErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1547,9 +1507,9 @@ export type CartUpdateErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CartUpdateError = CartUpdateErrors[keyof CartUpdateErrors];
+export type PutCartItemsByCartProductIdError = PutCartItemsByCartProductIdErrors[keyof PutCartItemsByCartProductIdErrors];
 
-export type CartUpdateResponses = {
+export type PutCartItemsByCartProductIdResponses = {
     /**
      * Successful response
      */
@@ -1614,15 +1574,11 @@ export type CartUpdateResponses = {
     };
 };
 
-export type CartUpdateResponse = CartUpdateResponses[keyof CartUpdateResponses];
+export type PutCartItemsByCartProductIdResponse = PutCartItemsByCartProductIdResponses[keyof PutCartItemsByCartProductIdResponses];
 
-export type CollectionsGetCollectionsData = {
+export type GetCollectionsData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1635,7 +1591,7 @@ export type CollectionsGetCollectionsData = {
     url: '/collections';
 };
 
-export type CollectionsGetCollectionsErrors = {
+export type GetCollectionsErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1666,9 +1622,9 @@ export type CollectionsGetCollectionsErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CollectionsGetCollectionsError = CollectionsGetCollectionsErrors[keyof CollectionsGetCollectionsErrors];
+export type GetCollectionsError = GetCollectionsErrors[keyof GetCollectionsErrors];
 
-export type CollectionsGetCollectionsResponses = {
+export type GetCollectionsResponses = {
     /**
      * Successful response
      */
@@ -1693,18 +1649,14 @@ export type CollectionsGetCollectionsResponses = {
     }> | Array<Schema0>;
 };
 
-export type CollectionsGetCollectionsResponse = CollectionsGetCollectionsResponses[keyof CollectionsGetCollectionsResponses];
+export type GetCollectionsResponse = GetCollectionsResponses[keyof GetCollectionsResponses];
 
-export type CollectionsGetCollectionData = {
+export type PostCollectionData = {
     body: {
         slug: string;
         includeChildren?: boolean;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1715,7 +1667,7 @@ export type CollectionsGetCollectionData = {
     url: '/collection';
 };
 
-export type CollectionsGetCollectionErrors = {
+export type PostCollectionErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1746,9 +1698,9 @@ export type CollectionsGetCollectionErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CollectionsGetCollectionError = CollectionsGetCollectionErrors[keyof CollectionsGetCollectionErrors];
+export type PostCollectionError = PostCollectionErrors[keyof PostCollectionErrors];
 
-export type CollectionsGetCollectionResponses = {
+export type PostCollectionResponses = {
     /**
      * Successful response
      */
@@ -1773,18 +1725,14 @@ export type CollectionsGetCollectionResponses = {
     } | null;
 };
 
-export type CollectionsGetCollectionResponse = CollectionsGetCollectionResponses[keyof CollectionsGetCollectionResponses];
+export type PostCollectionResponse = PostCollectionResponses[keyof PostCollectionResponses];
 
-export type CollectionsGetCollectionProductsData = {
+export type PostCollectionProductsData = {
     body: {
         slug: string;
         sort?: 'PRICE_ASC' | 'PRICE_DESC' | 'NAME_ASC' | 'NAME_DESC' | 'NEWEST' | 'OLDEST';
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1795,7 +1743,7 @@ export type CollectionsGetCollectionProductsData = {
     url: '/collection/products';
 };
 
-export type CollectionsGetCollectionProductsErrors = {
+export type PostCollectionProductsErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1826,9 +1774,9 @@ export type CollectionsGetCollectionProductsErrors = {
     500: ErrorInternalServerError;
 };
 
-export type CollectionsGetCollectionProductsError = CollectionsGetCollectionProductsErrors[keyof CollectionsGetCollectionProductsErrors];
+export type PostCollectionProductsError = PostCollectionProductsErrors[keyof PostCollectionProductsErrors];
 
-export type CollectionsGetCollectionProductsResponses = {
+export type PostCollectionProductsResponses = {
     /**
      * Successful response
      */
@@ -1868,16 +1816,16 @@ export type CollectionsGetCollectionProductsResponses = {
     }>;
 };
 
-export type CollectionsGetCollectionProductsResponse = CollectionsGetCollectionProductsResponses[keyof CollectionsGetCollectionProductsResponses];
+export type PostCollectionProductsResponse = PostCollectionProductsResponses[keyof PostCollectionProductsResponses];
 
-export type ProductsGetSearchProductsData = {
+export type GetProductsSearchData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/products/search';
 };
 
-export type ProductsGetSearchProductsErrors = {
+export type GetProductsSearchErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1908,9 +1856,9 @@ export type ProductsGetSearchProductsErrors = {
     500: ErrorInternalServerError;
 };
 
-export type ProductsGetSearchProductsError = ProductsGetSearchProductsErrors[keyof ProductsGetSearchProductsErrors];
+export type GetProductsSearchError = GetProductsSearchErrors[keyof GetProductsSearchErrors];
 
-export type ProductsGetSearchProductsResponses = {
+export type GetProductsSearchResponses = {
     /**
      * Successful response
      */
@@ -1925,15 +1873,11 @@ export type ProductsGetSearchProductsResponses = {
     }>;
 };
 
-export type ProductsGetSearchProductsResponse = ProductsGetSearchProductsResponses[keyof ProductsGetSearchProductsResponses];
+export type GetProductsSearchResponse = GetProductsSearchResponses[keyof GetProductsSearchResponses];
 
-export type ProductsGetInfiniteProductsData = {
+export type GetProductsInfiniteData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1947,7 +1891,7 @@ export type ProductsGetInfiniteProductsData = {
     url: '/products/infinite';
 };
 
-export type ProductsGetInfiniteProductsErrors = {
+export type GetProductsInfiniteErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -1978,9 +1922,9 @@ export type ProductsGetInfiniteProductsErrors = {
     500: ErrorInternalServerError;
 };
 
-export type ProductsGetInfiniteProductsError = ProductsGetInfiniteProductsErrors[keyof ProductsGetInfiniteProductsErrors];
+export type GetProductsInfiniteError = GetProductsInfiniteErrors[keyof GetProductsInfiniteErrors];
 
-export type ProductsGetInfiniteProductsResponses = {
+export type GetProductsInfiniteResponses = {
     /**
      * Successful response
      */
@@ -2020,16 +1964,16 @@ export type ProductsGetInfiniteProductsResponses = {
     }>;
 };
 
-export type ProductsGetInfiniteProductsResponse = ProductsGetInfiniteProductsResponses[keyof ProductsGetInfiniteProductsResponses];
+export type GetProductsInfiniteResponse = GetProductsInfiniteResponses[keyof GetProductsInfiniteResponses];
 
-export type ProductsGetTrendingProductsData = {
+export type GetProductsTrendingData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/products/trending';
 };
 
-export type ProductsGetTrendingProductsErrors = {
+export type GetProductsTrendingErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2060,9 +2004,9 @@ export type ProductsGetTrendingProductsErrors = {
     500: ErrorInternalServerError;
 };
 
-export type ProductsGetTrendingProductsError = ProductsGetTrendingProductsErrors[keyof ProductsGetTrendingProductsErrors];
+export type GetProductsTrendingError = GetProductsTrendingErrors[keyof GetProductsTrendingErrors];
 
-export type ProductsGetTrendingProductsResponses = {
+export type GetProductsTrendingResponses = {
     /**
      * Successful response
      */
@@ -2102,17 +2046,13 @@ export type ProductsGetTrendingProductsResponses = {
     }>;
 };
 
-export type ProductsGetTrendingProductsResponse = ProductsGetTrendingProductsResponses[keyof ProductsGetTrendingProductsResponses];
+export type GetProductsTrendingResponse = GetProductsTrendingResponses[keyof GetProductsTrendingResponses];
 
-export type ProductsGetProductData = {
+export type PostProductData = {
     body: {
         slug: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2123,7 +2063,7 @@ export type ProductsGetProductData = {
     url: '/product';
 };
 
-export type ProductsGetProductErrors = {
+export type PostProductErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2154,9 +2094,9 @@ export type ProductsGetProductErrors = {
     500: ErrorInternalServerError;
 };
 
-export type ProductsGetProductError = ProductsGetProductErrors[keyof ProductsGetProductErrors];
+export type PostProductError = PostProductErrors[keyof PostProductErrors];
 
-export type ProductsGetProductResponses = {
+export type PostProductResponses = {
     /**
      * Successful response
      */
@@ -2257,16 +2197,16 @@ export type ProductsGetProductResponses = {
     } | null;
 };
 
-export type ProductsGetProductResponse = ProductsGetProductResponses[keyof ProductsGetProductResponses];
+export type PostProductResponse = PostProductResponses[keyof PostProductResponses];
 
-export type ContentBlocksData = {
+export type GetContentBlocksData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/content/blocks';
 };
 
-export type ContentBlocksErrors = {
+export type GetContentBlocksErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2297,9 +2237,9 @@ export type ContentBlocksErrors = {
     500: ErrorInternalServerError;
 };
 
-export type ContentBlocksError = ContentBlocksErrors[keyof ContentBlocksErrors];
+export type GetContentBlocksError = GetContentBlocksErrors[keyof GetContentBlocksErrors];
 
-export type ContentBlocksResponses = {
+export type GetContentBlocksResponses = {
     /**
      * Successful response
      */
@@ -2337,15 +2277,11 @@ export type ContentBlocksResponses = {
     }>;
 };
 
-export type ContentBlocksResponse = ContentBlocksResponses[keyof ContentBlocksResponses];
+export type GetContentBlocksResponse = GetContentBlocksResponses[keyof GetContentBlocksResponses];
 
-export type ContentBlockData = {
+export type GetContentBlocksByBlockIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2358,7 +2294,7 @@ export type ContentBlockData = {
     url: '/content/blocks/{blockId}';
 };
 
-export type ContentBlockErrors = {
+export type GetContentBlocksByBlockIdErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2389,9 +2325,9 @@ export type ContentBlockErrors = {
     500: ErrorInternalServerError;
 };
 
-export type ContentBlockError = ContentBlockErrors[keyof ContentBlockErrors];
+export type GetContentBlocksByBlockIdError = GetContentBlocksByBlockIdErrors[keyof GetContentBlocksByBlockIdErrors];
 
-export type ContentBlockResponses = {
+export type GetContentBlocksByBlockIdResponses = {
     /**
      * Successful response
      */
@@ -2429,16 +2365,16 @@ export type ContentBlockResponses = {
     } | null;
 };
 
-export type ContentBlockResponse = ContentBlockResponses[keyof ContentBlockResponses];
+export type GetContentBlocksByBlockIdResponse = GetContentBlocksByBlockIdResponses[keyof GetContentBlocksByBlockIdResponses];
 
-export type ContentBannerTextData = {
+export type GetContentBannerTextData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/content/banner-text';
 };
 
-export type ContentBannerTextErrors = {
+export type GetContentBannerTextErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2469,25 +2405,25 @@ export type ContentBannerTextErrors = {
     500: ErrorInternalServerError;
 };
 
-export type ContentBannerTextError = ContentBannerTextErrors[keyof ContentBannerTextErrors];
+export type GetContentBannerTextError = GetContentBannerTextErrors[keyof GetContentBannerTextErrors];
 
-export type ContentBannerTextResponses = {
+export type GetContentBannerTextResponses = {
     /**
      * Successful response
      */
     200: string | null;
 };
 
-export type ContentBannerTextResponse = ContentBannerTextResponses[keyof ContentBannerTextResponses];
+export type GetContentBannerTextResponse = GetContentBannerTextResponses[keyof GetContentBannerTextResponses];
 
-export type WishlistGetData = {
+export type GetWishlistData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/wishlist';
 };
 
-export type WishlistGetErrors = {
+export type GetWishlistErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2518,9 +2454,9 @@ export type WishlistGetErrors = {
     500: ErrorInternalServerError;
 };
 
-export type WishlistGetError = WishlistGetErrors[keyof WishlistGetErrors];
+export type GetWishlistError = GetWishlistErrors[keyof GetWishlistErrors];
 
-export type WishlistGetResponses = {
+export type GetWishlistResponses = {
     /**
      * Successful response
      */
@@ -2666,16 +2602,16 @@ export type WishlistGetResponses = {
     }>;
 };
 
-export type WishlistGetResponse = WishlistGetResponses[keyof WishlistGetResponses];
+export type GetWishlistResponse = GetWishlistResponses[keyof GetWishlistResponses];
 
-export type WishlistClearData = {
+export type DeleteWishlistItemsData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/wishlist/items';
 };
 
-export type WishlistClearErrors = {
+export type DeleteWishlistItemsErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2706,9 +2642,9 @@ export type WishlistClearErrors = {
     500: ErrorInternalServerError;
 };
 
-export type WishlistClearError = WishlistClearErrors[keyof WishlistClearErrors];
+export type DeleteWishlistItemsError = DeleteWishlistItemsErrors[keyof DeleteWishlistItemsErrors];
 
-export type WishlistClearResponses = {
+export type DeleteWishlistItemsResponses = {
     /**
      * Successful response
      */
@@ -2854,18 +2790,14 @@ export type WishlistClearResponses = {
     }>;
 };
 
-export type WishlistClearResponse = WishlistClearResponses[keyof WishlistClearResponses];
+export type DeleteWishlistItemsResponse = DeleteWishlistItemsResponses[keyof DeleteWishlistItemsResponses];
 
-export type WishlistAddData = {
+export type PostWishlistItemsData = {
     body: {
         productId: string;
         productVariantId?: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2876,7 +2808,7 @@ export type WishlistAddData = {
     url: '/wishlist/items';
 };
 
-export type WishlistAddErrors = {
+export type PostWishlistItemsErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -2907,9 +2839,9 @@ export type WishlistAddErrors = {
     500: ErrorInternalServerError;
 };
 
-export type WishlistAddError = WishlistAddErrors[keyof WishlistAddErrors];
+export type PostWishlistItemsError = PostWishlistItemsErrors[keyof PostWishlistItemsErrors];
 
-export type WishlistAddResponses = {
+export type PostWishlistItemsResponses = {
     /**
      * Successful response
      */
@@ -3055,15 +2987,11 @@ export type WishlistAddResponses = {
     }>;
 };
 
-export type WishlistAddResponse = WishlistAddResponses[keyof WishlistAddResponses];
+export type PostWishlistItemsResponse = PostWishlistItemsResponses[keyof PostWishlistItemsResponses];
 
-export type WishlistRemoveData = {
+export type DeleteWishlistItemsByWishlistProductIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -3076,7 +3004,7 @@ export type WishlistRemoveData = {
     url: '/wishlist/items/{wishlistProductId}';
 };
 
-export type WishlistRemoveErrors = {
+export type DeleteWishlistItemsByWishlistProductIdErrors = {
     /**
      * The request could not be processed because the input is invalid.
      */
@@ -3107,9 +3035,9 @@ export type WishlistRemoveErrors = {
     500: ErrorInternalServerError;
 };
 
-export type WishlistRemoveError = WishlistRemoveErrors[keyof WishlistRemoveErrors];
+export type DeleteWishlistItemsByWishlistProductIdError = DeleteWishlistItemsByWishlistProductIdErrors[keyof DeleteWishlistItemsByWishlistProductIdErrors];
 
-export type WishlistRemoveResponses = {
+export type DeleteWishlistItemsByWishlistProductIdResponses = {
     /**
      * Successful response
      */
@@ -3255,4 +3183,4 @@ export type WishlistRemoveResponses = {
     }>;
 };
 
-export type WishlistRemoveResponse = WishlistRemoveResponses[keyof WishlistRemoveResponses];
+export type DeleteWishlistItemsByWishlistProductIdResponse = DeleteWishlistItemsByWishlistProductIdResponses[keyof DeleteWishlistItemsByWishlistProductIdResponses];

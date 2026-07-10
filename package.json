@@ -1,6 +1,6 @@
 {
   "name": "@puddle/storefront",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "TypeScript SDK for the Puddle Storefront API.",
   "keywords": [
     "puddle",
@@ -17,6 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/Puddle-South-Africa/storefront-sdk.git"
   },
+  "license": "Apache-2.0",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/cjs/index.js",
@@ -32,6 +33,7 @@
     "./package.json": "./package.json"
   },
   "files": [
+    "dist",
     "README.md",
     "LICENSE"
   ],
@@ -40,15 +42,16 @@
   },
   "scripts": {
     "generate": "openapi-ts",
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node scripts/finalize-build.mjs",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.cjs.json --noEmit",
-    "prepublishOnly": "npm run build"
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepack": "npm run generate && npm run build"
+  },
+  "dependencies": {
+    "@hey-api/client-fetch": "^0.13.1"
   },
   "devDependencies": {
-    "@hey-api/client-fetch": "^0.13.1",
     "@hey-api/openapi-ts": "^0.99.0",
-    "@tanstack/react-query": "^5.101.2",
-    "typescript": "^6.0.3"
-  },
-  "license": "Apache-2.0"
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
+  }
 }
