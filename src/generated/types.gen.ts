@@ -168,7 +168,7 @@ export type Schema0 = {
     seoDescription?: string | null;
     type: 'MANUAL' | 'AUTOMATED';
     ruleSet?: Array<{
-        field: 'price' | 'tags' | 'status' | 'type' | 'collectionId' | 'createdAt';
+        field: 'price' | 'tags' | 'sale' | 'type' | 'collectionId' | 'createdAt' | 'trending';
         operator: 'eq' | 'ne' | 'lt' | 'lte' | 'gt' | 'gte' | 'contains' | 'in' | 'before' | 'after';
         value: string | number | boolean | Array<string> | Array<number>;
     }> | null;
@@ -181,7 +181,11 @@ export type Schema0 = {
 
 export type GetAccountData = {
     body?: never;
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -246,7 +250,11 @@ export type PutAccountData = {
         lastName: string;
         phone?: string;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -352,7 +360,11 @@ export type PutAccountMarketingData = {
     body: {
         consent: boolean;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -510,7 +522,11 @@ export type GetAccountOrdersResponse = GetAccountOrdersResponses[keyof GetAccoun
 
 export type GetAccountOrdersByOrderIdData = {
     body?: never;
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -705,7 +721,11 @@ export type PostAuthRequestOtpData = {
     body: {
         email: string;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -768,7 +788,11 @@ export type PostAuthVerifyOtpData = {
         lastName?: string;
         phone?: string;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -964,7 +988,11 @@ export type PostCartCheckoutData = {
         deliveryMethodId?: string | null;
         deliveryMethodCode?: string | null;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1233,7 +1261,11 @@ export type PostCartItemsData = {
             [key: string]: string;
         };
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1346,7 +1378,11 @@ export type PostCartItemsResponse = PostCartItemsResponses[keyof PostCartItemsRe
 
 export type DeleteCartItemsByCartProductIdData = {
     body?: never;
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1463,7 +1499,11 @@ export type PutCartItemsByCartProductIdData = {
     body: {
         quantity: number;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1578,7 +1618,11 @@ export type PutCartItemsByCartProductIdResponse = PutCartItemsByCartProductIdRes
 
 export type GetCollectionsData = {
     body?: never;
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1628,7 +1672,7 @@ export type GetCollectionsResponses = {
     /**
      * Successful response
      */
-    200: Array<{
+    200: Array<Schema0> | Array<{
         id: string;
         storeId?: string | null;
         name: string;
@@ -1638,7 +1682,7 @@ export type GetCollectionsResponses = {
         seoDescription?: string | null;
         type: 'MANUAL' | 'AUTOMATED';
         ruleSet?: Array<{
-            field: 'price' | 'tags' | 'status' | 'type' | 'collectionId' | 'createdAt';
+            field: 'price' | 'tags' | 'sale' | 'type' | 'collectionId' | 'createdAt' | 'trending';
             operator: 'eq' | 'ne' | 'lt' | 'lte' | 'gt' | 'gte' | 'contains' | 'in' | 'before' | 'after';
             value: string | number | boolean | Array<string> | Array<number>;
         }> | null;
@@ -1646,7 +1690,7 @@ export type GetCollectionsResponses = {
         imageUrl?: string | null;
         imageUrlSet?: string | null;
         hidden?: boolean | null;
-    }> | Array<Schema0>;
+    }>;
 };
 
 export type GetCollectionsResponse = GetCollectionsResponses[keyof GetCollectionsResponses];
@@ -1656,7 +1700,11 @@ export type PostCollectionData = {
         slug: string;
         includeChildren?: boolean;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1704,7 +1752,7 @@ export type PostCollectionResponses = {
     /**
      * Successful response
      */
-    200: {
+    200: Schema0 | {
         id: string;
         storeId?: string | null;
         name: string;
@@ -1714,7 +1762,7 @@ export type PostCollectionResponses = {
         seoDescription?: string | null;
         type: 'MANUAL' | 'AUTOMATED';
         ruleSet?: Array<{
-            field: 'price' | 'tags' | 'status' | 'type' | 'collectionId' | 'createdAt';
+            field: 'price' | 'tags' | 'sale' | 'type' | 'collectionId' | 'createdAt' | 'trending';
             operator: 'eq' | 'ne' | 'lt' | 'lte' | 'gt' | 'gte' | 'contains' | 'in' | 'before' | 'after';
             value: string | number | boolean | Array<string> | Array<number>;
         }> | null;
@@ -1732,7 +1780,11 @@ export type PostCollectionProductsData = {
         slug: string;
         sort?: 'PRICE_ASC' | 'PRICE_DESC' | 'NAME_ASC' | 'NAME_DESC' | 'NEWEST' | 'OLDEST';
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1877,7 +1929,11 @@ export type GetProductsSearchResponse = GetProductsSearchResponses[keyof GetProd
 
 export type GetProductsInfiniteData = {
     body?: never;
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2052,7 +2108,11 @@ export type PostProductData = {
     body: {
         slug: string;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2281,7 +2341,11 @@ export type GetContentBlocksResponse = GetContentBlocksResponses[keyof GetConten
 
 export type GetContentBlocksByBlockIdData = {
     body?: never;
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2797,7 +2861,11 @@ export type PostWishlistItemsData = {
         productId: string;
         productVariantId?: string;
     };
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2991,7 +3059,11 @@ export type PostWishlistItemsResponse = PostWishlistItemsResponses[keyof PostWis
 
 export type DeleteWishlistItemsByWishlistProductIdData = {
     body?: never;
-    headers?: {
+    headers: {
+        /**
+         * Bearer <storefront-public-key>
+         */
+        authorization: string;
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */

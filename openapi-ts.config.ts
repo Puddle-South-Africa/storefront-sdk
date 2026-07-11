@@ -1,7 +1,7 @@
 import { OperationPath, defineConfig } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: "https://api.puddle.storefront.co.za/storefront/v1/openapi.json",
+  input: "https://api.puddle.co.za/storefront/v1/openapi.json",
   output: {
     path: "src/generated",
   },

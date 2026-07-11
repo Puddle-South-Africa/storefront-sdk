@@ -106,10 +106,11 @@ export const zSchema0 = z.object({
         field: z.enum([
             'price',
             'tags',
-            'status',
+            'sale',
             'type',
             'collectionId',
-            'createdAt'
+            'createdAt',
+            'trending'
         ]),
         operator: z.enum([
             'eq',
@@ -135,10 +136,11 @@ export const zSchema0 = z.object({
     imageUrl: z.url().nullish(),
     imageUrlSet: z.string().nullish(),
     hidden: z.boolean().nullish(),
-    children: z.array(z.lazy((): any => zSchema0)).default([])
+    children: z.array(z.lazy((): any => zSchema0))
 });
 
 export const zGetAccountHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -160,6 +162,7 @@ export const zPutAccountBody = z.object({
 });
 
 export const zPutAccountHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -175,6 +178,7 @@ export const zPutAccountMarketingBody = z.object({
 });
 
 export const zPutAccountMarketingHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -254,6 +258,7 @@ export const zGetAccountOrdersResponse = z.array(z.object({
 }));
 
 export const zGetAccountOrdersByOrderIdHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -427,6 +432,7 @@ export const zPostAuthRequestOtpBody = z.object({
 });
 
 export const zPostAuthRequestOtpHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -446,6 +452,7 @@ export const zPostAuthVerifyOtpBody = z.object({
 });
 
 export const zPostAuthVerifyOtpHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -510,6 +517,7 @@ export const zPostCartCheckoutBody = z.object({
 });
 
 export const zPostCartCheckoutHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -583,6 +591,7 @@ export const zPostCartItemsBody = z.object({
 });
 
 export const zPostCartItemsHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -635,6 +644,7 @@ export const zPostCartItemsResponse = z.object({
 });
 
 export const zDeleteCartItemsByCartProductIdHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -695,6 +705,7 @@ export const zPutCartItemsByCartProductIdBody = z.object({
 });
 
 export const zPutCartItemsByCartProductIdHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -751,6 +762,7 @@ export const zPutCartItemsByCartProductIdResponse = z.object({
 });
 
 export const zGetCollectionsHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -762,6 +774,7 @@ export const zGetCollectionsQuery = z.object({
  * Successful response
  */
 export const zGetCollectionsResponse = z.union([
+    z.array(zSchema0),
     z.array(z.object({
         id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
         storeId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullish(),
@@ -775,10 +788,11 @@ export const zGetCollectionsResponse = z.union([
             field: z.enum([
                 'price',
                 'tags',
-                'status',
+                'sale',
                 'type',
                 'collectionId',
-                'createdAt'
+                'createdAt',
+                'trending'
             ]),
             operator: z.enum([
                 'eq',
@@ -804,8 +818,7 @@ export const zGetCollectionsResponse = z.union([
         imageUrl: z.url().nullish(),
         imageUrlSet: z.string().nullish(),
         hidden: z.boolean().nullish()
-    })),
-    z.array(zSchema0)
+    }))
 ]);
 
 export const zPostCollectionBody = z.object({
@@ -814,55 +827,60 @@ export const zPostCollectionBody = z.object({
 });
 
 export const zPostCollectionHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
 /**
  * Successful response
  */
-export const zPostCollectionResponse = z.object({
-    id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-    storeId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullish(),
-    name: z.string(),
-    description: z.string().nullish(),
-    slug: z.string(),
-    seoTitle: z.string().nullish(),
-    seoDescription: z.string().nullish(),
-    type: z.enum(['MANUAL', 'AUTOMATED']),
-    ruleSet: z.array(z.object({
-        field: z.enum([
-            'price',
-            'tags',
-            'status',
-            'type',
-            'collectionId',
-            'createdAt'
-        ]),
-        operator: z.enum([
-            'eq',
-            'ne',
-            'lt',
-            'lte',
-            'gt',
-            'gte',
-            'contains',
-            'in',
-            'before',
-            'after'
-        ]),
-        value: z.union([
-            z.string(),
-            z.number(),
-            z.boolean(),
-            z.array(z.string()),
-            z.array(z.number())
-        ])
-    })).nullish(),
-    imageId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullable(),
-    imageUrl: z.url().nullish(),
-    imageUrlSet: z.string().nullish(),
-    hidden: z.boolean().nullish()
-}).nullable();
+export const zPostCollectionResponse = z.union([
+    zSchema0,
+    z.object({
+        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
+        storeId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullish(),
+        name: z.string(),
+        description: z.string().nullish(),
+        slug: z.string(),
+        seoTitle: z.string().nullish(),
+        seoDescription: z.string().nullish(),
+        type: z.enum(['MANUAL', 'AUTOMATED']),
+        ruleSet: z.array(z.object({
+            field: z.enum([
+                'price',
+                'tags',
+                'sale',
+                'type',
+                'collectionId',
+                'createdAt',
+                'trending'
+            ]),
+            operator: z.enum([
+                'eq',
+                'ne',
+                'lt',
+                'lte',
+                'gt',
+                'gte',
+                'contains',
+                'in',
+                'before',
+                'after'
+            ]),
+            value: z.union([
+                z.string(),
+                z.number(),
+                z.boolean(),
+                z.array(z.string()),
+                z.array(z.number())
+            ])
+        })).nullish(),
+        imageId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullable(),
+        imageUrl: z.url().nullish(),
+        imageUrlSet: z.string().nullish(),
+        hidden: z.boolean().nullish()
+    })
+]).nullable();
 
 export const zPostCollectionProductsBody = z.object({
     slug: z.string().min(1),
@@ -877,6 +895,7 @@ export const zPostCollectionProductsBody = z.object({
 });
 
 export const zPostCollectionProductsHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -930,6 +949,7 @@ export const zGetProductsSearchResponse = z.array(z.object({
 }));
 
 export const zGetProductsInfiniteHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1015,6 +1035,7 @@ export const zPostProductBody = z.object({
 });
 
 export const zPostProductHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1142,6 +1163,7 @@ export const zGetContentBlocksResponse = z.array(z.object({
 }));
 
 export const zGetContentBlocksByBlockIdHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1429,6 +1451,7 @@ export const zPostWishlistItemsBody = z.object({
 });
 
 export const zPostWishlistItemsHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1552,6 +1575,7 @@ export const zPostWishlistItemsResponse = z.array(z.object({
 }));
 
 export const zDeleteWishlistItemsByWishlistProductIdHeaders = z.object({
+    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 

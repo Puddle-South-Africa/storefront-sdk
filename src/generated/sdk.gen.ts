@@ -78,7 +78,7 @@ export class Marketing extends HeyApiClient {
         return (options.client ?? this.client).put<PutAccountMarketingResponses, PutAccountMarketingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPutAccountMarketingBody,
-                headers: zPutAccountMarketingHeaders.optional(),
+                headers: zPutAccountMarketingHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -123,7 +123,7 @@ export class Orders extends HeyApiClient {
         return (options.client ?? this.client).get<GetAccountOrdersByOrderIdResponses, GetAccountOrdersByOrderIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetAccountOrdersByOrderIdHeaders.optional(),
+                headers: zGetAccountOrdersByOrderIdHeaders,
                 path: zGetAccountOrdersByOrderIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
@@ -145,7 +145,7 @@ export class Auth extends HeyApiClient {
         return (options.client ?? this.client).post<PostAuthRequestOtpResponses, PostAuthRequestOtpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostAuthRequestOtpBody,
-                headers: zPostAuthRequestOtpHeaders.optional(),
+                headers: zPostAuthRequestOtpHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -169,7 +169,7 @@ export class Auth extends HeyApiClient {
         return (options.client ?? this.client).post<PostAuthVerifyOtpResponses, PostAuthVerifyOtpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostAuthVerifyOtpBody,
-                headers: zPostAuthVerifyOtpHeaders.optional(),
+                headers: zPostAuthVerifyOtpHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -229,11 +229,11 @@ export class Accounts extends HeyApiClient {
      *
      * Retrieves the currently authenticated customer session profile. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public get<ThrowOnError extends boolean = false>(options?: Options<GetAccountData, ThrowOnError>): RequestResult<GetAccountResponses, GetAccountErrors, ThrowOnError> {
-        return (options?.client ?? this.client).get<GetAccountResponses, GetAccountErrors, ThrowOnError>({
+    public get<ThrowOnError extends boolean = false>(options: Options<GetAccountData, ThrowOnError>): RequestResult<GetAccountResponses, GetAccountErrors, ThrowOnError> {
+        return (options.client ?? this.client).get<GetAccountResponses, GetAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetAccountHeaders.optional(),
+                headers: zGetAccountHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -253,7 +253,7 @@ export class Accounts extends HeyApiClient {
         return (options.client ?? this.client).put<PutAccountResponses, PutAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPutAccountBody,
-                headers: zPutAccountHeaders.optional(),
+                headers: zPutAccountHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -293,7 +293,7 @@ export class Cart extends HeyApiClient {
         return (options.client ?? this.client).post<PostCartCheckoutResponses, PostCartCheckoutErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCartCheckoutBody,
-                headers: zPostCartCheckoutHeaders.optional(),
+                headers: zPostCartCheckoutHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -373,7 +373,7 @@ export class Cart extends HeyApiClient {
         return (options.client ?? this.client).post<PostCartItemsResponses, PostCartItemsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCartItemsBody,
-                headers: zPostCartItemsHeaders.optional(),
+                headers: zPostCartItemsHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -397,7 +397,7 @@ export class Cart extends HeyApiClient {
         return (options.client ?? this.client).delete<DeleteCartItemsByCartProductIdResponses, DeleteCartItemsByCartProductIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zDeleteCartItemsByCartProductIdHeaders.optional(),
+                headers: zDeleteCartItemsByCartProductIdHeaders,
                 path: zDeleteCartItemsByCartProductIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
@@ -417,7 +417,7 @@ export class Cart extends HeyApiClient {
         return (options.client ?? this.client).put<PutCartItemsByCartProductIdResponses, PutCartItemsByCartProductIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPutCartItemsByCartProductIdBody,
-                headers: zPutCartItemsByCartProductIdHeaders.optional(),
+                headers: zPutCartItemsByCartProductIdHeaders,
                 path: zPutCartItemsByCartProductIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
@@ -439,11 +439,11 @@ export class Collections extends HeyApiClient {
      *
      * Retrieves a list of all collections for the storefront. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public list<ThrowOnError extends boolean = false>(options?: Options<GetCollectionsData, ThrowOnError>): RequestResult<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError> {
-        return (options?.client ?? this.client).get<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError>({
+    public list<ThrowOnError extends boolean = false>(options: Options<GetCollectionsData, ThrowOnError>): RequestResult<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError> {
+        return (options.client ?? this.client).get<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetCollectionsHeaders.optional(),
+                headers: zGetCollectionsHeaders,
                 path: z.never().optional(),
                 query: zGetCollectionsQuery.optional()
             }).parseAsync(data),
@@ -463,7 +463,7 @@ export class Collections extends HeyApiClient {
         return (options.client ?? this.client).post<PostCollectionResponses, PostCollectionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCollectionBody,
-                headers: zPostCollectionHeaders.optional(),
+                headers: zPostCollectionHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -487,7 +487,7 @@ export class Collections extends HeyApiClient {
         return (options.client ?? this.client).post<PostCollectionProductsResponses, PostCollectionProductsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCollectionProductsBody,
-                headers: zPostCollectionProductsHeaders.optional(),
+                headers: zPostCollectionProductsHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -528,11 +528,11 @@ export class Products extends HeyApiClient {
      *
      * Retrieves a paginated list of products for a category, collection, or all. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public infinite<ThrowOnError extends boolean = false>(options?: Options<GetProductsInfiniteData, ThrowOnError>): RequestResult<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError> {
-        return (options?.client ?? this.client).get<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError>({
+    public infinite<ThrowOnError extends boolean = false>(options: Options<GetProductsInfiniteData, ThrowOnError>): RequestResult<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError> {
+        return (options.client ?? this.client).get<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetProductsInfiniteHeaders.optional(),
+                headers: zGetProductsInfiniteHeaders,
                 path: z.never().optional(),
                 query: zGetProductsInfiniteQuery.optional()
             }).parseAsync(data),
@@ -571,7 +571,7 @@ export class Products extends HeyApiClient {
         return (options.client ?? this.client).post<PostProductResponses, PostProductErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostProductBody,
-                headers: zPostProductHeaders.optional(),
+                headers: zPostProductHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -616,7 +616,7 @@ export class Content extends HeyApiClient {
         return (options.client ?? this.client).get<GetContentBlocksByBlockIdResponses, GetContentBlocksByBlockIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetContentBlocksByBlockIdHeaders.optional(),
+                headers: zGetContentBlocksByBlockIdHeaders,
                 path: zGetContentBlocksByBlockIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
@@ -695,7 +695,7 @@ export class Wishlist extends HeyApiClient {
         return (options.client ?? this.client).post<PostWishlistItemsResponses, PostWishlistItemsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostWishlistItemsBody,
-                headers: zPostWishlistItemsHeaders.optional(),
+                headers: zPostWishlistItemsHeaders,
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
@@ -719,7 +719,7 @@ export class Wishlist extends HeyApiClient {
         return (options.client ?? this.client).delete<DeleteWishlistItemsByWishlistProductIdResponses, DeleteWishlistItemsByWishlistProductIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zDeleteWishlistItemsByWishlistProductIdHeaders.optional(),
+                headers: zDeleteWishlistItemsByWishlistProductIdHeaders,
                 path: zDeleteWishlistItemsByWishlistProductIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
