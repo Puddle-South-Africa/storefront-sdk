@@ -1,7 +1,7 @@
 import { OperationPath, defineConfig } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: "./openapi.json",
+  input: "https://api.puddle.storefront.co.za/storefront/v1/openapi.json",
   output: {
     path: "src/generated",
   },
@@ -11,7 +11,6 @@ export default defineConfig({
     {
       name: "@hey-api/sdk",
       validator: true,
-      auth: false,
       examples: {
         importSetup: ({ $, node }) =>
           $.new(

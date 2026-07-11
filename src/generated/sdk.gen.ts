@@ -63,6 +63,7 @@ export class Marketing extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountMarketingResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/marketing',
             ...options
         });
@@ -82,6 +83,7 @@ export class Marketing extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPutAccountMarketingResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/marketing',
             ...options,
             headers: {
@@ -106,6 +108,7 @@ export class Orders extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountOrdersResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/orders',
             ...options
         });
@@ -125,6 +128,7 @@ export class Orders extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountOrdersByOrderIdResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/orders/{orderId}',
             ...options
         });
@@ -146,6 +150,7 @@ export class Auth extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostAuthRequestOtpResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/request-otp',
             ...options,
             headers: {
@@ -169,6 +174,7 @@ export class Auth extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostAuthVerifyOtpResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/verify-otp',
             ...options,
             headers: {
@@ -191,6 +197,7 @@ export class Auth extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAuthSessionResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/session',
             ...options
         });
@@ -209,6 +216,7 @@ export class Auth extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostAuthSignOutResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/sign-out',
             ...options
         });
@@ -230,6 +238,7 @@ export class Accounts extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account',
             ...options
         });
@@ -248,6 +257,7 @@ export class Accounts extends HeyApiClient {
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account',
             ...options,
             headers: {
@@ -288,6 +298,7 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCartCheckoutResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/checkout',
             ...options,
             headers: {
@@ -310,6 +321,7 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetCartCountResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/count',
             ...options
         });
@@ -327,6 +339,7 @@ export class Cart extends HeyApiClient {
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/migrate',
             ...options
         });
@@ -345,6 +358,7 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetCartResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart',
             ...options
         });
@@ -364,6 +378,7 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCartItemsResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/items',
             ...options,
             headers: {
@@ -387,6 +402,7 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDeleteCartItemsByCartProductIdResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/items/{cartProductId}',
             ...options
         });
@@ -406,6 +422,7 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPutCartItemsByCartProductIdResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/items/{cartProductId}',
             ...options,
             headers: {
@@ -431,6 +448,7 @@ export class Collections extends HeyApiClient {
                 query: zGetCollectionsQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetCollectionsResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/collections',
             ...options
         });
@@ -450,6 +468,7 @@ export class Collections extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCollectionResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/collection',
             ...options,
             headers: {
@@ -473,6 +492,7 @@ export class Collections extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCollectionProductsResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/collection/products',
             ...options,
             headers: {
@@ -497,6 +517,7 @@ export class Products extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetProductsSearchResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/products/search',
             ...options
         });
@@ -516,6 +537,7 @@ export class Products extends HeyApiClient {
                 query: zGetProductsInfiniteQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetProductsInfiniteResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/products/infinite',
             ...options
         });
@@ -534,6 +556,7 @@ export class Products extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetProductsTrendingResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/products/trending',
             ...options
         });
@@ -553,6 +576,7 @@ export class Products extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostProductResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/product',
             ...options,
             headers: {
@@ -577,6 +601,7 @@ export class Content extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetContentBlocksResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/content/blocks',
             ...options
         });
@@ -596,6 +621,7 @@ export class Content extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetContentBlocksByBlockIdResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/content/blocks/{blockId}',
             ...options
         });
@@ -614,6 +640,7 @@ export class Content extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetContentBannerTextResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/content/banner-text',
             ...options
         });
@@ -634,6 +661,7 @@ export class Wishlist extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetWishlistResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist',
             ...options
         });
@@ -652,6 +680,7 @@ export class Wishlist extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDeleteWishlistItemsResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist/items',
             ...options
         });
@@ -671,6 +700,7 @@ export class Wishlist extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostWishlistItemsResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist/items',
             ...options,
             headers: {
@@ -694,6 +724,7 @@ export class Wishlist extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDeleteWishlistItemsByWishlistProductIdResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist/items/{wishlistProductId}',
             ...options
         });
