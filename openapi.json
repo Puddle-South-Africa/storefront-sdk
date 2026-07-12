@@ -2712,7 +2712,7 @@
           }
         ],
         "requestBody": {
-          "required": true,
+          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -4843,206 +4843,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/__schema0"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "format": "uuid",
-                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                          },
-                          "storeId": {
-                            "anyOf": [
-                              {
-                                "type": "string",
-                                "format": "uuid",
-                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "description": {
-                            "anyOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "slug": {
-                            "type": "string"
-                          },
-                          "seoTitle": {
-                            "anyOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "seoDescription": {
-                            "anyOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "type": {
-                            "type": "string",
-                            "enum": [
-                              "MANUAL",
-                              "AUTOMATED"
-                            ]
-                          },
-                          "ruleSet": {
-                            "anyOf": [
-                              {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "field": {
-                                      "type": "string",
-                                      "enum": [
-                                        "price",
-                                        "tags",
-                                        "sale",
-                                        "type",
-                                        "collectionId",
-                                        "createdAt",
-                                        "trending"
-                                      ]
-                                    },
-                                    "operator": {
-                                      "type": "string",
-                                      "enum": [
-                                        "eq",
-                                        "ne",
-                                        "lt",
-                                        "lte",
-                                        "gt",
-                                        "gte",
-                                        "contains",
-                                        "in",
-                                        "before",
-                                        "after"
-                                      ]
-                                    },
-                                    "value": {
-                                      "anyOf": [
-                                        {
-                                          "type": "string"
-                                        },
-                                        {
-                                          "type": "number"
-                                        },
-                                        {
-                                          "type": "boolean"
-                                        },
-                                        {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "number"
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "field",
-                                    "operator",
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "imageId": {
-                            "anyOf": [
-                              {
-                                "type": "string",
-                                "format": "uuid",
-                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "imageUrl": {
-                            "anyOf": [
-                              {
-                                "type": "string",
-                                "format": "uri"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "imageUrlSet": {
-                            "anyOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "hidden": {
-                            "anyOf": [
-                              {
-                                "type": "boolean"
-                              },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "name",
-                          "slug",
-                          "type",
-                          "imageId"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/__schema0"
+                  }
                 }
               }
             }
@@ -5171,200 +4975,7 @@
                 "schema": {
                   "anyOf": [
                     {
-                      "anyOf": [
-                        {
-                          "$ref": "#/components/schemas/__schema0"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid",
-                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                            },
-                            "storeId": {
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "format": "uuid",
-                                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "description": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "slug": {
-                              "type": "string"
-                            },
-                            "seoTitle": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "seoDescription": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "MANUAL",
-                                "AUTOMATED"
-                              ]
-                            },
-                            "ruleSet": {
-                              "anyOf": [
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "field": {
-                                        "type": "string",
-                                        "enum": [
-                                          "price",
-                                          "tags",
-                                          "sale",
-                                          "type",
-                                          "collectionId",
-                                          "createdAt",
-                                          "trending"
-                                        ]
-                                      },
-                                      "operator": {
-                                        "type": "string",
-                                        "enum": [
-                                          "eq",
-                                          "ne",
-                                          "lt",
-                                          "lte",
-                                          "gt",
-                                          "gte",
-                                          "contains",
-                                          "in",
-                                          "before",
-                                          "after"
-                                        ]
-                                      },
-                                      "value": {
-                                        "anyOf": [
-                                          {
-                                            "type": "string"
-                                          },
-                                          {
-                                            "type": "number"
-                                          },
-                                          {
-                                            "type": "boolean"
-                                          },
-                                          {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "string"
-                                            }
-                                          },
-                                          {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "number"
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    },
-                                    "required": [
-                                      "field",
-                                      "operator",
-                                      "value"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "imageId": {
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "format": "uuid",
-                                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "imageUrl": {
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "format": "uri"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "imageUrlSet": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "hidden": {
-                              "anyOf": [
-                                {
-                                  "type": "boolean"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name",
-                            "slug",
-                            "type",
-                            "imageId"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
+                      "$ref": "#/components/schemas/__schema0"
                     },
                     {
                       "type": "null"
@@ -11830,6 +11441,18 @@
               }
             ]
           },
+          "parentId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "name": {
             "type": "string"
           },
@@ -11946,6 +11569,32 @@
               }
             ]
           },
+          "defaultSort": {
+            "type": "string",
+            "enum": [
+              "TRENDING",
+              "PRICE_ASC",
+              "PRICE_DESC",
+              "NAME_ASC",
+              "NAME_DESC",
+              "NEWEST",
+              "OLDEST"
+            ]
+          },
+          "orderIndex": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "attributes": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
           "imageId": {
             "anyOf": [
               {
@@ -11989,7 +11638,44 @@
               }
             ]
           },
+          "createdAt": {
+            "anyOf": [
+              {
+                "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "updatedAt": {
+            "anyOf": [
+              {
+                "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "children": {
+            "default": [],
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/__schema0"
@@ -12001,6 +11687,9 @@
           "name",
           "slug",
           "type",
+          "defaultSort",
+          "orderIndex",
+          "attributes",
           "imageId",
           "children"
         ],

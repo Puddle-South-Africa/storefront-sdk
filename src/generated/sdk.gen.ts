@@ -348,7 +348,7 @@ export class Cart extends HeyApiClient {
                 ] }]);
         return (options?.client ?? this.client).post<PostCartCheckoutResponses, PostCartCheckoutErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPostCartCheckoutBody,
+                body: zPostCartCheckoutBody.optional(),
                 headers: zPostCartCheckoutHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()

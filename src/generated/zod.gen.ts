@@ -96,6 +96,7 @@ export const zErrorInternalServerError = z.object({
 export const zSchema0 = z.object({
     id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
     storeId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullish(),
+    parentId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullish(),
     name: z.string(),
     description: z.string().nullish(),
     slug: z.string(),
@@ -132,11 +133,24 @@ export const zSchema0 = z.object({
             z.array(z.number())
         ])
     })).nullish(),
+    defaultSort: z.enum([
+        'TRENDING',
+        'PRICE_ASC',
+        'PRICE_DESC',
+        'NAME_ASC',
+        'NAME_DESC',
+        'NEWEST',
+        'OLDEST'
+    ]),
+    orderIndex: z.int().gte(-9007199254740991).lte(9007199254740991),
+    attributes: z.record(z.string(), z.string()),
     imageId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullable(),
     imageUrl: z.url().nullish(),
     imageUrlSet: z.string().nullish(),
     hidden: z.boolean().nullish(),
-    children: z.array(z.lazy((): any => zSchema0))
+    createdAt: z.string().nullish(),
+    updatedAt: z.string().nullish(),
+    children: z.array(z.lazy((): any => zSchema0)).default([])
 });
 
 export const zGetAccountHeaders = z.object({
@@ -762,53 +776,7 @@ export const zGetCollectionsQuery = z.object({
 /**
  * Successful response
  */
-export const zGetCollectionsResponse = z.union([
-    z.array(zSchema0),
-    z.array(z.object({
-        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-        storeId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullish(),
-        name: z.string(),
-        description: z.string().nullish(),
-        slug: z.string(),
-        seoTitle: z.string().nullish(),
-        seoDescription: z.string().nullish(),
-        type: z.enum(['MANUAL', 'AUTOMATED']),
-        ruleSet: z.array(z.object({
-            field: z.enum([
-                'price',
-                'tags',
-                'sale',
-                'type',
-                'collectionId',
-                'createdAt',
-                'trending'
-            ]),
-            operator: z.enum([
-                'eq',
-                'ne',
-                'lt',
-                'lte',
-                'gt',
-                'gte',
-                'contains',
-                'in',
-                'before',
-                'after'
-            ]),
-            value: z.union([
-                z.string(),
-                z.number(),
-                z.boolean(),
-                z.array(z.string()),
-                z.array(z.number())
-            ])
-        })).nullish(),
-        imageId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullable(),
-        imageUrl: z.url().nullish(),
-        imageUrlSet: z.string().nullish(),
-        hidden: z.boolean().nullish()
-    }))
-]);
+export const zGetCollectionsResponse = z.array(zSchema0);
 
 export const zPostCollectionBody = z.object({
     slug: z.string().min(1),
@@ -822,53 +790,7 @@ export const zPostCollectionHeaders = z.object({
 /**
  * Successful response
  */
-export const zPostCollectionResponse = z.union([
-    zSchema0,
-    z.object({
-        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-        storeId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullish(),
-        name: z.string(),
-        description: z.string().nullish(),
-        slug: z.string(),
-        seoTitle: z.string().nullish(),
-        seoDescription: z.string().nullish(),
-        type: z.enum(['MANUAL', 'AUTOMATED']),
-        ruleSet: z.array(z.object({
-            field: z.enum([
-                'price',
-                'tags',
-                'sale',
-                'type',
-                'collectionId',
-                'createdAt',
-                'trending'
-            ]),
-            operator: z.enum([
-                'eq',
-                'ne',
-                'lt',
-                'lte',
-                'gt',
-                'gte',
-                'contains',
-                'in',
-                'before',
-                'after'
-            ]),
-            value: z.union([
-                z.string(),
-                z.number(),
-                z.boolean(),
-                z.array(z.string()),
-                z.array(z.number())
-            ])
-        })).nullish(),
-        imageId: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).nullable(),
-        imageUrl: z.url().nullish(),
-        imageUrlSet: z.string().nullish(),
-        hidden: z.boolean().nullish()
-    })
-]).nullable();
+export const zPostCollectionResponse = zSchema0.nullable();
 
 export const zPostCollectionProductsBody = z.object({
     slug: z.string().min(1),

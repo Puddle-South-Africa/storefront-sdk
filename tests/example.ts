@@ -6,3 +6,6 @@ const storefront = new PuddleStorefrontApi({
 });
 
 const products = await storefront.products.infinite({});
+const collection = await storefront.collections.get({
+  slug: "",
+});

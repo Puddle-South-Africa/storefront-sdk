@@ -161,6 +161,7 @@ export type ErrorInternalServerError = {
 export type Schema0 = {
     id: string;
     storeId?: string | null;
+    parentId?: string | null;
     name: string;
     description?: string | null;
     slug: string;
@@ -172,10 +173,17 @@ export type Schema0 = {
         operator: 'eq' | 'ne' | 'lt' | 'lte' | 'gt' | 'gte' | 'contains' | 'in' | 'before' | 'after';
         value: string | number | boolean | Array<string> | Array<number>;
     }> | null;
+    defaultSort: 'TRENDING' | 'PRICE_ASC' | 'PRICE_DESC' | 'NAME_ASC' | 'NAME_DESC' | 'NEWEST' | 'OLDEST';
+    orderIndex: number;
+    attributes: {
+        [key: string]: string;
+    };
     imageId: string | null;
     imageUrl?: string | null;
     imageUrlSet?: string | null;
     hidden?: boolean | null;
+    createdAt?: string | null;
+    updatedAt?: string | null;
     children: Array<Schema0>;
 };
 
@@ -957,7 +965,7 @@ export type PostAuthSignOutResponses = {
 export type PostAuthSignOutResponse = PostAuthSignOutResponses[keyof PostAuthSignOutResponses];
 
 export type PostCartCheckoutData = {
-    body: {
+    body?: {
         couponCode?: string | null;
         giftCardCodes?: Array<string> | null;
         deliveryMethod?: string | null;
@@ -1628,25 +1636,7 @@ export type GetCollectionsResponses = {
     /**
      * Successful response
      */
-    200: Array<Schema0> | Array<{
-        id: string;
-        storeId?: string | null;
-        name: string;
-        description?: string | null;
-        slug: string;
-        seoTitle?: string | null;
-        seoDescription?: string | null;
-        type: 'MANUAL' | 'AUTOMATED';
-        ruleSet?: Array<{
-            field: 'price' | 'tags' | 'sale' | 'type' | 'collectionId' | 'createdAt' | 'trending';
-            operator: 'eq' | 'ne' | 'lt' | 'lte' | 'gt' | 'gte' | 'contains' | 'in' | 'before' | 'after';
-            value: string | number | boolean | Array<string> | Array<number>;
-        }> | null;
-        imageId: string | null;
-        imageUrl?: string | null;
-        imageUrlSet?: string | null;
-        hidden?: boolean | null;
-    }>;
+    200: Array<Schema0>;
 };
 
 export type GetCollectionsResponse = GetCollectionsResponses[keyof GetCollectionsResponses];
@@ -1704,25 +1694,7 @@ export type PostCollectionResponses = {
     /**
      * Successful response
      */
-    200: Schema0 | {
-        id: string;
-        storeId?: string | null;
-        name: string;
-        description?: string | null;
-        slug: string;
-        seoTitle?: string | null;
-        seoDescription?: string | null;
-        type: 'MANUAL' | 'AUTOMATED';
-        ruleSet?: Array<{
-            field: 'price' | 'tags' | 'sale' | 'type' | 'collectionId' | 'createdAt' | 'trending';
-            operator: 'eq' | 'ne' | 'lt' | 'lte' | 'gt' | 'gte' | 'contains' | 'in' | 'before' | 'after';
-            value: string | number | boolean | Array<string> | Array<number>;
-        }> | null;
-        imageId: string | null;
-        imageUrl?: string | null;
-        imageUrlSet?: string | null;
-        hidden?: boolean | null;
-    } | null;
+    200: Schema0 | null;
 };
 
 export type PostCollectionResponse = PostCollectionResponses[keyof PostCollectionResponses];

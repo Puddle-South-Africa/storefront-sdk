@@ -1,6 +1,6 @@
 {
   "name": "@puddle/storefront",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "TypeScript SDK for the Puddle Storefront API.",
   "keywords": [
     "puddle",
