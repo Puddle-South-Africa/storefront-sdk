@@ -140,7 +140,6 @@ export const zSchema0 = z.object({
 });
 
 export const zGetAccountHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -162,7 +161,6 @@ export const zPutAccountBody = z.object({
 });
 
 export const zPutAccountHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -178,7 +176,6 @@ export const zPutAccountMarketingBody = z.object({
 });
 
 export const zPutAccountMarketingHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -258,7 +255,6 @@ export const zGetAccountOrdersResponse = z.array(z.object({
 }));
 
 export const zGetAccountOrdersByOrderIdHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -432,7 +428,6 @@ export const zPostAuthRequestOtpBody = z.object({
 });
 
 export const zPostAuthRequestOtpHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -452,7 +447,6 @@ export const zPostAuthVerifyOtpBody = z.object({
 });
 
 export const zPostAuthVerifyOtpHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -517,7 +511,6 @@ export const zPostCartCheckoutBody = z.object({
 });
 
 export const zPostCartCheckoutHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -591,7 +584,6 @@ export const zPostCartItemsBody = z.object({
 });
 
 export const zPostCartItemsHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -644,7 +636,6 @@ export const zPostCartItemsResponse = z.object({
 });
 
 export const zDeleteCartItemsByCartProductIdHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -705,7 +696,6 @@ export const zPutCartItemsByCartProductIdBody = z.object({
 });
 
 export const zPutCartItemsByCartProductIdHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -762,7 +752,6 @@ export const zPutCartItemsByCartProductIdResponse = z.object({
 });
 
 export const zGetCollectionsHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -827,7 +816,6 @@ export const zPostCollectionBody = z.object({
 });
 
 export const zPostCollectionHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -895,7 +883,6 @@ export const zPostCollectionProductsBody = z.object({
 });
 
 export const zPostCollectionProductsHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -949,7 +936,6 @@ export const zGetProductsSearchResponse = z.array(z.object({
 }));
 
 export const zGetProductsInfiniteHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1035,7 +1021,6 @@ export const zPostProductBody = z.object({
 });
 
 export const zPostProductHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1163,7 +1148,6 @@ export const zGetContentBlocksResponse = z.array(z.object({
 }));
 
 export const zGetContentBlocksByBlockIdHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1451,7 +1435,6 @@ export const zPostWishlistItemsBody = z.object({
 });
 
 export const zPostWishlistItemsHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 
@@ -1575,7 +1558,6 @@ export const zPostWishlistItemsResponse = z.array(z.object({
 }));
 
 export const zDeleteWishlistItemsByWishlistProductIdHeaders = z.object({
-    authorization: z.string().min(1),
     'x-puddle-storefront-host': z.string().min(1).optional()
 });
 

@@ -181,11 +181,7 @@ export type Schema0 = {
 
 export type GetAccountData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -250,11 +246,7 @@ export type PutAccountData = {
         lastName: string;
         phone?: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -360,11 +352,7 @@ export type PutAccountMarketingData = {
     body: {
         consent: boolean;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -522,11 +510,7 @@ export type GetAccountOrdersResponse = GetAccountOrdersResponses[keyof GetAccoun
 
 export type GetAccountOrdersByOrderIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -721,11 +705,7 @@ export type PostAuthRequestOtpData = {
     body: {
         email: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -788,11 +768,7 @@ export type PostAuthVerifyOtpData = {
         lastName?: string;
         phone?: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -988,11 +964,7 @@ export type PostCartCheckoutData = {
         deliveryMethodId?: string | null;
         deliveryMethodCode?: string | null;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1261,11 +1233,7 @@ export type PostCartItemsData = {
             [key: string]: string;
         };
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1378,11 +1346,7 @@ export type PostCartItemsResponse = PostCartItemsResponses[keyof PostCartItemsRe
 
 export type DeleteCartItemsByCartProductIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1499,11 +1463,7 @@ export type PutCartItemsByCartProductIdData = {
     body: {
         quantity: number;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1618,11 +1578,7 @@ export type PutCartItemsByCartProductIdResponse = PutCartItemsByCartProductIdRes
 
 export type GetCollectionsData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1700,11 +1656,7 @@ export type PostCollectionData = {
         slug: string;
         includeChildren?: boolean;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1780,11 +1732,7 @@ export type PostCollectionProductsData = {
         slug: string;
         sort?: 'PRICE_ASC' | 'PRICE_DESC' | 'NAME_ASC' | 'NAME_DESC' | 'NEWEST' | 'OLDEST';
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -1929,11 +1877,7 @@ export type GetProductsSearchResponse = GetProductsSearchResponses[keyof GetProd
 
 export type GetProductsInfiniteData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2108,11 +2052,7 @@ export type PostProductData = {
     body: {
         slug: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2341,11 +2281,7 @@ export type GetContentBlocksResponse = GetContentBlocksResponses[keyof GetConten
 
 export type GetContentBlocksByBlockIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -2861,11 +2797,7 @@ export type PostWishlistItemsData = {
         productId: string;
         productVariantId?: string;
     };
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */
@@ -3059,11 +2991,7 @@ export type PostWishlistItemsResponse = PostWishlistItemsResponses[keyof PostWis
 
 export type DeleteWishlistItemsByWishlistProductIdData = {
     body?: never;
-    headers: {
-        /**
-         * Bearer <storefront-public-key>
-         */
-        authorization: string;
+    headers?: {
         /**
          * Required for server-side callers when Origin/Referer is unavailable.
          */

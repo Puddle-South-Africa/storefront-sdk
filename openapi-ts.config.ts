@@ -1,7 +1,7 @@
 import { OperationPath, defineConfig } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: "https://api.puddle.co.za/storefront/v1/openapi.json",
+  input: "openapi.json",
   output: {
     path: "src/generated",
   },
@@ -20,6 +20,7 @@ export default defineConfig({
         moduleName: "@puddle/storefront",
         setupName: "storefront",
       },
+      paramsStructure: "flat",
       operations: {
         strategy: "single",
         containerName: "PuddleStorefrontApi",

@@ -62,6 +62,20 @@ type KeyMap = Map<
     }
 >;
 
+function hasMappedBodyFields(fields: FieldsConfig): boolean {
+  for (const config of fields) {
+    if ('in' in config) {
+      if (config.in === 'body' && config.key) {
+        return true;
+      }
+    } else if ('args' in config && config.args && hasMappedBodyFields(config.args)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function buildKeyMap(fields: FieldsConfig, map?: KeyMap): KeyMap {
   if (!map) {
     map = new Map();
@@ -111,6 +125,8 @@ export function buildClientParams(args: ReadonlyArray<unknown>, fields: FieldsCo
   };
 
   const map = buildKeyMap(fields);
+  const initializeEmptyBody =
+    hasMappedBodyFields(fields);
 
   function writeSlot(slot: Slot, key: string, value: unknown): void {
     let record = params[slot] as Record<string, unknown> | undefined;
@@ -143,6 +159,16 @@ export function buildClientParams(args: ReadonlyArray<unknown>, fields: FieldsCo
         params.body = arg;
       }
     } else {
+      if (
+        initializeEmptyBody &&
+        params.body === undefined &&
+        arg !== null &&
+        typeof arg === 'object' &&
+        !Array.isArray(arg)
+      ) {
+        params.body = Object.create(null);
+      }
+
       for (const [key, value] of Object.entries(arg ?? {})) {
         const field = map.get(key);
 

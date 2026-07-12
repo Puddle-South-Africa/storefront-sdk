@@ -1,6 +1,6 @@
 {
   "name": "@puddle/storefront",
-  "version": "1.0.3",
+  "version": "1.1.1",
   "description": "TypeScript SDK for the Puddle Storefront API.",
   "keywords": [
     "puddle",
@@ -41,13 +41,17 @@
     "access": "public"
   },
   "scripts": {
-    "generate": "openapi-ts",
+    "generate:schema": "node scripts/fetch-schema.js",
+    "generate": "npm run generate:schema && openapi-ts",
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "prepack": "npm run generate && npm run build"
   },
   "dependencies": {
     "@hey-api/client-fetch": "^0.13.1"
+  },
+  "peerDependencies": {
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.99.0",

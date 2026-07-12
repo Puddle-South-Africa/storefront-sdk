@@ -2,9 +2,9 @@
 
 import * as z from 'zod';
 
-import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
+import { buildClientParams, type Client, type ClientMeta, type Options as Options2, type RequestResult, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteCartItemsByCartProductIdData, DeleteCartItemsByCartProductIdErrors, DeleteCartItemsByCartProductIdResponses, DeleteWishlistItemsByWishlistProductIdData, DeleteWishlistItemsByWishlistProductIdErrors, DeleteWishlistItemsByWishlistProductIdResponses, DeleteWishlistItemsData, DeleteWishlistItemsErrors, DeleteWishlistItemsResponses, GetAccountData, GetAccountErrors, GetAccountMarketingData, GetAccountMarketingErrors, GetAccountMarketingResponses, GetAccountOrdersByOrderIdData, GetAccountOrdersByOrderIdErrors, GetAccountOrdersByOrderIdResponses, GetAccountOrdersData, GetAccountOrdersErrors, GetAccountOrdersResponses, GetAccountResponses, GetAuthSessionData, GetAuthSessionErrors, GetAuthSessionResponses, GetCartCountData, GetCartCountErrors, GetCartCountResponses, GetCartData, GetCartErrors, GetCartResponses, GetCollectionsData, GetCollectionsErrors, GetCollectionsResponses, GetContentBannerTextData, GetContentBannerTextErrors, GetContentBannerTextResponses, GetContentBlocksByBlockIdData, GetContentBlocksByBlockIdErrors, GetContentBlocksByBlockIdResponses, GetContentBlocksData, GetContentBlocksErrors, GetContentBlocksResponses, GetProductsInfiniteData, GetProductsInfiniteErrors, GetProductsInfiniteResponses, GetProductsSearchData, GetProductsSearchErrors, GetProductsSearchResponses, GetProductsTrendingData, GetProductsTrendingErrors, GetProductsTrendingResponses, GetWishlistData, GetWishlistErrors, GetWishlistResponses, PostAuthRequestOtpData, PostAuthRequestOtpErrors, PostAuthRequestOtpResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthVerifyOtpData, PostAuthVerifyOtpErrors, PostAuthVerifyOtpResponses, PostCartCheckoutData, PostCartCheckoutErrors, PostCartCheckoutResponses, PostCartItemsData, PostCartItemsErrors, PostCartItemsResponses, PostCartMigrateData, PostCartMigrateErrors, PostCartMigrateResponses, PostCollectionData, PostCollectionErrors, PostCollectionProductsData, PostCollectionProductsErrors, PostCollectionProductsResponses, PostCollectionResponses, PostProductData, PostProductErrors, PostProductResponses, PostWishlistItemsData, PostWishlistItemsErrors, PostWishlistItemsResponses, PutAccountData, PutAccountErrors, PutAccountMarketingData, PutAccountMarketingErrors, PutAccountMarketingResponses, PutAccountResponses, PutCartItemsByCartProductIdData, PutCartItemsByCartProductIdErrors, PutCartItemsByCartProductIdResponses } from './types.gen';
+import type { DeleteCartItemsByCartProductIdErrors, DeleteCartItemsByCartProductIdResponses, DeleteWishlistItemsByWishlistProductIdErrors, DeleteWishlistItemsByWishlistProductIdResponses, DeleteWishlistItemsErrors, DeleteWishlistItemsResponses, GetAccountErrors, GetAccountMarketingErrors, GetAccountMarketingResponses, GetAccountOrdersByOrderIdErrors, GetAccountOrdersByOrderIdResponses, GetAccountOrdersErrors, GetAccountOrdersResponses, GetAccountResponses, GetAuthSessionErrors, GetAuthSessionResponses, GetCartCountErrors, GetCartCountResponses, GetCartErrors, GetCartResponses, GetCollectionsErrors, GetCollectionsResponses, GetContentBannerTextErrors, GetContentBannerTextResponses, GetContentBlocksByBlockIdErrors, GetContentBlocksByBlockIdResponses, GetContentBlocksErrors, GetContentBlocksResponses, GetProductsInfiniteErrors, GetProductsInfiniteResponses, GetProductsSearchErrors, GetProductsSearchResponses, GetProductsTrendingErrors, GetProductsTrendingResponses, GetWishlistErrors, GetWishlistResponses, PostAuthRequestOtpErrors, PostAuthRequestOtpResponses, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthVerifyOtpErrors, PostAuthVerifyOtpResponses, PostCartCheckoutErrors, PostCartCheckoutResponses, PostCartItemsErrors, PostCartItemsResponses, PostCartMigrateErrors, PostCartMigrateResponses, PostCollectionErrors, PostCollectionProductsErrors, PostCollectionProductsResponses, PostCollectionResponses, PostProductErrors, PostProductResponses, PostWishlistItemsErrors, PostWishlistItemsResponses, PutAccountErrors, PutAccountMarketingErrors, PutAccountMarketingResponses, PutAccountResponses, PutCartItemsByCartProductIdErrors, PutCartItemsByCartProductIdResponses } from './types.gen';
 import { zDeleteCartItemsByCartProductIdHeaders, zDeleteCartItemsByCartProductIdPath, zDeleteCartItemsByCartProductIdResponse, zDeleteWishlistItemsByWishlistProductIdHeaders, zDeleteWishlistItemsByWishlistProductIdPath, zDeleteWishlistItemsByWishlistProductIdResponse, zDeleteWishlistItemsResponse, zGetAccountHeaders, zGetAccountMarketingResponse, zGetAccountOrdersByOrderIdHeaders, zGetAccountOrdersByOrderIdPath, zGetAccountOrdersByOrderIdResponse, zGetAccountOrdersResponse, zGetAccountResponse, zGetAuthSessionResponse, zGetCartCountResponse, zGetCartResponse, zGetCollectionsHeaders, zGetCollectionsQuery, zGetCollectionsResponse, zGetContentBannerTextResponse, zGetContentBlocksByBlockIdHeaders, zGetContentBlocksByBlockIdPath, zGetContentBlocksByBlockIdResponse, zGetContentBlocksResponse, zGetProductsInfiniteHeaders, zGetProductsInfiniteQuery, zGetProductsInfiniteResponse, zGetProductsSearchResponse, zGetProductsTrendingResponse, zGetWishlistResponse, zPostAuthRequestOtpBody, zPostAuthRequestOtpHeaders, zPostAuthRequestOtpResponse, zPostAuthSignOutResponse, zPostAuthVerifyOtpBody, zPostAuthVerifyOtpHeaders, zPostAuthVerifyOtpResponse, zPostCartCheckoutBody, zPostCartCheckoutHeaders, zPostCartCheckoutResponse, zPostCartItemsBody, zPostCartItemsHeaders, zPostCartItemsResponse, zPostCollectionBody, zPostCollectionHeaders, zPostCollectionProductsBody, zPostCollectionProductsHeaders, zPostCollectionProductsResponse, zPostCollectionResponse, zPostProductBody, zPostProductHeaders, zPostProductResponse, zPostWishlistItemsBody, zPostWishlistItemsHeaders, zPostWishlistItemsResponse, zPutAccountBody, zPutAccountHeaders, zPutAccountMarketingBody, zPutAccountMarketingHeaders, zPutAccountMarketingResponse, zPutCartItemsByCartProductIdBody, zPutCartItemsByCartProductIdHeaders, zPutCartItemsByCartProductIdPath, zPutCartItemsByCartProductIdResponse } from './zod.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
@@ -55,7 +55,7 @@ export class Marketing extends HeyApiClient {
      *
      * Retrieves the marketing consent status for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.
      */
-    public get<ThrowOnError extends boolean = false>(options?: Options<GetAccountMarketingData, ThrowOnError>): RequestResult<GetAccountMarketingResponses, GetAccountMarketingErrors, ThrowOnError> {
+    public get<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetAccountMarketingResponses, GetAccountMarketingErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetAccountMarketingResponses, GetAccountMarketingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -63,7 +63,6 @@ export class Marketing extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountMarketingResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/marketing',
             ...options
         });
@@ -74,21 +73,26 @@ export class Marketing extends HeyApiClient {
      *
      * Updates the marketing consent status for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.
      */
-    public update<ThrowOnError extends boolean = false>(options: Options<PutAccountMarketingData, ThrowOnError>): RequestResult<PutAccountMarketingResponses, PutAccountMarketingErrors, ThrowOnError> {
-        return (options.client ?? this.client).put<PutAccountMarketingResponses, PutAccountMarketingErrors, ThrowOnError>({
+    public update<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        consent: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutAccountMarketingResponses, PutAccountMarketingErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'body', key: 'consent' }] }]);
+        return (options?.client ?? this.client).put<PutAccountMarketingResponses, PutAccountMarketingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPutAccountMarketingBody,
-                headers: zPutAccountMarketingHeaders,
+                headers: zPutAccountMarketingHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPutAccountMarketingResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/marketing',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -100,7 +104,7 @@ export class Orders extends HeyApiClient {
      *
      * Retrieves a list of orders for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.
      */
-    public list<ThrowOnError extends boolean = false>(options?: Options<GetAccountOrdersData, ThrowOnError>): RequestResult<GetAccountOrdersResponses, GetAccountOrdersErrors, ThrowOnError> {
+    public list<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetAccountOrdersResponses, GetAccountOrdersErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetAccountOrdersResponses, GetAccountOrdersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -108,7 +112,6 @@ export class Orders extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountOrdersResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/orders',
             ...options
         });
@@ -119,18 +122,22 @@ export class Orders extends HeyApiClient {
      *
      * Retrieves details of a specific order for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.
      */
-    public get<ThrowOnError extends boolean = false>(options: Options<GetAccountOrdersByOrderIdData, ThrowOnError>): RequestResult<GetAccountOrdersByOrderIdResponses, GetAccountOrdersByOrderIdErrors, ThrowOnError> {
-        return (options.client ?? this.client).get<GetAccountOrdersByOrderIdResponses, GetAccountOrdersByOrderIdErrors, ThrowOnError>({
+    public get<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        orderId: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountOrdersByOrderIdResponses, GetAccountOrdersByOrderIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'path', key: 'orderId' }] }]);
+        return (options?.client ?? this.client).get<GetAccountOrdersByOrderIdResponses, GetAccountOrdersByOrderIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetAccountOrdersByOrderIdHeaders,
+                headers: zGetAccountOrdersByOrderIdHeaders.optional(),
                 path: zGetAccountOrdersByOrderIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountOrdersByOrderIdResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account/orders/{orderId}',
-            ...options
+            ...options,
+            ...params
         });
     }
 }
@@ -141,21 +148,26 @@ export class Auth extends HeyApiClient {
      *
      * Requests a one-time password (OTP) for customer authentication. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public requestOtp<ThrowOnError extends boolean = false>(options: Options<PostAuthRequestOtpData, ThrowOnError>): RequestResult<PostAuthRequestOtpResponses, PostAuthRequestOtpErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostAuthRequestOtpResponses, PostAuthRequestOtpErrors, ThrowOnError>({
+    public requestOtp<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        email: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAuthRequestOtpResponses, PostAuthRequestOtpErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'body', key: 'email' }] }]);
+        return (options?.client ?? this.client).post<PostAuthRequestOtpResponses, PostAuthRequestOtpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostAuthRequestOtpBody,
-                headers: zPostAuthRequestOtpHeaders,
+                headers: zPostAuthRequestOtpHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostAuthRequestOtpResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/request-otp',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -165,21 +177,37 @@ export class Auth extends HeyApiClient {
      *
      * Verifies the one-time password (OTP) to authenticate the customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public verifyOtp<ThrowOnError extends boolean = false>(options: Options<PostAuthVerifyOtpData, ThrowOnError>): RequestResult<PostAuthVerifyOtpResponses, PostAuthVerifyOtpErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostAuthVerifyOtpResponses, PostAuthVerifyOtpErrors, ThrowOnError>({
+    public verifyOtp<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        email: string;
+        otp: string;
+        firstName?: string;
+        lastName?: string;
+        phone?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAuthVerifyOtpResponses, PostAuthVerifyOtpErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'body', key: 'email' },
+                    { in: 'body', key: 'otp' },
+                    { in: 'body', key: 'firstName' },
+                    { in: 'body', key: 'lastName' },
+                    { in: 'body', key: 'phone' }
+                ] }]);
+        return (options?.client ?? this.client).post<PostAuthVerifyOtpResponses, PostAuthVerifyOtpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostAuthVerifyOtpBody,
-                headers: zPostAuthVerifyOtpHeaders,
+                headers: zPostAuthVerifyOtpHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostAuthVerifyOtpResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/verify-otp',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -189,7 +217,7 @@ export class Auth extends HeyApiClient {
      *
      * Retrieves the current customer session details. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public getSession<ThrowOnError extends boolean = false>(options?: Options<GetAuthSessionData, ThrowOnError>): RequestResult<GetAuthSessionResponses, GetAuthSessionErrors, ThrowOnError> {
+    public getSession<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetAuthSessionResponses, GetAuthSessionErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetAuthSessionResponses, GetAuthSessionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -197,7 +225,6 @@ export class Auth extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAuthSessionResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/session',
             ...options
         });
@@ -208,7 +235,7 @@ export class Auth extends HeyApiClient {
      *
      * Signs out the currently authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public signOut<ThrowOnError extends boolean = false>(options?: Options<PostAuthSignOutData, ThrowOnError>): RequestResult<PostAuthSignOutResponses, PostAuthSignOutErrors, ThrowOnError> {
+    public signOut<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<PostAuthSignOutResponses, PostAuthSignOutErrors, ThrowOnError> {
         return (options?.client ?? this.client).post<PostAuthSignOutResponses, PostAuthSignOutErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -216,7 +243,6 @@ export class Auth extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostAuthSignOutResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/auth/sign-out',
             ...options
         });
@@ -229,18 +255,21 @@ export class Accounts extends HeyApiClient {
      *
      * Retrieves the currently authenticated customer session profile. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public get<ThrowOnError extends boolean = false>(options: Options<GetAccountData, ThrowOnError>): RequestResult<GetAccountResponses, GetAccountErrors, ThrowOnError> {
-        return (options.client ?? this.client).get<GetAccountResponses, GetAccountErrors, ThrowOnError>({
+    public get<ThrowOnError extends boolean = false>(parameters?: {
+        'x-puddle-storefront-host'?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountResponses, GetAccountErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }] }]);
+        return (options?.client ?? this.client).get<GetAccountResponses, GetAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetAccountHeaders,
+                headers: zGetAccountHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAccountResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account',
-            ...options
+            ...options,
+            ...params
         });
     }
     
@@ -249,20 +278,32 @@ export class Accounts extends HeyApiClient {
      *
      * Updates the profile details for the authenticated customer. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable. Requires a valid customer session cookie for the resolved storefront.
      */
-    public update<ThrowOnError extends boolean = false>(options: Options<PutAccountData, ThrowOnError>): RequestResult<PutAccountResponses, PutAccountErrors, ThrowOnError> {
-        return (options.client ?? this.client).put<PutAccountResponses, PutAccountErrors, ThrowOnError>({
+    public update<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        firstName: string;
+        lastName: string;
+        phone?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutAccountResponses, PutAccountErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'body', key: 'firstName' },
+                    { in: 'body', key: 'lastName' },
+                    { in: 'body', key: 'phone' }
+                ] }]);
+        return (options?.client ?? this.client).put<PutAccountResponses, PutAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPutAccountBody,
-                headers: zPutAccountHeaders,
+                headers: zPutAccountHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/account',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -289,21 +330,37 @@ export class Cart extends HeyApiClient {
      *
      * Initialises checkout for the current cart and returns the checkout session details. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public checkout<ThrowOnError extends boolean = false>(options: Options<PostCartCheckoutData, ThrowOnError>): RequestResult<PostCartCheckoutResponses, PostCartCheckoutErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostCartCheckoutResponses, PostCartCheckoutErrors, ThrowOnError>({
+    public checkout<ThrowOnError extends boolean = false>(parameters?: {
+        'x-puddle-storefront-host'?: string;
+        couponCode?: string | null;
+        giftCardCodes?: Array<string> | null;
+        deliveryMethod?: string | null;
+        deliveryMethodId?: string | null;
+        deliveryMethodCode?: string | null;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCartCheckoutResponses, PostCartCheckoutErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'body', key: 'couponCode' },
+                    { in: 'body', key: 'giftCardCodes' },
+                    { in: 'body', key: 'deliveryMethod' },
+                    { in: 'body', key: 'deliveryMethodId' },
+                    { in: 'body', key: 'deliveryMethodCode' }
+                ] }]);
+        return (options?.client ?? this.client).post<PostCartCheckoutResponses, PostCartCheckoutErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCartCheckoutBody,
-                headers: zPostCartCheckoutHeaders,
+                headers: zPostCartCheckoutHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCartCheckoutResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/checkout',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -313,7 +370,7 @@ export class Cart extends HeyApiClient {
      *
      * Retrieves the current number of items in the cart. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public count<ThrowOnError extends boolean = false>(options?: Options<GetCartCountData, ThrowOnError>): RequestResult<GetCartCountResponses, GetCartCountErrors, ThrowOnError> {
+    public count<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetCartCountResponses, GetCartCountErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetCartCountResponses, GetCartCountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -321,7 +378,6 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetCartCountResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/count',
             ...options
         });
@@ -332,14 +388,13 @@ export class Cart extends HeyApiClient {
      *
      * Migrates a guest cart into the authenticated customer cart when both are present. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public migrate<ThrowOnError extends boolean = false>(options?: Options<PostCartMigrateData, ThrowOnError>): RequestResult<PostCartMigrateResponses, PostCartMigrateErrors, ThrowOnError> {
+    public migrate<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<PostCartMigrateResponses, PostCartMigrateErrors, ThrowOnError> {
         return (options?.client ?? this.client).post<PostCartMigrateResponses, PostCartMigrateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/migrate',
             ...options
         });
@@ -350,7 +405,7 @@ export class Cart extends HeyApiClient {
      *
      * Retrieves the current cart contents. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public get<ThrowOnError extends boolean = false>(options?: Options<GetCartData, ThrowOnError>): RequestResult<GetCartResponses, GetCartErrors, ThrowOnError> {
+    public get<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetCartResponses, GetCartErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetCartResponses, GetCartErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -358,7 +413,6 @@ export class Cart extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetCartResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart',
             ...options
         });
@@ -369,21 +423,37 @@ export class Cart extends HeyApiClient {
      *
      * Adds a product or product variant to the current cart. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public add<ThrowOnError extends boolean = false>(options: Options<PostCartItemsData, ThrowOnError>): RequestResult<PostCartItemsResponses, PostCartItemsErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostCartItemsResponses, PostCartItemsErrors, ThrowOnError>({
+    public add<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        productId: string;
+        productVariantId?: string;
+        quantity: number;
+        customText?: {
+            [key: string]: string;
+        };
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCartItemsResponses, PostCartItemsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'body', key: 'productId' },
+                    { in: 'body', key: 'productVariantId' },
+                    { in: 'body', key: 'quantity' },
+                    { in: 'body', key: 'customText' }
+                ] }]);
+        return (options?.client ?? this.client).post<PostCartItemsResponses, PostCartItemsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCartItemsBody,
-                headers: zPostCartItemsHeaders,
+                headers: zPostCartItemsHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCartItemsResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/items',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -393,18 +463,22 @@ export class Cart extends HeyApiClient {
      *
      * Removes a cart item from the current cart. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public remove<ThrowOnError extends boolean = false>(options: Options<DeleteCartItemsByCartProductIdData, ThrowOnError>): RequestResult<DeleteCartItemsByCartProductIdResponses, DeleteCartItemsByCartProductIdErrors, ThrowOnError> {
-        return (options.client ?? this.client).delete<DeleteCartItemsByCartProductIdResponses, DeleteCartItemsByCartProductIdErrors, ThrowOnError>({
+    public remove<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        cartProductId: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteCartItemsByCartProductIdResponses, DeleteCartItemsByCartProductIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'path', key: 'cartProductId' }] }]);
+        return (options?.client ?? this.client).delete<DeleteCartItemsByCartProductIdResponses, DeleteCartItemsByCartProductIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zDeleteCartItemsByCartProductIdHeaders,
+                headers: zDeleteCartItemsByCartProductIdHeaders.optional(),
                 path: zDeleteCartItemsByCartProductIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDeleteCartItemsByCartProductIdResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/items/{cartProductId}',
-            ...options
+            ...options,
+            ...params
         });
     }
     
@@ -413,21 +487,31 @@ export class Cart extends HeyApiClient {
      *
      * Updates the quantity of an existing cart item. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public update<ThrowOnError extends boolean = false>(options: Options<PutCartItemsByCartProductIdData, ThrowOnError>): RequestResult<PutCartItemsByCartProductIdResponses, PutCartItemsByCartProductIdErrors, ThrowOnError> {
-        return (options.client ?? this.client).put<PutCartItemsByCartProductIdResponses, PutCartItemsByCartProductIdErrors, ThrowOnError>({
+    public update<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        cartProductId: string;
+        quantity: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutCartItemsByCartProductIdResponses, PutCartItemsByCartProductIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'path', key: 'cartProductId' },
+                    { in: 'body', key: 'quantity' }
+                ] }]);
+        return (options?.client ?? this.client).put<PutCartItemsByCartProductIdResponses, PutCartItemsByCartProductIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPutCartItemsByCartProductIdBody,
-                headers: zPutCartItemsByCartProductIdHeaders,
+                headers: zPutCartItemsByCartProductIdHeaders.optional(),
                 path: zPutCartItemsByCartProductIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPutCartItemsByCartProductIdResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/cart/items/{cartProductId}',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -439,18 +523,22 @@ export class Collections extends HeyApiClient {
      *
      * Retrieves a list of all collections for the storefront. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public list<ThrowOnError extends boolean = false>(options: Options<GetCollectionsData, ThrowOnError>): RequestResult<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError> {
-        return (options.client ?? this.client).get<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError>({
+    public list<ThrowOnError extends boolean = false>(parameters?: {
+        'x-puddle-storefront-host'?: string;
+        structure?: 'flat' | 'tree';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'query', key: 'structure' }] }]);
+        return (options?.client ?? this.client).get<GetCollectionsResponses, GetCollectionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetCollectionsHeaders,
+                headers: zGetCollectionsHeaders.optional(),
                 path: z.never().optional(),
                 query: zGetCollectionsQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetCollectionsResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/collections',
-            ...options
+            ...options,
+            ...params
         });
     }
     
@@ -459,21 +547,31 @@ export class Collections extends HeyApiClient {
      *
      * Retrieves a single collection by the slug provided in the request body. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public get<ThrowOnError extends boolean = false>(options: Options<PostCollectionData, ThrowOnError>): RequestResult<PostCollectionResponses, PostCollectionErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostCollectionResponses, PostCollectionErrors, ThrowOnError>({
+    public get<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        slug: string;
+        includeChildren?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCollectionResponses, PostCollectionErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'body', key: 'slug' },
+                    { in: 'body', key: 'includeChildren' }
+                ] }]);
+        return (options?.client ?? this.client).post<PostCollectionResponses, PostCollectionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCollectionBody,
-                headers: zPostCollectionHeaders,
+                headers: zPostCollectionHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCollectionResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/collection',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -483,21 +581,31 @@ export class Collections extends HeyApiClient {
      *
      * Retrieves products that belong to the collection identified by the slug in the request body. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public products<ThrowOnError extends boolean = false>(options: Options<PostCollectionProductsData, ThrowOnError>): RequestResult<PostCollectionProductsResponses, PostCollectionProductsErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostCollectionProductsResponses, PostCollectionProductsErrors, ThrowOnError>({
+    public products<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        slug: string;
+        sort?: 'PRICE_ASC' | 'PRICE_DESC' | 'NAME_ASC' | 'NAME_DESC' | 'NEWEST' | 'OLDEST';
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCollectionProductsResponses, PostCollectionProductsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'body', key: 'slug' },
+                    { in: 'body', key: 'sort' }
+                ] }]);
+        return (options?.client ?? this.client).post<PostCollectionProductsResponses, PostCollectionProductsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostCollectionProductsBody,
-                headers: zPostCollectionProductsHeaders,
+                headers: zPostCollectionProductsHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostCollectionProductsResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/collection/products',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -509,7 +617,7 @@ export class Products extends HeyApiClient {
      *
      * Retrieves a list of products suitable for search. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public search<ThrowOnError extends boolean = false>(options?: Options<GetProductsSearchData, ThrowOnError>): RequestResult<GetProductsSearchResponses, GetProductsSearchErrors, ThrowOnError> {
+    public search<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetProductsSearchResponses, GetProductsSearchErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetProductsSearchResponses, GetProductsSearchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -517,7 +625,6 @@ export class Products extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetProductsSearchResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/products/search',
             ...options
         });
@@ -528,18 +635,27 @@ export class Products extends HeyApiClient {
      *
      * Retrieves a paginated list of products for a category, collection, or all. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public infinite<ThrowOnError extends boolean = false>(options: Options<GetProductsInfiniteData, ThrowOnError>): RequestResult<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError> {
-        return (options.client ?? this.client).get<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError>({
+    public infinite<ThrowOnError extends boolean = false>(parameters?: {
+        'x-puddle-storefront-host'?: string;
+        type?: 'COLLECTION' | 'ALL';
+        id?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'query', key: 'type' },
+                    { in: 'query', key: 'id' }
+                ] }]);
+        return (options?.client ?? this.client).get<GetProductsInfiniteResponses, GetProductsInfiniteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetProductsInfiniteHeaders,
+                headers: zGetProductsInfiniteHeaders.optional(),
                 path: z.never().optional(),
                 query: zGetProductsInfiniteQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetProductsInfiniteResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/products/infinite',
-            ...options
+            ...options,
+            ...params
         });
     }
     
@@ -548,7 +664,7 @@ export class Products extends HeyApiClient {
      *
      * Retrieves a list of trending products. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public trending<ThrowOnError extends boolean = false>(options?: Options<GetProductsTrendingData, ThrowOnError>): RequestResult<GetProductsTrendingResponses, GetProductsTrendingErrors, ThrowOnError> {
+    public trending<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetProductsTrendingResponses, GetProductsTrendingErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetProductsTrendingResponses, GetProductsTrendingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -556,7 +672,6 @@ export class Products extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetProductsTrendingResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/products/trending',
             ...options
         });
@@ -567,21 +682,26 @@ export class Products extends HeyApiClient {
      *
      * Retrieves a single product by the slug provided in the request body. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public get<ThrowOnError extends boolean = false>(options: Options<PostProductData, ThrowOnError>): RequestResult<PostProductResponses, PostProductErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostProductResponses, PostProductErrors, ThrowOnError>({
+    public get<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        slug: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostProductResponses, PostProductErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'body', key: 'slug' }] }]);
+        return (options?.client ?? this.client).post<PostProductResponses, PostProductErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostProductBody,
-                headers: zPostProductHeaders,
+                headers: zPostProductHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostProductResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/product',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -593,7 +713,7 @@ export class Content extends HeyApiClient {
      *
      * Retrieves all configured storefront content blocks for the current store. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public blocks<ThrowOnError extends boolean = false>(options?: Options<GetContentBlocksData, ThrowOnError>): RequestResult<GetContentBlocksResponses, GetContentBlocksErrors, ThrowOnError> {
+    public blocks<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetContentBlocksResponses, GetContentBlocksErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetContentBlocksResponses, GetContentBlocksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -601,7 +721,6 @@ export class Content extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetContentBlocksResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/content/blocks',
             ...options
         });
@@ -612,18 +731,22 @@ export class Content extends HeyApiClient {
      *
      * Retrieves a single storefront content block by its id. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public block<ThrowOnError extends boolean = false>(options: Options<GetContentBlocksByBlockIdData, ThrowOnError>): RequestResult<GetContentBlocksByBlockIdResponses, GetContentBlocksByBlockIdErrors, ThrowOnError> {
-        return (options.client ?? this.client).get<GetContentBlocksByBlockIdResponses, GetContentBlocksByBlockIdErrors, ThrowOnError>({
+    public block<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        blockId: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetContentBlocksByBlockIdResponses, GetContentBlocksByBlockIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'path', key: 'blockId' }] }]);
+        return (options?.client ?? this.client).get<GetContentBlocksByBlockIdResponses, GetContentBlocksByBlockIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zGetContentBlocksByBlockIdHeaders,
+                headers: zGetContentBlocksByBlockIdHeaders.optional(),
                 path: zGetContentBlocksByBlockIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetContentBlocksByBlockIdResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/content/blocks/{blockId}',
-            ...options
+            ...options,
+            ...params
         });
     }
     
@@ -632,7 +755,7 @@ export class Content extends HeyApiClient {
      *
      * Retrieves the active banner text for the storefront if enabled. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public bannerText<ThrowOnError extends boolean = false>(options?: Options<GetContentBannerTextData, ThrowOnError>): RequestResult<GetContentBannerTextResponses, GetContentBannerTextErrors, ThrowOnError> {
+    public bannerText<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetContentBannerTextResponses, GetContentBannerTextErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetContentBannerTextResponses, GetContentBannerTextErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -640,7 +763,6 @@ export class Content extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetContentBannerTextResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/content/banner-text',
             ...options
         });
@@ -653,7 +775,7 @@ export class Wishlist extends HeyApiClient {
      *
      * Retrieves the current wishlist contents. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public get<ThrowOnError extends boolean = false>(options?: Options<GetWishlistData, ThrowOnError>): RequestResult<GetWishlistResponses, GetWishlistErrors, ThrowOnError> {
+    public get<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<GetWishlistResponses, GetWishlistErrors, ThrowOnError> {
         return (options?.client ?? this.client).get<GetWishlistResponses, GetWishlistErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -661,7 +783,6 @@ export class Wishlist extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetWishlistResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist',
             ...options
         });
@@ -672,7 +793,7 @@ export class Wishlist extends HeyApiClient {
      *
      * Removes all wishlist items from the current wishlist. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public clear<ThrowOnError extends boolean = false>(options?: Options<DeleteWishlistItemsData, ThrowOnError>): RequestResult<DeleteWishlistItemsResponses, DeleteWishlistItemsErrors, ThrowOnError> {
+    public clear<ThrowOnError extends boolean = false>(options?: Options<never, ThrowOnError>): RequestResult<DeleteWishlistItemsResponses, DeleteWishlistItemsErrors, ThrowOnError> {
         return (options?.client ?? this.client).delete<DeleteWishlistItemsResponses, DeleteWishlistItemsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -680,7 +801,6 @@ export class Wishlist extends HeyApiClient {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDeleteWishlistItemsResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist/items',
             ...options
         });
@@ -691,21 +811,31 @@ export class Wishlist extends HeyApiClient {
      *
      * Adds a product or product variant to the current wishlist. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public add<ThrowOnError extends boolean = false>(options: Options<PostWishlistItemsData, ThrowOnError>): RequestResult<PostWishlistItemsResponses, PostWishlistItemsErrors, ThrowOnError> {
-        return (options.client ?? this.client).post<PostWishlistItemsResponses, PostWishlistItemsErrors, ThrowOnError>({
+    public add<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        productId: string;
+        productVariantId?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostWishlistItemsResponses, PostWishlistItemsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'x-puddle-storefront-host' },
+                    { in: 'body', key: 'productId' },
+                    { in: 'body', key: 'productVariantId' }
+                ] }]);
+        return (options?.client ?? this.client).post<PostWishlistItemsResponses, PostWishlistItemsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zPostWishlistItemsBody,
-                headers: zPostWishlistItemsHeaders,
+                headers: zPostWishlistItemsHeaders.optional(),
                 path: z.never().optional(),
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPostWishlistItemsResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist/items',
             ...options,
+            ...params,
             headers: {
                 'Content-Type': 'application/json',
-                ...options.headers
+                ...options?.headers,
+                ...params.headers
             }
         });
     }
@@ -715,18 +845,22 @@ export class Wishlist extends HeyApiClient {
      *
      * Removes a wishlist item from the current wishlist. Requires `Authorization: Bearer <storefront-public-key>`. Server-side callers must include `x-puddle-storefront-host` when `Origin`/`Referer` is unavailable.
      */
-    public remove<ThrowOnError extends boolean = false>(options: Options<DeleteWishlistItemsByWishlistProductIdData, ThrowOnError>): RequestResult<DeleteWishlistItemsByWishlistProductIdResponses, DeleteWishlistItemsByWishlistProductIdErrors, ThrowOnError> {
-        return (options.client ?? this.client).delete<DeleteWishlistItemsByWishlistProductIdResponses, DeleteWishlistItemsByWishlistProductIdErrors, ThrowOnError>({
+    public remove<ThrowOnError extends boolean = false>(parameters: {
+        'x-puddle-storefront-host'?: string;
+        wishlistProductId: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteWishlistItemsByWishlistProductIdResponses, DeleteWishlistItemsByWishlistProductIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-puddle-storefront-host' }, { in: 'path', key: 'wishlistProductId' }] }]);
+        return (options?.client ?? this.client).delete<DeleteWishlistItemsByWishlistProductIdResponses, DeleteWishlistItemsByWishlistProductIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                headers: zDeleteWishlistItemsByWishlistProductIdHeaders,
+                headers: zDeleteWishlistItemsByWishlistProductIdHeaders.optional(),
                 path: zDeleteWishlistItemsByWishlistProductIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDeleteWishlistItemsByWishlistProductIdResponse.parseAsync(data),
-            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/wishlist/items/{wishlistProductId}',
-            ...options
+            ...options,
+            ...params
         });
     }
 }
