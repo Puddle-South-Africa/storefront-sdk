@@ -1769,21 +1769,18 @@ export type PostCollectionProductsResponses = {
         createdAt: string | null;
         updatedAt: string | null;
         stockStatus: 'IN_STOCK' | 'LOW_STOCK' | 'VERY_LOW_STOCK' | 'OUT_OF_STOCK' | 'NOT_TRACKED';
-        sales: Array<{
-            id?: string;
+        sale: {
+            id: string;
+            name: string;
+            amount: number | null;
+            percentage: number | null;
             /**
              * Calculated discount amount in minor currency units.
              */
             discount: number;
-            /**
-             * ISO 8601 date-time string. tRPC callers may receive a Date.
-             */
-            starts: string;
-            /**
-             * ISO 8601 date-time string. tRPC callers may receive a Date.
-             */
-            ends: string;
-        }> | null;
+            starts: string | null;
+            ends: string | null;
+        } | null;
         hasVariablePrices?: boolean;
     }>;
 };
@@ -1917,21 +1914,18 @@ export type GetProductsInfiniteResponses = {
         createdAt: string | null;
         updatedAt: string | null;
         stockStatus: 'IN_STOCK' | 'LOW_STOCK' | 'VERY_LOW_STOCK' | 'OUT_OF_STOCK' | 'NOT_TRACKED';
-        sales: Array<{
-            id?: string;
+        sale: {
+            id: string;
+            name: string;
+            amount: number | null;
+            percentage: number | null;
             /**
              * Calculated discount amount in minor currency units.
              */
             discount: number;
-            /**
-             * ISO 8601 date-time string. tRPC callers may receive a Date.
-             */
-            starts: string;
-            /**
-             * ISO 8601 date-time string. tRPC callers may receive a Date.
-             */
-            ends: string;
-        }> | null;
+            starts: string | null;
+            ends: string | null;
+        } | null;
         hasVariablePrices?: boolean;
     }>;
 };
@@ -1999,21 +1993,18 @@ export type GetProductsTrendingResponses = {
         createdAt: string | null;
         updatedAt: string | null;
         stockStatus: 'IN_STOCK' | 'LOW_STOCK' | 'VERY_LOW_STOCK' | 'OUT_OF_STOCK' | 'NOT_TRACKED';
-        sales: Array<{
-            id?: string;
+        sale: {
+            id: string;
+            name: string;
+            amount: number | null;
+            percentage: number | null;
             /**
              * Calculated discount amount in minor currency units.
              */
             discount: number;
-            /**
-             * ISO 8601 date-time string. tRPC callers may receive a Date.
-             */
-            starts: string;
-            /**
-             * ISO 8601 date-time string. tRPC callers may receive a Date.
-             */
-            ends: string;
-        }> | null;
+            starts: string | null;
+            ends: string | null;
+        } | null;
         hasVariablePrices?: boolean;
     }>;
 };
@@ -2151,21 +2142,18 @@ export type PostProductResponses = {
                 };
             }>;
         }>;
-        sale?: {
+        sale: {
             id: string;
+            name: string;
+            amount: number | null;
+            percentage: number | null;
             /**
              * Calculated discount amount in minor currency units.
              */
             discount: number;
             starts: string | null;
             ends: string | null;
-            name: string;
-            amount: number | null;
-            percentage: number | null;
-            active: boolean;
-            productIds?: Array<string> | null;
-            collectionIds?: Array<string> | null;
-        };
+        } | null;
     } | null;
 };
 
@@ -2521,21 +2509,18 @@ export type GetWishlistResponses = {
                     };
                 }>;
             }>;
-            sale?: {
+            sale: {
                 id: string;
+                name: string;
+                amount: number | null;
+                percentage: number | null;
                 /**
                  * Calculated discount amount in minor currency units.
                  */
                 discount: number;
                 starts: string | null;
                 ends: string | null;
-                name: string;
-                amount: number | null;
-                percentage: number | null;
-                active: boolean;
-                productIds?: Array<string> | null;
-                collectionIds?: Array<string> | null;
-            };
+            } | null;
         };
         productVariant: {
             id: string;
@@ -2709,21 +2694,18 @@ export type DeleteWishlistItemsResponses = {
                     };
                 }>;
             }>;
-            sale?: {
+            sale: {
                 id: string;
+                name: string;
+                amount: number | null;
+                percentage: number | null;
                 /**
                  * Calculated discount amount in minor currency units.
                  */
                 discount: number;
                 starts: string | null;
                 ends: string | null;
-                name: string;
-                amount: number | null;
-                percentage: number | null;
-                active: boolean;
-                productIds?: Array<string> | null;
-                collectionIds?: Array<string> | null;
-            };
+            } | null;
         };
         productVariant: {
             id: string;
@@ -2906,21 +2888,18 @@ export type PostWishlistItemsResponses = {
                     };
                 }>;
             }>;
-            sale?: {
+            sale: {
                 id: string;
+                name: string;
+                amount: number | null;
+                percentage: number | null;
                 /**
                  * Calculated discount amount in minor currency units.
                  */
                 discount: number;
                 starts: string | null;
                 ends: string | null;
-                name: string;
-                amount: number | null;
-                percentage: number | null;
-                active: boolean;
-                productIds?: Array<string> | null;
-                collectionIds?: Array<string> | null;
-            };
+            } | null;
         };
         productVariant: {
             id: string;
@@ -3102,21 +3081,18 @@ export type DeleteWishlistItemsByWishlistProductIdResponses = {
                     };
                 }>;
             }>;
-            sale?: {
+            sale: {
                 id: string;
+                name: string;
+                amount: number | null;
+                percentage: number | null;
                 /**
                  * Calculated discount amount in minor currency units.
                  */
                 discount: number;
                 starts: string | null;
                 ends: string | null;
-                name: string;
-                amount: number | null;
-                percentage: number | null;
-                active: boolean;
-                productIds?: Array<string> | null;
-                collectionIds?: Array<string> | null;
-            };
+            } | null;
         };
         productVariant: {
             id: string;

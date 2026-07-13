@@ -5238,54 +5238,96 @@
                           "NOT_TRACKED"
                         ]
                       },
-                      "sales": {
+                      "sale": {
                         "anyOf": [
                           {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string",
-                                  "format": "uuid",
-                                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                },
-                                "discount": {
-                                  "description": "Calculated discount amount in minor currency units.",
-                                  "type": "integer",
-                                  "minimum": 0,
-                                  "maximum": 9007199254740991
-                                },
-                                "starts": {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "string"
-                                    }
-                                  ]
-                                },
-                                "ends": {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "string"
-                                    }
-                                  ]
-                                }
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
                               },
-                              "required": [
-                                "discount",
-                                "starts",
-                                "ends"
-                              ],
-                              "additionalProperties": false
-                            }
+                              "name": {
+                                "type": "string"
+                              },
+                              "amount": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "percentage": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 100
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "discount": {
+                                "description": "Calculated discount amount in minor currency units.",
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 9007199254740991
+                              },
+                              "starts": {
+                                "anyOf": [
+                                  {
+                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "ends": {
+                                "anyOf": [
+                                  {
+                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "amount",
+                              "percentage",
+                              "discount",
+                              "starts",
+                              "ends"
+                            ],
+                            "additionalProperties": false
                           },
                           {
                             "type": "null"
@@ -5306,7 +5348,7 @@
                       "createdAt",
                       "updatedAt",
                       "stockStatus",
-                      "sales"
+                      "sale"
                     ],
                     "additionalProperties": false
                   }
@@ -5716,54 +5758,96 @@
                           "NOT_TRACKED"
                         ]
                       },
-                      "sales": {
+                      "sale": {
                         "anyOf": [
                           {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string",
-                                  "format": "uuid",
-                                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                },
-                                "discount": {
-                                  "description": "Calculated discount amount in minor currency units.",
-                                  "type": "integer",
-                                  "minimum": 0,
-                                  "maximum": 9007199254740991
-                                },
-                                "starts": {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "string"
-                                    }
-                                  ]
-                                },
-                                "ends": {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "string"
-                                    }
-                                  ]
-                                }
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
                               },
-                              "required": [
-                                "discount",
-                                "starts",
-                                "ends"
-                              ],
-                              "additionalProperties": false
-                            }
+                              "name": {
+                                "type": "string"
+                              },
+                              "amount": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "percentage": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 100
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "discount": {
+                                "description": "Calculated discount amount in minor currency units.",
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 9007199254740991
+                              },
+                              "starts": {
+                                "anyOf": [
+                                  {
+                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "ends": {
+                                "anyOf": [
+                                  {
+                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "amount",
+                              "percentage",
+                              "discount",
+                              "starts",
+                              "ends"
+                            ],
+                            "additionalProperties": false
                           },
                           {
                             "type": "null"
@@ -5784,7 +5868,7 @@
                       "createdAt",
                       "updatedAt",
                       "stockStatus",
-                      "sales"
+                      "sale"
                     ],
                     "additionalProperties": false
                   }
@@ -6002,54 +6086,96 @@
                           "NOT_TRACKED"
                         ]
                       },
-                      "sales": {
+                      "sale": {
                         "anyOf": [
                           {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string",
-                                  "format": "uuid",
-                                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                },
-                                "discount": {
-                                  "description": "Calculated discount amount in minor currency units.",
-                                  "type": "integer",
-                                  "minimum": 0,
-                                  "maximum": 9007199254740991
-                                },
-                                "starts": {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "string"
-                                    }
-                                  ]
-                                },
-                                "ends": {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "string"
-                                    }
-                                  ]
-                                }
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
                               },
-                              "required": [
-                                "discount",
-                                "starts",
-                                "ends"
-                              ],
-                              "additionalProperties": false
-                            }
+                              "name": {
+                                "type": "string"
+                              },
+                              "amount": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 9007199254740991
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "percentage": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 100
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "discount": {
+                                "description": "Calculated discount amount in minor currency units.",
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 9007199254740991
+                              },
+                              "starts": {
+                                "anyOf": [
+                                  {
+                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "ends": {
+                                "anyOf": [
+                                  {
+                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "amount",
+                              "percentage",
+                              "discount",
+                              "starts",
+                              "ends"
+                            ],
+                            "additionalProperties": false
                           },
                           {
                             "type": "null"
@@ -6070,7 +6196,7 @@
                       "createdAt",
                       "updatedAt",
                       "stockStatus",
-                      "sales"
+                      "sale"
                     ],
                     "additionalProperties": false
                   }
@@ -6625,127 +6751,100 @@
                           }
                         },
                         "sale": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "format": "uuid",
-                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                            },
-                            "discount": {
-                              "description": "Calculated discount amount in minor currency units.",
-                              "type": "integer",
-                              "minimum": 0,
-                              "maximum": 9007199254740991
-                            },
-                            "starts": {
-                              "anyOf": [
-                                {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid",
+                                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "amount": {
                                   "anyOf": [
                                     {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": 0,
+                                      "maximum": 9007199254740991
                                     },
                                     {
-                                      "type": "string"
+                                      "type": "null"
                                     }
                                   ]
                                 },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "ends": {
-                              "anyOf": [
-                                {
-                                  "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                "percentage": {
                                   "anyOf": [
                                     {
-                                      "type": "string"
+                                      "type": "integer",
+                                      "minimum": 1,
+                                      "maximum": 100
                                     },
                                     {
-                                      "type": "string"
+                                      "type": "null"
                                     }
                                   ]
                                 },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "amount": {
-                              "anyOf": [
-                                {
+                                "discount": {
+                                  "description": "Calculated discount amount in minor currency units.",
                                   "type": "integer",
                                   "minimum": 0,
                                   "maximum": 9007199254740991
                                 },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "percentage": {
-                              "anyOf": [
-                                {
-                                  "type": "integer",
-                                  "minimum": 1,
-                                  "maximum": 100
+                                "starts": {
+                                  "anyOf": [
+                                    {
+                                      "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
                                 },
-                                {
-                                  "type": "null"
+                                "ends": {
+                                  "anyOf": [
+                                    {
+                                      "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
                                 }
-                              ]
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "amount",
+                                "percentage",
+                                "discount",
+                                "starts",
+                                "ends"
+                              ],
+                              "additionalProperties": false
                             },
-                            "active": {
-                              "type": "boolean"
-                            },
-                            "productIds": {
-                              "anyOf": [
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "string",
-                                    "format": "uuid",
-                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                  }
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "collectionIds": {
-                              "anyOf": [
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "string",
-                                    "format": "uuid",
-                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                  }
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
+                            {
+                              "type": "null"
                             }
-                          },
-                          "required": [
-                            "id",
-                            "discount",
-                            "starts",
-                            "ends",
-                            "name",
-                            "amount",
-                            "percentage",
-                            "active"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
@@ -6757,7 +6856,8 @@
                         "stockCount",
                         "trackInventory",
                         "imageIds",
-                        "variants"
+                        "variants",
+                        "sale"
                       ],
                       "additionalProperties": false
                     },
@@ -8072,127 +8172,100 @@
                             }
                           },
                           "sale": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid",
-                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                              },
-                              "discount": {
-                                "description": "Calculated discount amount in minor currency units.",
-                                "type": "integer",
-                                "minimum": 0,
-                                "maximum": 9007199254740991
-                              },
-                              "starts": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "amount": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "ends": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                  "percentage": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "maximum": 100
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "amount": {
-                                "anyOf": [
-                                  {
+                                  "discount": {
+                                    "description": "Calculated discount amount in minor currency units.",
                                     "type": "integer",
                                     "minimum": 0,
                                     "maximum": 9007199254740991
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "percentage": {
-                                "anyOf": [
-                                  {
-                                    "type": "integer",
-                                    "minimum": 1,
-                                    "maximum": 100
+                                  "starts": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   },
-                                  {
-                                    "type": "null"
+                                  "ends": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
-                                ]
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "amount",
+                                  "percentage",
+                                  "discount",
+                                  "starts",
+                                  "ends"
+                                ],
+                                "additionalProperties": false
                               },
-                              "active": {
-                                "type": "boolean"
-                              },
-                              "productIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "collectionIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
+                              {
+                                "type": "null"
                               }
-                            },
-                            "required": [
-                              "id",
-                              "discount",
-                              "starts",
-                              "ends",
-                              "name",
-                              "amount",
-                              "percentage",
-                              "active"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
@@ -8204,7 +8277,8 @@
                           "stockCount",
                           "trackInventory",
                           "imageIds",
-                          "variants"
+                          "variants",
+                          "sale"
                         ],
                         "additionalProperties": false
                       },
@@ -8977,127 +9051,100 @@
                             }
                           },
                           "sale": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid",
-                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                              },
-                              "discount": {
-                                "description": "Calculated discount amount in minor currency units.",
-                                "type": "integer",
-                                "minimum": 0,
-                                "maximum": 9007199254740991
-                              },
-                              "starts": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "amount": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "ends": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                  "percentage": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "maximum": 100
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "amount": {
-                                "anyOf": [
-                                  {
+                                  "discount": {
+                                    "description": "Calculated discount amount in minor currency units.",
                                     "type": "integer",
                                     "minimum": 0,
                                     "maximum": 9007199254740991
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "percentage": {
-                                "anyOf": [
-                                  {
-                                    "type": "integer",
-                                    "minimum": 1,
-                                    "maximum": 100
+                                  "starts": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   },
-                                  {
-                                    "type": "null"
+                                  "ends": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
-                                ]
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "amount",
+                                  "percentage",
+                                  "discount",
+                                  "starts",
+                                  "ends"
+                                ],
+                                "additionalProperties": false
                               },
-                              "active": {
-                                "type": "boolean"
-                              },
-                              "productIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "collectionIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
+                              {
+                                "type": "null"
                               }
-                            },
-                            "required": [
-                              "id",
-                              "discount",
-                              "starts",
-                              "ends",
-                              "name",
-                              "amount",
-                              "percentage",
-                              "active"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
@@ -9109,7 +9156,8 @@
                           "stockCount",
                           "trackInventory",
                           "imageIds",
-                          "variants"
+                          "variants",
+                          "sale"
                         ],
                         "additionalProperties": false
                       },
@@ -9842,127 +9890,100 @@
                             }
                           },
                           "sale": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid",
-                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                              },
-                              "discount": {
-                                "description": "Calculated discount amount in minor currency units.",
-                                "type": "integer",
-                                "minimum": 0,
-                                "maximum": 9007199254740991
-                              },
-                              "starts": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "amount": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "ends": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                  "percentage": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "maximum": 100
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "amount": {
-                                "anyOf": [
-                                  {
+                                  "discount": {
+                                    "description": "Calculated discount amount in minor currency units.",
                                     "type": "integer",
                                     "minimum": 0,
                                     "maximum": 9007199254740991
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "percentage": {
-                                "anyOf": [
-                                  {
-                                    "type": "integer",
-                                    "minimum": 1,
-                                    "maximum": 100
+                                  "starts": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   },
-                                  {
-                                    "type": "null"
+                                  "ends": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
-                                ]
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "amount",
+                                  "percentage",
+                                  "discount",
+                                  "starts",
+                                  "ends"
+                                ],
+                                "additionalProperties": false
                               },
-                              "active": {
-                                "type": "boolean"
-                              },
-                              "productIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "collectionIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
+                              {
+                                "type": "null"
                               }
-                            },
-                            "required": [
-                              "id",
-                              "discount",
-                              "starts",
-                              "ends",
-                              "name",
-                              "amount",
-                              "percentage",
-                              "active"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
@@ -9974,7 +9995,8 @@
                           "stockCount",
                           "trackInventory",
                           "imageIds",
-                          "variants"
+                          "variants",
+                          "sale"
                         ],
                         "additionalProperties": false
                       },
@@ -10731,127 +10753,100 @@
                             }
                           },
                           "sale": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid",
-                                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                              },
-                              "discount": {
-                                "description": "Calculated discount amount in minor currency units.",
-                                "type": "integer",
-                                "minimum": 0,
-                                "maximum": 9007199254740991
-                              },
-                              "starts": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "amount": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 9007199254740991
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "ends": {
-                                "anyOf": [
-                                  {
-                                    "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                  "percentage": {
                                     "anyOf": [
                                       {
-                                        "type": "string"
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "maximum": 100
                                       },
                                       {
-                                        "type": "string"
+                                        "type": "null"
                                       }
                                     ]
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "amount": {
-                                "anyOf": [
-                                  {
+                                  "discount": {
+                                    "description": "Calculated discount amount in minor currency units.",
                                     "type": "integer",
                                     "minimum": 0,
                                     "maximum": 9007199254740991
                                   },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "percentage": {
-                                "anyOf": [
-                                  {
-                                    "type": "integer",
-                                    "minimum": 1,
-                                    "maximum": 100
+                                  "starts": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   },
-                                  {
-                                    "type": "null"
+                                  "ends": {
+                                    "anyOf": [
+                                      {
+                                        "description": "ISO 8601 date-time string. tRPC callers may receive a Date.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
                                   }
-                                ]
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "amount",
+                                  "percentage",
+                                  "discount",
+                                  "starts",
+                                  "ends"
+                                ],
+                                "additionalProperties": false
                               },
-                              "active": {
-                                "type": "boolean"
-                              },
-                              "productIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "collectionIds": {
-                                "anyOf": [
-                                  {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "string",
-                                      "format": "uuid",
-                                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$"
-                                    }
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
+                              {
+                                "type": "null"
                               }
-                            },
-                            "required": [
-                              "id",
-                              "discount",
-                              "starts",
-                              "ends",
-                              "name",
-                              "amount",
-                              "percentage",
-                              "active"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
@@ -10863,7 +10858,8 @@
                           "stockCount",
                           "trackInventory",
                           "imageIds",
-                          "variants"
+                          "variants",
+                          "sale"
                         ],
                         "additionalProperties": false
                       },

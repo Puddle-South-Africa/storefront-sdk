@@ -835,12 +835,15 @@ export const zPostCollectionProductsResponse = z.array(z.object({
         'OUT_OF_STOCK',
         'NOT_TRACKED'
     ]),
-    sales: z.array(z.object({
-        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).optional(),
+    sale: z.object({
+        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
+        name: z.string(),
+        amount: z.int().gte(0).lte(9007199254740991).nullable(),
+        percentage: z.int().gte(1).lte(100).nullable(),
         discount: z.int().gte(0).lte(9007199254740991),
-        starts: z.string(),
-        ends: z.string()
-    })).nullable(),
+        starts: z.string().nullable(),
+        ends: z.string().nullable()
+    }).nullable(),
     hasVariablePrices: z.boolean().optional()
 }));
 
@@ -893,12 +896,15 @@ export const zGetProductsInfiniteResponse = z.array(z.object({
         'OUT_OF_STOCK',
         'NOT_TRACKED'
     ]),
-    sales: z.array(z.object({
-        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).optional(),
+    sale: z.object({
+        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
+        name: z.string(),
+        amount: z.int().gte(0).lte(9007199254740991).nullable(),
+        percentage: z.int().gte(1).lte(100).nullable(),
         discount: z.int().gte(0).lte(9007199254740991),
-        starts: z.string(),
-        ends: z.string()
-    })).nullable(),
+        starts: z.string().nullable(),
+        ends: z.string().nullable()
+    }).nullable(),
     hasVariablePrices: z.boolean().optional()
 }));
 
@@ -929,12 +935,15 @@ export const zGetProductsTrendingResponse = z.array(z.object({
         'OUT_OF_STOCK',
         'NOT_TRACKED'
     ]),
-    sales: z.array(z.object({
-        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/).optional(),
+    sale: z.object({
+        id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
+        name: z.string(),
+        amount: z.int().gte(0).lte(9007199254740991).nullable(),
+        percentage: z.int().gte(1).lte(100).nullable(),
         discount: z.int().gte(0).lte(9007199254740991),
-        starts: z.string(),
-        ends: z.string()
-    })).nullable(),
+        starts: z.string().nullable(),
+        ends: z.string().nullable()
+    }).nullable(),
     hasVariablePrices: z.boolean().optional()
 }));
 
@@ -1026,16 +1035,13 @@ export const zPostProductResponse = z.object({
     })).default([]),
     sale: z.object({
         id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-        discount: z.int().gte(0).lte(9007199254740991),
-        starts: z.string().nullable(),
-        ends: z.string().nullable(),
         name: z.string(),
         amount: z.int().gte(0).lte(9007199254740991).nullable(),
         percentage: z.int().gte(1).lte(100).nullable(),
-        active: z.boolean(),
-        productIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish(),
-        collectionIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish()
-    }).optional()
+        discount: z.int().gte(0).lte(9007199254740991),
+        starts: z.string().nullable(),
+        ends: z.string().nullable()
+    }).nullable()
 }).nullable();
 
 /**
@@ -1200,16 +1206,13 @@ export const zGetWishlistResponse = z.array(z.object({
         })).default([]),
         sale: z.object({
             id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-            discount: z.int().gte(0).lte(9007199254740991),
-            starts: z.string().nullable(),
-            ends: z.string().nullable(),
             name: z.string(),
             amount: z.int().gte(0).lte(9007199254740991).nullable(),
             percentage: z.int().gte(1).lte(100).nullable(),
-            active: z.boolean(),
-            productIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish(),
-            collectionIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish()
-        }).optional()
+            discount: z.int().gte(0).lte(9007199254740991),
+            starts: z.string().nullable(),
+            ends: z.string().nullable()
+        }).nullable()
     }),
     productVariant: z.object({
         id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
@@ -1319,16 +1322,13 @@ export const zDeleteWishlistItemsResponse = z.array(z.object({
         })).default([]),
         sale: z.object({
             id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-            discount: z.int().gte(0).lte(9007199254740991),
-            starts: z.string().nullable(),
-            ends: z.string().nullable(),
             name: z.string(),
             amount: z.int().gte(0).lte(9007199254740991).nullable(),
             percentage: z.int().gte(1).lte(100).nullable(),
-            active: z.boolean(),
-            productIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish(),
-            collectionIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish()
-        }).optional()
+            discount: z.int().gte(0).lte(9007199254740991),
+            starts: z.string().nullable(),
+            ends: z.string().nullable()
+        }).nullable()
     }),
     productVariant: z.object({
         id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
@@ -1447,16 +1447,13 @@ export const zPostWishlistItemsResponse = z.array(z.object({
         })).default([]),
         sale: z.object({
             id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-            discount: z.int().gte(0).lte(9007199254740991),
-            starts: z.string().nullable(),
-            ends: z.string().nullable(),
             name: z.string(),
             amount: z.int().gte(0).lte(9007199254740991).nullable(),
             percentage: z.int().gte(1).lte(100).nullable(),
-            active: z.boolean(),
-            productIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish(),
-            collectionIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish()
-        }).optional()
+            discount: z.int().gte(0).lte(9007199254740991),
+            starts: z.string().nullable(),
+            ends: z.string().nullable()
+        }).nullable()
     }),
     productVariant: z.object({
         id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
@@ -1574,16 +1571,13 @@ export const zDeleteWishlistItemsByWishlistProductIdResponse = z.array(z.object(
         })).default([]),
         sale: z.object({
             id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
-            discount: z.int().gte(0).lte(9007199254740991),
-            starts: z.string().nullable(),
-            ends: z.string().nullable(),
             name: z.string(),
             amount: z.int().gte(0).lte(9007199254740991).nullable(),
             percentage: z.int().gte(1).lte(100).nullable(),
-            active: z.boolean(),
-            productIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish(),
-            collectionIds: z.array(z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/)).nullish()
-        }).optional()
+            discount: z.int().gte(0).lte(9007199254740991),
+            starts: z.string().nullable(),
+            ends: z.string().nullable()
+        }).nullable()
     }),
     productVariant: z.object({
         id: z.uuid().regex(/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/),
